@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# About RxReMinder
 
 ## Getting Started
 
@@ -14,21 +14,43 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# Wireframe and Entity Relationship Diagram
+<img src="src/assets/initial-wireframe.png">
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# Future Enhancements 
+- QR Code for each prescription
+- Health Insurance Information
+- Medications Generic and Brand Name
+- Medication Side Effects
+- Medication Interactions
+- Health Care Provider 
 
-## Learn More
+# Sources
 
-To learn more about Next.js, take a look at the following resources:
+# License 
+The source code for the site is licensed under the MIT license, which you can find in the MIT-LICENSE.txt file.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<h2 align="center">Authors</h2>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<div align="center">
+  <a href="https://github.com/darkartaudio">
+    <img src="https://avatars.githubusercontent.com/u/122388609?v=4"
+      alt="Contributors"
+      width="15%" />
+  </a>
+   <a href="https://github.com/Ellehcim23">
+    <img src="https://avatars.githubusercontent.com/u/125413734?v=4"
+      alt="Contributors"
+      width="15%" />
+  </a>
+    <a href="https://github.com/kacyphan7">
+    <img src="https://avatars.githubusercontent.com/u/125235721?v=4"
+      alt="Contributors"
+      width="15%" />
+  </a>
+   <a href="https://github.com/sp1441">
+    <img src="https://avatars.githubusercontent.com/u/125446289?v=4"
+      alt="Contributors"
+      width="15%" />
+  </a>
+</div>
