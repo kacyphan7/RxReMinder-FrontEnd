@@ -1,10 +1,95 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+// import axios from 'axios';
 import styles from "src/app/css/calendar.module.css";
 
 const DAYS_OF_WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+// Mock doses data
+const mockDoses = [
+    {
+        _id: "dose1",
+        user: "userId1",
+        prescription: "prescriptionId1",
+        medication: "medicationId1",
+        time: new Date("2023-08-10T12:00:00Z"),
+        taken: true,
+        notified: false,
+    },
+    {
+        _id: "dose2",
+        user: "userId1",
+        prescription: "prescriptionId1",
+        medication: "medicationId1",
+        time: new Date("2023-08-11T12:00:00Z"),
+        taken: false,
+        notified: false,
+    },
+    {
+        _id: "dose3",
+        user: "userId1",
+        prescription: "prescriptionId1",
+        medication: "medicationId1",
+        time: new Date("2023-08-13T12:00:00Z"),
+        taken: false,
+        notified: false,
+    },
+    {
+        _id: "dose4",
+        user: "userId1",
+        prescription: "prescriptionId1",
+        medication: "medicationId1",
+        time: new Date("2023-08-13T14:00:00Z"),
+        taken: false,
+        notified: false,
+    },
+    {
+        _id: "dose5",
+        user: "userId1",
+        prescription: "prescriptionId1",
+        medication: "medicationId1",
+        time: new Date("2023-08-16T14:00:00Z"),
+        taken: false,
+        notified: false,
+    },
+    {
+        _id: "dose6",
+        user: "userId1",
+        prescription: "prescriptionId1",
+        medication: "medicationId1",
+        time: new Date("2023-08-19T14:00:00Z"),
+        taken: false,
+        notified: false,
+    },
+    {
+        _id: "dose7",
+        user: "userId1",
+        prescription: "prescriptionId1",
+        medication: "medicationId1",
+        time: new Date("2023-08-20T14:00:00Z"),
+        taken: false,
+        notified: false,
+    },
+    {
+        _id: "dose8",
+        user: "userId1",
+        prescription: "prescriptionId1",
+        medication: "medicationId1",
+        time: new Date("2023-08-21T14:00:00Z"),
+        taken: false,
+        notified: false,
+    },
+    {
+        _id: "dose8",
+        user: "userId1",
+        prescription: "prescriptionId1",
+        medication: "medicationId1",
+        time: new Date("2023-08-29T14:00:00Z"),
+        taken: false,
+        notified: false,
+    },
+];
 
 export default function CustomCalendar({ doses = [] }) {
     const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -12,7 +97,7 @@ export default function CustomCalendar({ doses = [] }) {
 
     const isDoseForDay = (day, doses, currentMonth) => {
         return doses.some(dose => {
-            const doseDate = new Date(dose.date);
+            const doseDate = new Date(dose.time);
             return doseDate.getFullYear() === currentMonth.getFullYear()
                 && doseDate.getMonth() === currentMonth.getMonth()
                 && doseDate.getDate() === day;
@@ -20,6 +105,9 @@ export default function CustomCalendar({ doses = [] }) {
     };
 
     useEffect(() => {
+        // Commenting out the axios call and using mock data for now
+
+        /*
         const token = localStorage.getItem('jwtToken');
         if (!token) {
             console.log("No token found. Please log in again.");
@@ -42,6 +130,11 @@ export default function CustomCalendar({ doses = [] }) {
                     localStorage.removeItem('jwtToken');
                 }
             });
+        */
+
+        // Using mock data until backend is ready
+        setDosesList(mockDoses.filter(dose => !dose.taken));
+
     }, []);
 
     const changeMonth = (offset) => {
