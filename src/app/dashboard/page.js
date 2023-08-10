@@ -2,6 +2,7 @@
 
 import React from 'react';
 import CustomCalendar from '../components/calendar/Calender';
+import DayDoses from '../components/day doses/DayDoses';
 
 function Dashboard() {
     return (
@@ -69,8 +70,7 @@ function Dashboard() {
 
                     <div className="card">
                         <div className="card-content">
-                            {/* Placeholder component */}
-                            <div>Placeholder content for third column</div>
+                            <DayDoses />
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,7 @@ const mockDoses = [
         prescription: "prescriptionId1",
         medication: "medicationId1",
         time: new Date("2023-08-10T12:00:00Z"),
-        taken: true,
+        taken: false,
         notified: false,
     },
     {
@@ -88,7 +88,8 @@ const mockDoses = [
 ];
 
 export default function DayDoses() {
-    const [dosesToday, setDosesToday] = useState([]);
+    // const [dosesToday, setDosesToday] = useState([]);
+    const [dosesForToday, setDosesForToday] = useState([]);
 
     useEffect(() => {
         const currentDate = new Date();
@@ -144,11 +145,11 @@ export default function DayDoses() {
             <h1 className="title is-4">{formatDate(new Date())}</h1>
             <h2 className="subtitle is-5">Medications to take today</h2>
 
-            {dosesToday.length === 0 && (
+            {dosesForToday.length === 0 && (
                 <div className="notification is-warning">No doses for today.</div>
             )}
 
-            {dosesToday.map(dose => (
+            {dosesForToday.map(dose => (
                 <div key={dose._id} className="card mb-3">
                     <div className="card-content">
                         <p className="title is-6">Medication ID: {dose.medication}</p>
