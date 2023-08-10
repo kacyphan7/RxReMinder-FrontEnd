@@ -43,28 +43,29 @@ export default function Login() {
     };
     
     if (redirect) router.push('/');
-    
-    if (error) return <p>Incorrect username or password.</p>;
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h1>Login</h1>
-            <div className="field">
-                <div className="control">
-                    <input type="email" id="email" name="email" placeholder="Email" value={email} onChange={handleEmail} required />
+        <>
+            {error ? <p>Incorrect username or password.</p> : null}
+            <form onSubmit={handleSubmit}>
+                <h1>Login</h1>
+                <div className="field">
+                    <div className="control">
+                        <input type="email" id="email" name="email" placeholder="Email" value={email} onChange={handleEmail} required />
+                    </div>
                 </div>
-            </div>
-            <div className="field">
-                <div className="control">
-                    <input type="password" id="password" name="password" placeholder="Password" value={password} onChange={handlePassword} required />
+                <div className="field">
+                    <div className="control">
+                        <input type="password" id="password" name="password" placeholder="Password" value={password} onChange={handlePassword} required />
+                    </div>
                 </div>
-            </div>
-            <div className="field">
-                <div className="control">
-                    <button type="submit">Login</button>
+                <div className="field">
+                    <div className="control">
+                        <button type="submit">Login</button>
+                    </div>
                 </div>
-            </div>
-            <Link href="/register">Register</Link>
-        </form>
+                <Link href="/register">Register</Link>
+            </form>
+        </>
     );
 }
