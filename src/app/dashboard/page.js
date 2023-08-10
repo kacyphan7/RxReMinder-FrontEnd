@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import React from 'react';
 import CustomCalendar from '../components/calendar/Calender';
 
