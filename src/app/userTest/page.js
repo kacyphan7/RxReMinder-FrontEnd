@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import jwtDecode from 'jwt-decode';
-import setAuthToken from 'src/app/utils/setAuthToken.js';
-import handleLogout from 'src/app/utils/handleLogout.js';
-import axios from "axios";
+import setAuthToken from '@/app/utils/setAuthToken';
+import handleLogout from '@/app/utils/handleLogout';
+import axios from 'axios';
+
+import Link from 'next/link';
 
 export default function UserProfile() {
     const router = useRouter();
@@ -29,7 +31,7 @@ export default function UserProfile() {
             .then((response) => {
                 let userData = jwtDecode(localStorage.getItem('jwtToken'));
                 if (userData.email === localStorage.getItem('email')) {
-                    setUser(response.data);
+                    setUser(response.data.users[0]);
                     setIsLoading(false);
                 } else {
                     router.push('/');
@@ -57,16 +59,16 @@ export default function UserProfile() {
                     <div className="tile is-child box">
                         <div className="columns">
                             <div className="column">
-                                <span><i></i> <p>First name, Last name</p></span>
+                                <span><i></i> <p>{user.firstName} {user.lastName}</p></span>
                                 <span></span>
                             </div>
                             <div className="column">
                                 <span>UserName</span>
                             </div>
                             <div className="column">
-                                <span>Phone number</span>
+                                <span>{user.phoneNumber}</span>
                                 <br />
-                                <span>Email</span>
+                                <span>{user.email}</span>
                             </div>
                         </div>
                     </div>
@@ -76,11 +78,7 @@ export default function UserProfile() {
                 <div className="tile is-parent">
                     <div className="tile is-3 is-child box">
                         <ul>
-                            <li>Age</li>
-                            <hr />
-                            <li>Weight</li>
-                            <hr />
-                            <li>Height</li>
+                            <li>Birthdate - {user.birthdate}</li>
                         </ul>
 
                     </div>
@@ -93,10 +91,10 @@ export default function UserProfile() {
                 <div className="tile is-child box">
                     <div className="columns">
                         <div className="column">
-                            <button className="button is-info is-rounded is-fullwidth">Edit User</button>
+                            <Link className="button is-info is-rounded is-fullwidth" href="/user/edit">Edit User</Link>
                         </div>
                         <div className="column">
-                            <button className="button is-info is-rounded is-fullwidth">+ Add New Prescription</button>
+                            <Link className="button is-info is-rounded is-fullwidth" href="/prescription/add">+ Add New Prescription</Link>
                         </div>
                     </div>
                 </div>
