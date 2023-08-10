@@ -6,15 +6,16 @@ import styles from "src/app/css/calendar.module.css";
 
 const DAYS_OF_WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-export default function CustomCalendar({ calendarData, tasks = [] }) {
+export default function CustomCalendar({ doses = [] }) {
     const [currentMonth, setCurrentMonth] = useState(new Date());
+    const [dosesList, setDosesList] = useState(doses);
 
-    const isTaskForDay = (day, tasks, currentMonth) => {
-        return tasks.some(task => {
-            const taskDate = new Date(task.date);
-            return taskDate.getFullYear() === currentMonth.getFullYear()
-                && taskDate.getMonth() === currentMonth.getMonth()
-                && taskDate.getDate() === day;
+    const isDoseForDay = (day, doses, currentMonth) => {
+        return doses.some(dose => {
+            const doseDate = new Date(dose.date);
+            return doseDate.getFullYear() === currentMonth.getFullYear()
+                && doseDate.getMonth() === currentMonth.getMonth()
+                && doseDate.getDate() === day;
         });
     };
 
@@ -30,16 +31,14 @@ export default function CustomCalendar({ calendarData, tasks = [] }) {
             .then(response => {
                 const userId = response.data.userId; // assuming JWT payload contains userId
 
-                // filter doses for this user which haven't been taken.
                 const upcomingDoses = response.data.filter(dose => dose.user === userId && dose.taken === false);
 
-                setTasks(upcomingDoses);
+                setDosesList(upcomingDoses);
             })
             .catch(error => {
                 console.log('Error fetching doses data: ', error);
                 if (error.response && (error.response.status === 403 || error.response.status === 500)) {
                     console.log("Token might be expired or invalid. Please log in again.");
-                    // Optionally remove invalid token and/or redirect user to login page
                     localStorage.removeItem('jwtToken');
                 }
             });
@@ -98,7 +97,7 @@ export default function CustomCalendar({ calendarData, tasks = [] }) {
                                     <div className={styles.day}>
                                         <span>
                                             {day}
-                                            {isTaskForDay(day, tasks, currentMonth) && <span className={styles.blueDot}></span>}
+                                            {isDoseForDay(day, dosesList, currentMonth) && <span className={styles.blueDot}></span>}
                                         </span>
                                     </div>
                                 </td>
