@@ -1,1 +1,13 @@
 @import "~bulma/css/bulma.css";
+
+.navbar-column {
+    position: sticky;
+    /* making the navbar column sticky */
+    top: 0;
+    height: 100vh;
+
+}
+
+.full-height {
+    height: 100%;
+}
