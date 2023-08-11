@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bulma/css/bulma.css';
@@ -9,7 +11,7 @@ const mockDoses = [
         user: "userId1",
         prescription: "prescriptionId1",
         medication: "medicationId1",
-        time: new Date("2023-08-10T12:00:00Z"),
+        time: new Date("2023-08-10T07:00:00Z"),
         taken: false,
         notified: false,
     },
@@ -17,8 +19,8 @@ const mockDoses = [
         _id: "dose2",
         user: "userId1",
         prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-11T12:00:00Z"),
+        medication: "medicationId2",
+        time: new Date("2023-08-10T12:00:00Z"),
         taken: false,
         notified: false,
     },
@@ -27,7 +29,7 @@ const mockDoses = [
         user: "userId1",
         prescription: "prescriptionId1",
         medication: "medicationId1",
-        time: new Date("2023-08-13T12:00:00Z"),
+        time: new Date("2023-08-10T12:01:00Z"),
         taken: false,
         notified: false,
     },
@@ -36,7 +38,7 @@ const mockDoses = [
         user: "userId1",
         prescription: "prescriptionId1",
         medication: "medicationId1",
-        time: new Date("2023-08-13T14:00:00Z"),
+        time: new Date("2023-08-11T09:00:00Z"),
         taken: false,
         notified: false,
     },
@@ -45,7 +47,7 @@ const mockDoses = [
         user: "userId1",
         prescription: "prescriptionId1",
         medication: "medicationId1",
-        time: new Date("2023-08-16T14:00:00Z"),
+        time: new Date("2023-08-11T12:00:00Z"),
         taken: false,
         notified: false,
     },
@@ -54,7 +56,7 @@ const mockDoses = [
         user: "userId1",
         prescription: "prescriptionId1",
         medication: "medicationId1",
-        time: new Date("2023-08-19T14:00:00Z"),
+        time: new Date("2023-08-11T14:00:00Z"),
         taken: false,
         notified: false,
     },
@@ -77,7 +79,7 @@ const mockDoses = [
         notified: false,
     },
     {
-        _id: "dose8",
+        _id: "dose9",
         user: "userId1",
         prescription: "prescriptionId1",
         medication: "medicationId1",
@@ -88,7 +90,6 @@ const mockDoses = [
 ];
 
 export default function DayDoses() {
-    // const [dosesToday, setDosesToday] = useState([]);
     const [dosesForToday, setDosesForToday] = useState([]);
 
     useEffect(() => {
@@ -96,7 +97,7 @@ export default function DayDoses() {
         const formattedCurrentDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
 
         const fetchDosesForToday = async () => {
-            // Uncomment this axios call when the backend is ready
+            // uncomment and adjust this when the backend is ready
             /*
             const token = localStorage.getItem('jwtToken');
             if (!token) {
@@ -106,7 +107,7 @@ export default function DayDoses() {
             }
             try {
                 const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses`, { headers: { 'Authorization': `Bearer ${token}` } });
-                const userIdFromToken = response.data.userId; // assuming JWT payload contains userId
+                const userIdFromToken = response.data.userId; // agian assuming JWT payload contains userId
                 const todaysDoses = response.data.filter(dose => 
                     dose.user === userIdFromToken &&
                     dose.taken === false &&
@@ -135,6 +136,21 @@ export default function DayDoses() {
         fetchDosesForToday();
     }, []);
 
+    const handleDoseTaken = (doseId) => {
+        // Update the state by filtering out the dose that's taken
+        setDosesForToday(prevDoses => prevDoses.filter(dose => dose._id !== doseId));
+
+        // uncomment and adjust when ready on the backend
+        /*
+        axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/${doseId}`, { taken: true }, { headers: { 'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` } })
+            .then(response => {
+                console.log("Dose marked as taken");
+            })
+            .catch(error => {
+                console.log('Error updating dose data: ', error);
+            });
+        */
+    };
 
     const formatDate = (date) => {
         return date.toLocaleDateString("default", { weekday: 'long', month: 'long', day: 'numeric' });
@@ -143,7 +159,7 @@ export default function DayDoses() {
     return (
         <div className="container">
             <h1 className="title is-4">{formatDate(new Date())}</h1>
-            <h2 className="subtitle is-5">Medications to take today</h2>
+            <h2 className="subtitle is-5">Medications to take today:</h2>
 
             {dosesForToday.length === 0 && (
                 <div className="notification is-warning">No doses for today.</div>
@@ -154,10 +170,13 @@ export default function DayDoses() {
                     <div className="card-content">
                         <p className="title is-6">{dose.medication}</p>
                         <p className="subtitle is-6">{new Date(dose.time).toLocaleTimeString()}</p>
+                        {/* Checkbox to mark the dose as taken */}
+                        <label className="checkbox">
+                            <input type="checkbox" onChange={() => handleDoseTaken(dose._id)} /> Mark as taken
+                        </label>
                     </div>
                 </div>
             ))}
         </div>
     );
 }
-
