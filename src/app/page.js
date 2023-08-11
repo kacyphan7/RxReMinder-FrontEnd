@@ -1,15 +1,22 @@
 'use client';
 import React from 'react';
 
-import Head from './components/home/Head';
-import Body from './components/home/Body';
-import Footer from './components/home/Footer';
+import TopBar from "./components/home/TopBar";
+import Head from "./components/home/Head";
+import Content1 from "./components/home/Content1";
+import Content2 from "./components/home/Content2";
+import Content3 from "./components/home/Content3";
+import Footer from "./components/home/Footer";
+
 
 export default function Home() {
   return (
     <main>
+      <TopBar />
       <Head />
-      <Body />
+      <Content1 />
+      <Content2 />
+      <Content3 />
       <Footer />
     </main>
   );
