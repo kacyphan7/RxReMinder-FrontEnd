@@ -14,7 +14,7 @@
 }
 
 .biggerFont {
-    font-size: 30px;
+    font-size: 50px;
     /* Set the desired font size */
 }
 
@@ -55,8 +55,8 @@
 }
 
 .widerImage {
-    width: 100%;
+
     /* Set the width to 100% to make the image wider */
-    max-width: 850px;
+    max-width: 750px;
     /* You can adjust the max-width as needed */
 }
