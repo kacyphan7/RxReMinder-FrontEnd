@@ -34,7 +34,8 @@ export default function Login() {
                 localStorage.setItem('expiration', response.data.userData.exp);
                 setAuthToken(response.data.token);
                 let decoded = jwtDecode(response.data.token);
-                setRedirect(true);
+                router.push('/dashboard');
+                // setRedirect(true);
             })
             .catch(error => {
                 setError(true);
