@@ -7,6 +7,8 @@
 
 .imageContainer {
     flex: 1;
+    padding: 30px;
+    text-align: center;
 }
 
 .image {
@@ -15,15 +17,10 @@
 }
 
 .textContainer {
-    flex: 1;
 
     background-color: #f5f5f5;
-    border-radius: 8px;
+    border-radius: 30px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.textContainer h1 {
-    margin-bottom: 10px;
 }
 
 .textContainer p {

@@ -14,7 +14,7 @@ export default function HomeFooter() {
                                 alt="Logo"
                                 className={styles.logoImage}
                                 style={{
-                                    width: '100px',
+                                    width: '150px',
                                 }}
                             />
                         </div>
