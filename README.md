@@ -15,7 +15,7 @@ pnpm dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 # Wireframe and Entity Relationship Diagram
-<img src="src/app/assets/initial-wireframe.png">
+<img src="public/assets/initial-wireframe.png">
 
 # Future Enhancements 
 - QR Code for each prescription

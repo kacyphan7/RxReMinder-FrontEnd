@@ -5,7 +5,6 @@ import TopBar from "./components/home/TopBar";
 import Head from "./components/home/Head";
 import Content1 from "./components/home/Content1";
 import Content2 from "./components/home/Content2";
-import Content3 from "./components/home/Content3";
 import Footer from "./components/home/Footer";
 
 
@@ -16,7 +15,6 @@ export default function Home() {
       <Head />
       <Content1 />
       <Content2 />
-      <Content3 />
       <Footer />
     </main>
   );

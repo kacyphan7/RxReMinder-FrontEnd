@@ -12,9 +12,12 @@ export default function TopBar() {
             <div className="navbar-brand">
                 <div className={`navbar-item ${styles.navbarItem}`}>
                     <img
-                        src="/app/assets/logo.png"
+                        src="/assets/logo2.png"
                         alt="Logo"
                         className={styles.logoImage}
+                        style={{
+                            width: '150px',
+                        }}
                     />
                 </div>
             </div>
