@@ -16,19 +16,20 @@ export default function HomeBody() {
                         src="https://cdn-icons-png.flaticon.com/512/4375/4375391.png"
                         alt="Logo"
                         className={styles.logoImage}
+                        style={{ width: '500px' }}
                     />
-                    <p className={`${styles.blueText} ${styles.bold}`}>Register</p>
+                    <p className={`${styles.blueText} ${styles.bold}`} style={{ fontSize: '25px' }}>Register</p>
                 </div>
                 <div className={styles.worksItem}>
                     <img
                         src="https://cdn-icons-png.flaticon.com/512/2080/2080887.png"
                         alt="Logo"
                         className={styles.logoImage}
+                        style={{ width: '400px' }}
                     />
-                    <p className={`${styles.blueText} ${styles.bold}`}>
+                    <p className={`${styles.blueText} ${styles.bold}`} style={{ fontSize: '25px' }}>
                         Input Prescription
                     </p>
-                    <p></p>
                 </div>
                 <div className={styles.worksItem}>
                     <img
@@ -36,17 +37,16 @@ export default function HomeBody() {
                         alt="Logo"
                         className={styles.logoImage}
                     />
-                    <p className={`${styles.blueText} ${styles.bold}`}>Add to Calendar</p>
-                    <p></p>
+                    <p className={`${styles.blueText} ${styles.bold}`} style={{ fontSize: '25px' }}>Add to Calendar</p>
                 </div>
                 <div className={styles.worksItem}>
                     <img
                         src="https://media.istockphoto.com/id/909698486/vector/new-message-dialog-chat-speech-bubble-notification-flat-icon-vector.jpg?s=612x612&w=0&k=20&c=6FM3wIbuFdf9rjSTz5TkqH0RUCG2W0gW-D8uLQU4oUM="
                         alt="Logo"
                         className={styles.logoImage}
+                        style={{ width: '500px' }}
                     />
-                    <p className={`${styles.blueText} ${styles.bold}`}>Get Notified</p>
-                    <p></p>
+                    <p className={`${styles.blueText} ${styles.bold}`} style={{ fontSize: '25px' }}>Get Notified</p>
                 </div>
             </div>
         </main>

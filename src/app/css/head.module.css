@@ -2,12 +2,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 .imageContainer {
     flex: 1;
-    padding: 20px;
 }
 
 .image {
@@ -17,7 +16,7 @@
 
 .textContainer {
     flex: 1;
-    padding: 20px;
+
     background-color: #f5f5f5;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);

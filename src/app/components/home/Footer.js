@@ -10,9 +10,12 @@ export default function HomeFooter() {
                     <div className="row">
                         <div className="col-lg-3 col-md-6 footer-contact">
                             <img
-                                src="/app/assets/logo.png"
+                                src="/assets/logo2.png"
                                 alt="Logo"
                                 className={styles.logoImage}
+                                style={{
+                                    width: '100px',
+                                }}
                             />
                         </div>
                     </div>
@@ -23,10 +26,7 @@ export default function HomeFooter() {
                 <div className="columns is-vcentered is-flex justify-content-between">
                     <div className={`column ${styles.footerLeft}`}>
                         <div className="copyright">
-                            &copy;{" "}
-                            <strong>
-                                <span>RxReMinder</span>
-                            </strong>
+                            &copy; <strong><span>2023</span></strong> All Rights Reserved
                         </div>
                     </div>
                     <div className={`column ${styles.footerRight}`}>
