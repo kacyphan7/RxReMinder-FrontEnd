@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
+import Link from 'next/link';
+
 import OneMedication from './1medication/Medication';
 import TwoFrequency from './2frequency/Frequency';
 import ThreeTime from './3time/Time';
@@ -54,6 +56,7 @@ export default function Form() {
     }
 
     function submitForm() {
+        setFormData({ ...formData, medId: formData['medId']._id });
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/prescriptions/new`, formData)
             .then(response => {
                 setRedirect(true);
@@ -88,6 +91,7 @@ export default function Form() {
             {conditionalComponent()}
             { page > 0 && <button className="button" onClick={() => setPage(page - 1)}>Back</button> }
             <button className="button" onClick={handleSubmit}>{page < 4 ? "Next" : "Submit"}</button>
+            <Link className="button" href="/dashboard">Cancel</Link>
         </>
     );
 }
