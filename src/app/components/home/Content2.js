@@ -27,7 +27,7 @@ export default function HomeBody() {
                     </p>
                 </div>
                 <img
-                    src="https://media.istockphoto.com/id/1336975032/vector/a-person-using-pill-reminder-mobile-app-for-medication-medication-tracker.jpg?s=612x612&w=0&k=20&c=K4a_t68PWnXWq-CTOitGvnaRlcNejT1IcJ4Dp4_KvpI="
+                    src="https://images.unsplash.com/photo-1624711076872-ecdbc5ade023?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
                     alt="reminder"
                     className={`${styles.homeImage} ${styles.widerImage}`}
                 />

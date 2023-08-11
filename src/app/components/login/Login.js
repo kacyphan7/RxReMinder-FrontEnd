@@ -7,6 +7,7 @@ import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 
 import Link from 'next/link';
+import styles from 'src/app/css/login.module.css';
 
 export default function Login() {
     const router = useRouter();
@@ -41,31 +42,33 @@ export default function Login() {
             });
 
     };
-    
+
     if (redirect) router.push('/');
 
     return (
         <>
-            {error ? <p>Incorrect username or password.</p> : null}
-            <form onSubmit={handleSubmit}>
-                <h1>Login</h1>
-                <div className="field">
-                    <div className="control">
-                        <input type="email" id="email" name="email" placeholder="Email" value={email} onChange={handleEmail} required />
+            <div className={styles.loginContainer}>
+                {error ? <p className={styles.errorMessage}>Incorrect username or password.</p> : null}
+                <form onSubmit={handleSubmit} className={styles.loginForm}>
+                    <h1 className={styles.loginHeading}>Login</h1>
+                    <div className={styles.field}>
+                        <div className={styles.control}>
+                            <input type="email" id="email" name="email" placeholder="Email" value={email} onChange={handleEmail} required className={styles.transparentInput} />
+                        </div>
                     </div>
-                </div>
-                <div className="field">
-                    <div className="control">
-                        <input type="password" id="password" name="password" placeholder="Password" value={password} onChange={handlePassword} required />
+                    <div className={styles.field}>
+                        <div className={styles.control}>
+                            <input type="password" id="password" name="password" placeholder="Password" value={password} onChange={handlePassword} required className={styles.transparentInput} />
+                        </div>
                     </div>
-                </div>
-                <div className="field">
-                    <div className="control">
-                        <button type="submit">Login</button>
+                    <div className={styles.field}>
+
+                        <button type="submit" className={styles.loginButton}>Login</button>
+
                     </div>
-                </div>
-                <Link href="/register">Register</Link>
-            </form>
+                    <Link href="/register" className={styles.registerLink}>Register</Link>
+                </form>
+            </div>
         </>
     );
 }
