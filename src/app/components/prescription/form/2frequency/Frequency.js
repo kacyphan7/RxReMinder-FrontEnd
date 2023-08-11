@@ -1,7 +1,16 @@
+import { useEffect } from "react";
+
 export default function TwoFrequency({formData, setFormData}) {
     function handleFreq(e) {
         setFormData({ ...formData, freq: e.target.value });
     }
+
+    useEffect(() => {
+        // effectively makes the default value 'once a day'
+        if (formData['freq'] === '') {
+            setFormData({ ...formData, freq: 'one' });
+        }
+    }, []);
     
     return (
         <div className="field">
