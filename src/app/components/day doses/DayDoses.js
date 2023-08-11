@@ -152,9 +152,8 @@ export default function DayDoses() {
             {dosesForToday.map(dose => (
                 <div key={dose._id} className="card mb-3">
                     <div className="card-content">
-                        <p className="title is-6">Medication ID: {dose.medication}</p>
-                        <p className="subtitle is-6">Time: {new Date(dose.time).toLocaleTimeString()}</p>
-                        <p className="subtitle is-6">Prescription ID: {dose.prescription}</p>
+                        <p className="title is-6">{dose.medication}</p>
+                        <p className="subtitle is-6">{new Date(dose.time).toLocaleTimeString()}</p>
                     </div>
                 </div>
             ))}
