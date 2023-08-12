@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import fa from 'src/app/assets/fontawesome.js';
 import brands from 'src/app/assets/brands.js';
 import solid from 'src/app/assets/solid.js';
-import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
 import { handleLogout } from "src/app/utils/handleLogout.js";
 import layout from "src/app/layout.js";
