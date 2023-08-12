@@ -6,21 +6,42 @@ import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import handleLogout from '@/app/utils/handleLogout';
 import axios from 'axios';
+import Layout from '../sidebarTest/page';
+import Image from 'next/image';
+import barGraph from '../assets/barGraph.png';
+import fa from'src/app/assets/fontawesome.js';
+import brands from 'src/app/assets/brands.js';
+import solid from 'src/app/assets/solid.js';
 
 import Link from 'next/link';
+import { images } from '../../../next.config';
 
 export default function UserProfile() {
+
+    const infoStyle = {
+        paddingTop: '50px',
+    };
+
+    const cardStyle = {
+        marginleft: '10px',
+    };
+
+    const textStyle =  {
+        textAlign: "center",
+        fontSize: '30px'
+    }
+
     const router = useRouter();
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     if (typeof window !== 'undefined') {
-        const expiration = new Date(localStorage.getItem('expiration') * 1000)
+        const expiration = new Date(localStorage.getItem('expiration') * 1000);
         let currentTime = Date.now();
 
         if (currentTime > expiration) {
-            handleLogout()
-                router.push('/');
+            handleLogout();
+            router.push('/');
         }
     }
 
@@ -28,23 +49,23 @@ export default function UserProfile() {
         setAuthToken(localStorage.getItem('jwtToken'));
         if (localStorage.getItem('jwtToken')) {
             axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/email/${localStorage.getItem('email')}`)
-            .then((response) => {
-                let userData = jwtDecode(localStorage.getItem('jwtToken'));
-                if (userData.email === localStorage.getItem('email')) {
-                    setUser(response.data.users[0]);
-                    setIsLoading(false);
-                } else {
+                .then((response) => {
+                    let userData = jwtDecode(localStorage.getItem('jwtToken'));
+                    if (userData.email === localStorage.getItem('email')) {
+                        setUser(response.data.users[0]);
+                        setIsLoading(false);
+                    } else {
+                        router.push('/');
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
                     router.push('/');
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-                router.push('/');
-            })
+                });
         } else {
             router.push('/');
         }
-    }, [router])
+    }, [router]);
 
     if (isLoading) return <div>Loading...</div>;
     if (!user) return <div>Not authorized</div>;
@@ -52,54 +73,69 @@ export default function UserProfile() {
     return (
         <>
             {/* layout to include side bar */}
-            <div className="container">
-            
-            <div className="tile is-ancestor">
-                <div className="tile is-parent">
-                    <div className="tile is-child box">
-                        <div className="columns">
-                            <div className="column">
-                                <span><i></i> <p>{user.firstName} {user.lastName}</p></span>
-                                <span></span>
-                            </div>
-                            <div className="column">
-                                <span>UserName</span>
-                            </div>
-                            <div className="column">
-                                <span>{user.phoneNumber}</span>
-                                <br />
-                                <span>{user.email}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="tile is-ancestor">
-                <div className="tile is-parent">
-                    <div className="tile is-3 is-child box">
-                        <ul>
-                            <li>Birthdate - {user.birthdate}</li>
-                        </ul>
+            <Layout>
+                <div className="container">
 
-                    </div>
-                    <div className="tile is-child box">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
-                    </div>
-                </div>
-            </div>
-            <div className="tile is-parent">
-                <div className="tile is-child box">
-                    <div className="columns">
-                        <div className="column">
-                            <Link className="button is-info is-rounded is-fullwidth" href="/user/edit">Edit User</Link>
-                        </div>
-                        <div className="column">
-                            <Link className="button is-info is-rounded is-fullwidth" href="/prescription/add">+ Add New Prescription</Link>
+                    <div className="tile is-justify-content-center is-ancestor">
+                        <div style={infoStyle} className="tile is-parent is-justify-content-center">
+                    <div className="tile is-11 is-child box">
+                        <div className="columns">
+                            <div className="column"></div>
+                            <div style={textStyle} className="column">
+                            <h1>{user.firstName} {user.lastName}</h1>
+                               <hr /> 
+                            </div>
+                            <div className="column"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-            </div>
+                    </div>
+                    <div className="tile is-justify-content-space-between is-ancestor">
+                        <div className="tile is-justify-content-center is-parent ">
+                            <div className="tile is-4 is-child box">
+                                <div class="card">
+                                    <div class="card-image">
+                                        <figure class="image is-4by3">
+                                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image"/>
+                                        </figure>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="content">
+                                        <span><i className='fa-solid fa-user'></i> <strong>Birthdate</strong>  - {user.birthdate}</span>
+                                        <hr />
+                                        <span> <i className='fa-solid fa-phone'></i> <strong>Phone Number</strong>  - {user.phoneNumber}</span>
+                                        <hr />
+                                        <span><i className='fa-solid fa-envelope'></i> <strong>Email</strong>  - {user.email}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="column is-narrow">
+                               
+                            </div>
+                            <div className="tile is-7 is-child box">
+                                <Image src={barGraph}
+                                    width={655}
+                                    height={400}
+                                    alt="user image" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="tile is-justify-content-center">
+                        <div className="tile is-11 is-child">
+                            <div className="columns is-justify-content-center">
+                                <div className="column is-one-third">
+                                    <Link className="button is-info is-rounded is-fullwidth" href="/user/edit">Edit User</Link>
+                                </div>
+                                
+                                <div className="column is-one-third">
+                                    <Link className="button is-info is-rounded is-fullwidth" href="/prescription/add">+ Add New Prescription</Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Layout>
         </>
     );
 }
