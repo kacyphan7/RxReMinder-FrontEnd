@@ -37,7 +37,7 @@ export default function Layout({ children }) {
     const lastLi = {
         position: 'relative',
         paddingTop: '50vh',
-    }
+    };
 
 
 
@@ -54,7 +54,7 @@ export default function Layout({ children }) {
                             <span><a href="/dashboard"><i class="fa-solid fa-cubes fa-xl"></i> DashBoard</a></span>
                             <span><a><i class="fa-solid fa-magnifying-glass fa-xl"></i> Search</a></span>
                             <span><a><i class="fa-solid fa-prescription-bottle-medical fa-xl"></i>  New Prescription</a></span>
-                            <span><a><i class="fa-solid fa-gear fa-xl"></i> My Account</a></span>
+                            <span><a href="/userTest"><i class="fa-solid fa-gear fa-xl"></i> My Account</a></span>
 
                             <span onClick={() => { handleLogout(); }}><a style={lastLi} href="/login"><i className="fa-solid fa-arrow-right-from-bracket fa-xl"></i>   Log Out</a></span>
                         </ul>
