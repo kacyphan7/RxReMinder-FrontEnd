@@ -20,7 +20,7 @@ export default function FormTest() {
 
         if (currentTime >= expirationTime) {
             handleLogout();
-            router.push('/users/login');
+            router.push('/login');
         }
     }
 
@@ -34,15 +34,15 @@ export default function FormTest() {
                         setData(response.data.users[0]);
                         setLoading(false);
                     } else {
-                        router.push('/users/login');
+                        router.push('/login');
                     }
                 })
                 .catch((error) => {
                     console.log(error);
-                    router.push('/users/login');
+                    router.push('/login');
                 });
         } else {
-            router.push('/users/login');
+            router.push('/login');
         }
     }, [router]);
 

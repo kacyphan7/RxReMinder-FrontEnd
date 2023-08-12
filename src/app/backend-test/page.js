@@ -52,12 +52,11 @@ export default function Test() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/prescriptions/new`, { date, timezone: (new Date().getTimezoneOffset()) / 60 })
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/daydoses`)
             .then(response => {
                 console.log(response.data);
             })
             .catch(error => {
-                setError(true);
                 console.log(error);
             });
     }
