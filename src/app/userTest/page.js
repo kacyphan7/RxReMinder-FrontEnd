@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
-// import handleLogout from '@/app/utils/handleLogout';
+import handleLogout from '@/app/utils/handleLogout';
 import axios from 'axios';
 import Layout from '../sidebarTest/page';
 import Image from 'next/image';
@@ -35,15 +35,15 @@ export default function UserProfile() {
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    // if (typeof window !== 'undefined') {
-    //     const expiration = new Date(localStorage.getItem('expiration') * 1000);
-    //     let currentTime = Date.now();
+    if (typeof window !== 'undefined') {
+        const expiration = new Date(localStorage.getItem('expiration') * 1000);
+        let currentTime = Date.now();
 
-    //     if (currentTime > expiration) {
-    //         handleLogout();
-    //         router.push('/');
-    //     }
-    // }
+        if (currentTime > expiration) {
+            handleLogout();
+            router.push('/');
+        }
+    }
 
     useEffect(() => {
         setAuthToken(localStorage.getItem('jwtToken'));
@@ -93,14 +93,14 @@ export default function UserProfile() {
                     <div className="tile is-justify-content-space-between is-ancestor">
                         <div className="tile is-justify-content-center is-parent ">
                             <div className="tile is-4 is-child box">
-                                <div class="card">
-                                    <div class="card-image">
-                                        <figure class="image is-4by3">
+                                <div className="card">
+                                    <div className="card-image">
+                                        <figure className="image is-4by3">
                                             <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image" />
                                         </figure>
                                     </div>
-                                    <div class="card-content">
-                                        <div class="content">
+                                    <div className="card-content">
+                                        <div className="content">
                                             <span><i className='fa-solid fa-user'></i> <strong>Birthdate</strong>  - {user.birthdate}</span>
                                             <hr />
                                             <span> <i className='fa-solid fa-phone'></i> <strong>Phone Number</strong>  - {user.phoneNumber}</span>
