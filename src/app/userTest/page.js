@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
-import handleLogout from '@/app/utils/handleLogout';
+// import handleLogout from '@/app/utils/handleLogout';
 import axios from 'axios';
 import Layout from '../sidebarTest/page';
 import Image from 'next/image';
 import barGraph from '../assets/barGraph.png';
-import fa from'src/app/assets/fontawesome.js';
+import fa from 'src/app/assets/fontawesome.js';
 import brands from 'src/app/assets/brands.js';
 import solid from 'src/app/assets/solid.js';
 
@@ -26,7 +26,7 @@ export default function UserProfile() {
         marginleft: '10px',
     };
 
-    const textStyle =  {
+    const textStyle = {
         textAlign: "center",
         fontSize: '30px'
     }
@@ -35,15 +35,15 @@ export default function UserProfile() {
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    if (typeof window !== 'undefined') {
-        const expiration = new Date(localStorage.getItem('expiration') * 1000);
-        let currentTime = Date.now();
+    // if (typeof window !== 'undefined') {
+    //     const expiration = new Date(localStorage.getItem('expiration') * 1000);
+    //     let currentTime = Date.now();
 
-        if (currentTime > expiration) {
-            handleLogout();
-            router.push('/');
-        }
-    }
+    //     if (currentTime > expiration) {
+    //         handleLogout();
+    //         router.push('/');
+    //     }
+    // }
 
     useEffect(() => {
         setAuthToken(localStorage.getItem('jwtToken'));
@@ -78,17 +78,17 @@ export default function UserProfile() {
 
                     <div className="tile is-justify-content-center is-ancestor">
                         <div style={infoStyle} className="tile is-parent is-justify-content-center">
-                    <div className="tile is-11 is-child box">
-                        <div className="columns">
-                            <div className="column"></div>
-                            <div style={textStyle} className="column">
-                            <h1>{user.firstName} {user.lastName}</h1>
-                               <hr /> 
+                            <div className="tile is-11 is-child box">
+                                <div className="columns">
+                                    <div className="column"></div>
+                                    <div style={textStyle} className="column">
+                                        <h1>{user.firstName} {user.lastName}</h1>
+                                        <hr />
+                                    </div>
+                                    <div className="column"></div>
+                                </div>
                             </div>
-                            <div className="column"></div>
                         </div>
-                    </div>
-                </div>
                     </div>
                     <div className="tile is-justify-content-space-between is-ancestor">
                         <div className="tile is-justify-content-center is-parent ">
@@ -96,22 +96,22 @@ export default function UserProfile() {
                                 <div class="card">
                                     <div class="card-image">
                                         <figure class="image is-4by3">
-                                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image"/>
+                                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image" />
                                         </figure>
                                     </div>
                                     <div class="card-content">
                                         <div class="content">
-                                        <span><i className='fa-solid fa-user'></i> <strong>Birthdate</strong>  - {user.birthdate}</span>
-                                        <hr />
-                                        <span> <i className='fa-solid fa-phone'></i> <strong>Phone Number</strong>  - {user.phoneNumber}</span>
-                                        <hr />
-                                        <span><i className='fa-solid fa-envelope'></i> <strong>Email</strong>  - {user.email}</span>
+                                            <span><i className='fa-solid fa-user'></i> <strong>Birthdate</strong>  - {user.birthdate}</span>
+                                            <hr />
+                                            <span> <i className='fa-solid fa-phone'></i> <strong>Phone Number</strong>  - {user.phoneNumber}</span>
+                                            <hr />
+                                            <span><i className='fa-solid fa-envelope'></i> <strong>Email</strong>  - {user.email}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="column is-narrow">
-                               
+
                             </div>
                             <div className="tile is-7 is-child box">
                                 <Image src={barGraph}
@@ -127,7 +127,7 @@ export default function UserProfile() {
                                 <div className="column is-one-third">
                                     <Link className="button is-info is-rounded is-fullwidth" href="/user/edit">Edit User</Link>
                                 </div>
-                                
+
                                 <div className="column is-one-third">
                                     <Link className="button is-info is-rounded is-fullwidth" href="/prescription/add">+ Add New Prescription</Link>
                                 </div>

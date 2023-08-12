@@ -1,9 +1,13 @@
 'use client';
 
 import { Children } from "react";
-import fa from'src/app/assets/fontawesome.js';
+import fa from 'src/app/assets/fontawesome.js';
 import brands from 'src/app/assets/brands.js';
 import solid from 'src/app/assets/solid.js';
+import { useEffect, useState } from "react";
+import { useRouter } from 'next/router';
+import { handleLogout } from "src/app/utils/handleLogout.js";
+import layout from "src/app/layout.js";
 
 export default function Layout({ children }) {
 
@@ -32,10 +36,10 @@ export default function Layout({ children }) {
 
     const lastLi = {
         position: 'relative',
-        paddingTop: '50vh' ,
+        paddingTop: '50vh',
     }
 
-    
+
 
     return (
         <>
@@ -48,17 +52,17 @@ export default function Layout({ children }) {
                         <hr />
                         <ul style={stylingTop} className="menu-list">
                             <span><a href="/dashboard"><i class="fa-solid fa-cubes fa-xl"></i> DashBoard</a></span>
-                            <span><a><i class="fa-solid fa-magnifying-glass fa-xl"></i> Search</a></span>                       
+                            <span><a><i class="fa-solid fa-magnifying-glass fa-xl"></i> Search</a></span>
                             <span><a><i class="fa-solid fa-prescription-bottle-medical fa-xl"></i>  New Prescription</a></span>
                             <span><a><i class="fa-solid fa-gear fa-xl"></i> My Account</a></span>
-                            
-                            <span><a style={lastLi}><i class="fa-solid fa-arrow-right-from-bracket fa-xl"></i>   Log Out</a></span>
+
+                            <span onClick={() => { handleLogout(); }}><a style={lastLi} href="/login"><i className="fa-solid fa-arrow-right-from-bracket fa-xl"></i>   Log Out</a></span>
                         </ul>
                     </aside>
                 </div>
                 <div className="body-content column">
                     {children}
-                    
+
                 </div>
             </div>
         </>
