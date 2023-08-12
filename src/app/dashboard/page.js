@@ -3,6 +3,7 @@ import React from 'react';
 import CustomCalendar from '../components/calendar/Calender';
 import DayDoses from '../components/day doses/DayDoses';
 import Layout from 'src/app/sidebarTest/page.js';
+import DailyPercentage from '../components/daily percentage/DailyPercentage';
 
 function Dashboard() {
     return (
@@ -48,7 +49,8 @@ function Dashboard() {
                             <div className="column">
                                 <div className="card">
                                     <div className="card-content">
-                                        <div>Placeholder content for second card</div>
+                                        {/* <div>Placeholder content for second card</div> */}
+                                        <DailyPercentage />
                                     </div>
                                 </div>
                             </div>
