@@ -1,21 +1,42 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import jwtDecode from 'jwt-decode';
+import { useRouter } from 'next/router';
 import setAuthToken from '@/app/utils/setAuthToken';
 import axios from 'axios';
-import Link from 'next/link';
-import style from 'src/app/css/profileEdit.module.css';
 import Layout from 'src/app/sidebarTest/page.js';
+import handleLogout from 'src/app/utils/handleLogout.js';
 
 export default function UserProfile({ user }) {
-    const router = useRouter();
+
+    const [isDeleting, setIsDeleting] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [birthdate, setBirthdate] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [showNotification, setShowNotification] = useState(false);
+
+    useEffect(() => {
+        // Fetch user data from the server
+        setAuthToken(localStorage.getItem('jwtToken'));
+        if (localStorage.getItem('jwtToken')) {
+            if (typeof window !== 'undefined') {
+                axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`)
+                    .then(response => {
+                        const userData = response.data; // Assuming response.data contains the user data
+                        setFirstName(userData.firstName);
+                        setLastName(userData.lastName);
+                        setEmail(userData.email);
+                        setBirthdate(userData.birthdate);
+                        setPhoneNumber(userData.phoneNumber);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user data:', error);
+                    });
+
+            }
+        }
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -41,26 +62,22 @@ export default function UserProfile({ user }) {
             });
     };
 
-    useEffect(() => {
-        // Fetch user data from the server
-        setAuthToken(localStorage.getItem('jwtToken'));
-        if (localStorage.getItem('jwtToken')) {
-            if (typeof window !== 'undefined') {
-                axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`)
-                    .then(response => {
-                        const userData = response.data; // Assuming response.data contains the user data
-                        setFirstName(userData.firstName);
-                        setLastName(userData.lastName);
-                        setEmail(userData.email);
-                        setBirthdate(userData.birthdate);
-                        setPhoneNumber(userData.phoneNumber);
-                    })
-                    .catch(error => {
-                        console.error('Error fetching user data:', error);
-                    });
-            }
+
+    const handleDeleteAccount = () => {
+        if (typeof window !== 'undefined') {
+            setAuthToken(localStorage.getItem('jwtToken'));
+            axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`)
+                .then(response => {
+                    console.log('Account deleted successfully.');
+                    handleLogout(); // Handle the logout
+                    router.push('/register'); // Redirect to the registration page after deletion
+                })
+                .catch(error => {
+                    console.error('Error deleting account:', error);
+                    handleLogout();
+                });
         }
-    }, []);
+    };
 
     return (
         <Layout>
@@ -136,16 +153,30 @@ export default function UserProfile({ user }) {
                             <button className="button is-primary" type="submit">Save Changes</button>
                             <button
                                 className="button is-primary"
-                                style={{ marginLeft: '10px', backgroundColor: 'black', color: 'white' }}
+                                style={{ marginLeft: '10px' }}
                                 onClick={() => router.push('/userTest')}
                             >
                                 Cancel Changes
                             </button>
+                            <button
+                                type="button"
+                                className="btn btn-delete"
+                                style={{
+                                    marginLeft: '910px',
+                                    backgroundColor: 'red',
+                                    color: 'white',
+                                    border: '1px solid red', // Added border style
+                                    padding: '10px 15px', // Added padding for button size
+                                    cursor: 'pointer', // Added cursor style
+                                }}
+                                onClick={handleDeleteAccount}
+                            >
+                                Delete Account
+                            </button>
                         </div>
                     </div>
-
                 </form>
-            </div >
-        </Layout >
+            </div>
+        </Layout>
     );
 }
