@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
-import { handleLogout } from '@/app/utils/handleLogout';
+import handleLogout from '@/app/utils/handleLogout';
 import axios from 'axios';
 
 import 'bulma/css/bulma.css';
@@ -19,7 +19,7 @@ export default function DayDoses() {
     const fetchDosesForToday = async () => {
         try {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/daydoses`);
-            console.log("here's the data!", response.data);
+            // console.log("here's the data!", response.data);
             setDosesForToday(response.data);
 
         } catch (error) {
@@ -68,9 +68,9 @@ export default function DayDoses() {
     }, []);
 
     const handleDoseTaken = async (doseId) => {
-        axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/taken/${doseId}`, { taken: true })
+        axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/taken/${doseId}`)
             .then(response => {
-                console.log("Dose marked as taken");
+                // console.log("Dose marked as taken");
                 fetchDosesForToday();
             })
             .catch(error => {
