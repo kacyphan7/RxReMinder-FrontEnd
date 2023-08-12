@@ -1,11 +1,23 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import fa from 'src/app/assets/fontawesome.js';
 import brands from 'src/app/assets/brands.js';
 import solid from 'src/app/assets/solid.js';
 import handleLogout from "src/app/utils/handleLogout.js";
 
 export default function Layout({ children }) {
+    const [hydrated, setHydrated] = useState(false);
+
+	useEffect(() => {
+		// This forces a rerender, so the page is rendered
+		// the second time but not the first
+		setHydrated(true);
+	}, []);
+	if (!hydrated) {
+		// Returns null on first render, so the client and server match
+		return null;
+	}
 
     const styleNav = {
         backgroundColor: '#f5f5f5',
@@ -16,15 +28,13 @@ export default function Layout({ children }) {
         marginLeft: '10px',
         marginTop: '15px',
         fontSize: '20px',
-
     };
 
     const stylingTop = {
         position: 'relative',
         paddingBottom: '30px',
         marginTop: '60px',
-        fontSize: '17px'
-
+        fontSize: '17px',
     };
 
     const lastLi = {
@@ -58,7 +68,6 @@ export default function Layout({ children }) {
                 </div>
                 <div className="body-content column">
                     {children}
-
                 </div>
             </div>
         </>
