@@ -5,6 +5,7 @@ import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import axios from 'axios';
 import Link from 'next/link';
+import style from 'src/app/css/profileEdit.module.css';
 
 export default function UserProfile({ user }) {
     const [firstName, setFirstName] = useState(user?.firstName);
@@ -44,25 +45,74 @@ export default function UserProfile({ user }) {
     }, []);
 
     return (
-        <div>
-            <h1>Edit User Profile</h1>
+        <div className="container">
+            <h1 className="title is-3 edit-profile-heading">Edit User Profile</h1>
             <form onSubmit={handleSubmit}>
-                <label>First Name:</label>
-                <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                <div className="field">
+                    <label className="label">First Name:</label>
+                    <div className="control">
+                        <input
+                            className="input"
+                            type="text"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                        />
+                    </div>
+                </div>
 
-                <label>Last Name:</label>
-                <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                <div className="field">
+                    <label className="label">Last Name:</label>
+                    <div className="control">
+                        <input
+                            className="input"
+                            type="text"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                        />
+                    </div>
+                </div>
 
-                <label>Email:</label>
-                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <div className="field">
+                    <label className="label">Email:</label>
+                    <div className="control">
+                        <input
+                            className="input"
+                            type="text"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                </div>
 
-                <label>Birthdate:</label>
-                <input type="text" value={birthdate} onChange={(e) => setBirthdate(e.target.value)} />
+                <div className="field">
+                    <label className="label">Birthdate:</label>
+                    <div className="control">
+                        <input
+                            className="input"
+                            type="text"
+                            value={birthdate}
+                            onChange={(e) => setBirthdate(e.target.value)}
+                        />
+                    </div>
+                </div>
 
-                <label>Phone Number:</label>
-                <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                <div className="field">
+                    <label className="label">Phone Number:</label>
+                    <div className="control">
+                        <input
+                            className="input"
+                            type="text"
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                        />
+                    </div>
+                </div>
 
-                <button type="submit">Save Changes</button>
+                <div className="field">
+                    <div className="control">
+                        <button className="button is-primary" type="submit">Save Changes</button>
+                    </div>
+                </div>
             </form>
         </div>
     );
