@@ -59,7 +59,7 @@ export default function Form() {
         setFormData({ ...formData, medId: formData['medId']._id });
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/prescriptions/new`, formData)
             .then(response => {
-                // setRedirect(true);
+                setRedirect(true);
             })
             .catch((err) => {
                 setError(true);
