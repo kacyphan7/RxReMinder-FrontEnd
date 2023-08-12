@@ -29,7 +29,7 @@ export default function UserProfile() {
     const textStyle = {
         textAlign: "center",
         fontSize: '30px'
-    }
+    };
 
     const router = useRouter();
     const [user, setUser] = useState(null);
@@ -125,7 +125,7 @@ export default function UserProfile() {
                         <div className="tile is-11 is-child">
                             <div className="columns is-justify-content-center">
                                 <div className="column is-one-third">
-                                    <Link className="button is-info is-rounded is-fullwidth" href="/user/edit">Edit User</Link>
+                                    <Link className="button is-info is-rounded is-fullwidth" href="/userTest/edit">Edit User</Link>
                                 </div>
 
                                 <div className="column is-one-third">
