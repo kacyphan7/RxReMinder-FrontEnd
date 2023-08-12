@@ -53,7 +53,12 @@ export default function Layout({ children }) {
                         <ul style={stylingTop} className="menu-list">
                             <span><a href="/dashboard"><i class="fa-solid fa-cubes fa-xl"></i> DashBoard</a></span>
                             <span><a><i class="fa fa-pencil" aria-hidden="true"></i> Manage Prescriptions</a></span>
-                            <span><a><i class="fa-solid fa-prescription-bottle-medical fa-xl" href="/prescriptions/new"></i>  New Prescription</a></span>
+                            <span>
+                                <a href="/prescriptions/new">
+                                    <i className="fa-solid fa-prescription-bottle-medical fa-xl"></i>
+                                    New Prescription
+                                </a>
+                            </span>
                             <span><a href="/userTest"><i class="fa-solid fa-gear fa-xl"></i> My Account</a></span>
 
                             <span onClick={() => { handleLogout(); }}><a style={lastLi} href="/login"><i className="fa-solid fa-arrow-right-from-bracket fa-xl"></i>   Log Out</a></span>
