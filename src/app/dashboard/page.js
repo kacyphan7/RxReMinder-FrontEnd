@@ -77,7 +77,7 @@ function Dashboard() {
                     </div>
                 </div>
             </div>
-        </Layout>
+        </Layout >
     );
 }
 
