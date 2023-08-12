@@ -168,8 +168,11 @@ export default function DayDoses() {
             {dosesForToday.map(dose => (
                 <div key={dose._id} className="card mb-3">
                     <div className="card-content">
+                        {/* change below to dose.medication.name when BE works*/}
                         <p className="title is-6">{dose.medication}</p>
                         <p className="subtitle is-6">{new Date(dose.time).toLocaleTimeString()}</p>
+                        {/* change below to Quantity: {dose.prescription.quantity} */}
+                        <p className="subtitle is-6">Quantity: {dose.prescription}</p>
                         {/* Checkbox to mark the dose as taken */}
                         <label className="checkbox">
                             <input type="checkbox" onChange={() => handleDoseTaken(dose._id)} /> Mark as taken
