@@ -1,185 +1,106 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import jwtDecode from 'jwt-decode';
+import setAuthToken from '@/app/utils/setAuthToken';
+import { handleLogout } from '@/app/utils/handleLogout';
 import axios from 'axios';
+
 import 'bulma/css/bulma.css';
 
-// Mock data
-const mockDoses = [
-    {
-        _id: "dose1",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-10T07:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose2",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId2",
-        time: new Date("2023-08-10T12:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose3",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-10T12:01:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose4",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-11T09:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose5",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-11T12:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose6",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-11T14:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose7",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-20T14:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose8",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-21T14:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose9",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-29T14:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-];
-
 export default function DayDoses() {
+    const router = useRouter();
+    const [data, setData] = useState(null);
+    const [isLoading, setLoading] = useState(true);
+
     const [dosesForToday, setDosesForToday] = useState([]);
 
+    const fetchDosesForToday = async () => {
+        try {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/daydoses`);
+            console.log("here's the data!", response.data);
+            setDosesForToday(response.data);
+
+        } catch (error) {
+            console.log('Error fetching doses data: ', error);
+            if (error.response && (error.response.status === 403 || error.response.status === 500)) {
+                console.log("Token might be expired or invalid. Please log in again.");
+                router.push('/login');
+            }
+        }
+    };
+
+    if (typeof window !== 'undefined') {
+        const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
+        let currentTime = Date.now();
+
+        if (currentTime >= expirationTime) {
+            handleLogout();
+            router.push('/login');
+        }
+    }
+
     useEffect(() => {
-        const currentDate = new Date();
-        const formattedCurrentDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+        setAuthToken(localStorage.getItem('jwtToken'));
+        if (localStorage.getItem('jwtToken')) {
+            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/email/${localStorage.getItem('email')}`)
+                .then((response) => {
+                    let userData = jwtDecode(localStorage.getItem('jwtToken'));
+                    if (userData.email === localStorage.getItem('email')) {
+                        setData(response.data.users[0]);
+                        setLoading(false);
+                    } else {
+                        router.push('/login');
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    router.push('/login');
+                });
+        } else {
+            router.push('/login');
+        }
+    }, [router]);
 
-        const fetchDosesForToday = async () => {
-            // uncomment and adjust this when the backend is ready
-            /*
-            const token = localStorage.getItem('jwtToken');
-            if (!token) {
-                console.log("No token found. Please log in again.");
-                // Redirect or handle appropriately
-                return;
-            }
-            try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses`, { headers: { 'Authorization': `Bearer ${token}` } });
-                const userIdFromToken = response.data.userId; // agian assuming JWT payload contains userId
-                const todaysDoses = response.data.filter(dose => 
-                    dose.user === userIdFromToken &&
-                    dose.taken === false &&
-                    new Date(dose.time).toISOString().split('T')[0] === formattedCurrentDate
-                );
-                setDosesForToday(todaysDoses);
-            } catch (error) {
-                console.log('Error fetching doses data: ', error);
-                if (error.response && (error.response.status === 403 || error.response.status === 500)) {
-                    console.log("Token might be expired or invalid. Please log in again.");
-                    localStorage.removeItem('jwtToken');
-                }
-            }
-            */
-
-            // Mock data logic for development
-            const userIdMock = "userId1";
-            const todaysMockDoses = mockDoses.filter(dose =>
-                dose.user === userIdMock &&
-                dose.taken === false &&
-                new Date(dose.time).toISOString().split('T')[0] === formattedCurrentDate
-            );
-            setDosesForToday(todaysMockDoses);
-        };
-
+    useEffect(() => {
         fetchDosesForToday();
     }, []);
 
-    const handleDoseTaken = (doseId) => {
-        // Update the state by filtering out the dose that's taken
-        setDosesForToday(prevDoses => prevDoses.filter(dose => dose._id !== doseId));
-
-        // uncomment and adjust when ready on the backend
-        /*
-        axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/${doseId}`, { taken: true }, { headers: { 'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` } })
+    const handleDoseTaken = async (doseId) => {
+        axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/taken/${doseId}`, { taken: true })
             .then(response => {
                 console.log("Dose marked as taken");
+                fetchDosesForToday();
             })
             .catch(error => {
                 console.log('Error updating dose data: ', error);
             });
-        */
     };
 
     const formatDate = (date) => {
         return date.toLocaleDateString("default", { weekday: 'long', month: 'long', day: 'numeric' });
     };
 
+    if (isLoading) return <p>Loading...</p>;
+
     return (
         <div className="container">
             <h1 className="title is-4">{formatDate(new Date())}</h1>
             <h2 className="subtitle is-5">Medications to take today:</h2>
 
-            {dosesForToday.length === 0 && (
-                <div className="notification is-warning">No doses for today.</div>
-            )}
-
-            {dosesForToday.map(dose => (
+            {dosesForToday.length ? dosesForToday.map(dose => (
                 <div key={dose._id} className="card mb-3">
                     <div className="card-content">
-                        {/* change below to dose.medication.name when BE works*/}
-                        <p className="title is-6">{dose.medication}</p>
+                        <p className="title is-6">{dose.medication.name}</p>
                         <p className="subtitle is-6">{new Date(dose.time).toLocaleTimeString()}</p>
-                        {/* change below to Quantity: {dose.prescription.quantity} */}
-                        <p className="subtitle is-6">Quantity: {dose.prescription}</p>
                         {/* Checkbox to mark the dose as taken */}
                         <label className="checkbox">
                             <input type="checkbox" onChange={() => handleDoseTaken(dose._id)} /> Mark as taken
                         </label>
                     </div>
                 </div>
-            ))}
+            )) : <p>No doses to take today.</p>}
         </div>
     );
 }
