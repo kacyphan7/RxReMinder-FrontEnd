@@ -96,7 +96,7 @@ export default function UserProfile() {
                                 <div className="card">
                                     <div className="card-image">
                                         <figure className="image is-4by3">
-                                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image" />
+                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAKkc75rQaHcPgt-NluetIkn0mA8Xyos716A&usqp=CAU" alt="Placeholder image" />
                                         </figure>
                                     </div>
                                     <div className="card-content">
@@ -127,7 +127,6 @@ export default function UserProfile() {
                                 <div className="column is-one-third">
                                     <Link className="button is-info is-rounded is-fullwidth" href="/userTest/edit">Edit User</Link>
                                 </div>
-
                                 <div className="column is-one-third">
                                     <Link className="button is-info is-rounded is-fullwidth" href="/prescription/add">+ Add New Prescription</Link>
                                 </div>
