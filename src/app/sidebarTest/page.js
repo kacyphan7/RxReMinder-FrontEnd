@@ -1,6 +1,5 @@
 'use client';
 
-import { Children } from "react";
 import fa from 'src/app/assets/fontawesome.js';
 import brands from 'src/app/assets/brands.js';
 import solid from 'src/app/assets/solid.js';
@@ -32,8 +31,6 @@ export default function Layout({ children }) {
         position: 'relative',
         paddingTop: '50vh',
     };
-
-
 
     return (
         <>
