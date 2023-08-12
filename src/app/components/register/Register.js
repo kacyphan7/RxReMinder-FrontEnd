@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+
 import fa from'src/app/assets/fontawesome.js';
 import brands from 'src/app/assets/brands.js';
 import solid from 'src/app/assets/solid.js';
@@ -10,55 +11,57 @@ import Image from 'next/image';
 import pillBox from 'src/app/assets/pillBox.jpg'
 
 export default function Register() {
+    
     const overlayStyle = {
         // marginTop: '200px',
         // marginLeft: '270px',
         // textShadow: '5px 5px 5px ',
-        // position: 'absolute'
+        // position: 'absolute',
     }
-
+    
     const containerStyle = {
         marginTop: '100px',
     }
-
+    
 	const router = useRouter();
 	const [redirect, setRedirect] = useState(false);
-
+    const [hydrated, setHydrated] = useState(false);
+    
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [birthdate, setBirthdate] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-
+    
 	const [error, setError] = useState(false);
-
+    
     const handleEmail = (e) => {
         setEmail(e.target.value);
     };
-
+    
     const handlePassword = (e) => {
         setPassword(e.target.value);
     };
-
+    
 	const handleFirstName = (e) => {
 		setFirstName(e.target.value);
 	};
-
+    
 	const handleLastName = (e) => {
-		setLastName(e.target.value);
+        setLastName(e.target.value);
 	};
-
+    
     const handleBirthdate = (e) => {
         setBirthdate(e.target.value);
     };
-
+    
     const handlePhoneNumber = (e) => {
         setPhoneNumber(e.target.value);
     };
-
+    
 	const parseBirthdate = (birthdate) => {
-		let date = new Date(birthdate);
+        let date = new Date(birthdate);
 		date.setDate(date.getDate() + 1);
 		let year = date.getFullYear();
 		let month = date.getMonth() + 1;
@@ -66,33 +69,42 @@ export default function Register() {
 		let formattedDate = `${year}-${month}-${day}`;
 		return formattedDate;
 	}
-
+    
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
+        
 		const newUser = {
-			email,
+            email,
 			password,
             firstName,
             lastName,
 			birthdate: parseBirthdate(birthdate),
             phoneNumber,
 		};
-
+        
 		axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/signup`, newUser)
 		.then(response => {
-			setRedirect(true);
+            setRedirect(true);
 		})
 		.catch(error => {
-			if (error.response.data.message === 'Email already exists') {
-				console.log('===> Error in Signup', error.response.data.message);
+            if (error.response.data.message === 'Email already exists') {
+                console.log('===> Error in Signup', error.response.data.message);
 				setError(true);
 			}
 		});
 	};
 
+    useEffect(() => {
+        // This forces a rerender, so the page is rendered
+        // the second time but not the first
+        setHydrated(true);
+    }, []);
+    if (!hydrated) {
+        // Returns null on first render, so the client and server match
+        return null;
+    }
+
 	if (redirect) router.push('/');
-	
     
 	return (
         <>
@@ -107,7 +119,8 @@ export default function Register() {
                             <Image src={pillBox}
                                 height={400}
                                 width={800}
-                            />
+                                alt="Pill Box"
+                                />
                         </div>
                         {/* <div className='is-overlay'> */}
 						<div style={overlayStyle} className="social-media is-relative">
@@ -176,7 +189,7 @@ export default function Register() {
                         </div>
                     </form>
 				</div>
-		            <span className='icon is-right'><a href='/'><i class="fa-solid fa-person-walking-arrow-loop-left fa-xl"></i></a></span>
+		            <span className='icon is-right'><a href='/'><i className="fa-solid fa-person-walking-arrow-loop-left fa-xl"></i></a></span>
                 </div>
 				</div>
 			</div>
