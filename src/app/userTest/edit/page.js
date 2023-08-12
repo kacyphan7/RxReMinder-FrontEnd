@@ -6,6 +6,7 @@ import setAuthToken from '@/app/utils/setAuthToken';
 import axios from 'axios';
 import Link from 'next/link';
 import style from 'src/app/css/profileEdit.module.css';
+import Layout from 'src/app/sidebarTest/page.js';
 
 export default function UserProfile({ user }) {
     const [firstName, setFirstName] = useState(user?.firstName);
@@ -45,75 +46,77 @@ export default function UserProfile({ user }) {
     }, []);
 
     return (
-        <div className="container">
-            <h1 className="title is-3 edit-profile-heading">Edit User Profile</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="field">
-                    <label className="label">First Name:</label>
-                    <div className="control">
-                        <input
-                            className="input"
-                            type="text"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                        />
+        <Layout>
+            <div className="container">
+                <h1 className="title is-3 edit-profile-heading">Edit User Profile</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className="field">
+                        <label className="label">First Name:</label>
+                        <div className="control">
+                            <input
+                                className="input"
+                                type="text"
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="field">
-                    <label className="label">Last Name:</label>
-                    <div className="control">
-                        <input
-                            className="input"
-                            type="text"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                        />
+                    <div className="field">
+                        <label className="label">Last Name:</label>
+                        <div className="control">
+                            <input
+                                className="input"
+                                type="text"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="field">
-                    <label className="label">Email:</label>
-                    <div className="control">
-                        <input
-                            className="input"
-                            type="text"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
+                    <div className="field">
+                        <label className="label">Email:</label>
+                        <div className="control">
+                            <input
+                                className="input"
+                                type="text"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="field">
-                    <label className="label">Birthdate:</label>
-                    <div className="control">
-                        <input
-                            className="input"
-                            type="text"
-                            value={birthdate}
-                            onChange={(e) => setBirthdate(e.target.value)}
-                        />
+                    <div className="field">
+                        <label className="label">Birthdate:</label>
+                        <div className="control">
+                            <input
+                                className="input"
+                                type="text"
+                                value={birthdate}
+                                onChange={(e) => setBirthdate(e.target.value)}
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="field">
-                    <label className="label">Phone Number:</label>
-                    <div className="control">
-                        <input
-                            className="input"
-                            type="text"
-                            value={phoneNumber}
-                            onChange={(e) => setPhoneNumber(e.target.value)}
-                        />
+                    <div className="field">
+                        <label className="label">Phone Number:</label>
+                        <div className="control">
+                            <input
+                                className="input"
+                                type="text"
+                                value={phoneNumber}
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="field">
-                    <div className="control">
-                        <button className="button is-primary" type="submit">Save Changes</button>
+                    <div className="field">
+                        <div className="control">
+                            <button className="button is-primary" type="submit">Save Changes</button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        </Layout>
     );
 }
