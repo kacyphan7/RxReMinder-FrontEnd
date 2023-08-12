@@ -19,7 +19,7 @@ export default function DayDoses() {
     const fetchDosesForToday = async () => {
         try {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/daydoses`);
-            console.log(response.data);
+            console.log("here's the data!", response.data);
             setDosesForToday(response.data);
 
         } catch (error) {

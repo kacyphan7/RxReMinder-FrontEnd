@@ -1,50 +1,60 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import c3 from 'c3';
-import 'c3/c3.css'; // Importing styles for c3
+import 'c3/c3.css';
+import axios from 'axios';
 
 const DailyPercentage = () => {
+    const [percentage, setPercentage] = useState(0);
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
-        const chart = c3.generate({
-            bindto: '#daily-percentage-chart',
-            data: {
-                columns: [
-                    ['Remaining', 100],  // start with 100
-                    ['Percentage', 0],  // start with 0
-                ],
-                type: 'donut',
-                order: null,
-                colors: {
-                    Percentage: '#8884d8',
-                    Remaining: '#f4f4f4'
+        axios.get('http://localhost:8000/doses/dailypercentage')
+            .then(response => {
+                if (response.data !== null) {
+                    setPercentage(response.data);
                 }
-            },
-            donut: {
-                title: "10%",
-                width: 30,
-                startingAngle: 1.5 * Math.PI // starts animation from top
-            },
-            transition: {
-                duration: 1500
-            }
-        });
-
-        // introducing a delay before loading actual data to simulate animation
-        setTimeout(() => {
-            chart.load({
-                columns: [
-                    ['Remaining', 90],
-                    ['Percentage', 10]
-                ]
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error("There was an error fetching the percentage data: ", error);
+                setLoading(false);
             });
-        }, 100); // delay of 100ms
-
-        // cleanup on unmount
-        return () => {
-            chart.destroy();
-        };
     }, []);
+
+    useEffect(() => {
+        if (!loading) {
+            const chart = c3.generate({
+                bindto: '#daily-percentage-chart',
+                data: {
+                    columns: [
+                        ['Remaining', 100 - percentage],
+                        ['Percentage', percentage]
+                    ],
+                    type: 'donut',
+                    order: null,
+                    colors: {
+                        Percentage: '#8884d8',
+                        Remaining: '#f4f4f4'
+                    }
+                },
+                donut: {
+                    title: `${percentage}%`,
+                    width: 15,
+                    startingAngle: 1.5 * Math.PI
+                },
+                transition: {
+                    duration: 1500
+                }
+            });
+
+            // Cleanup on unmount
+            return () => {
+                chart.destroy();
+            };
+        }
+    }, [loading, percentage]);
 
     return (
         <div id="daily-percentage-chart"></div>
