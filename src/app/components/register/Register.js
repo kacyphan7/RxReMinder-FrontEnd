@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
-import fa from'src/app/assets/fontawesome.js';
-import brands from 'src/app/assets/brands.js';
-import solid from 'src/app/assets/solid.js';
+import fa from '@/app/assets/fontawesome.js';
+import brands from '@/app/assets/brands.js';
+import solid from '@/app/assets/solid.js';
 import Image from 'next/image';
-import pillBox from 'src/app/assets/pillBox.jpg'
+import pillBox from '@/app/assets/pillBox.jpg'
 
 export default function Register() {
     
