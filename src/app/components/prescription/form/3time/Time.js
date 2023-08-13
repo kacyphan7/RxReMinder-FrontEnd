@@ -8,7 +8,7 @@ export default function ThreeTime({formData, setFormData}) {
     }
 
     function showTime2() {
-        if (formData.freq === 'two') {
+        if (formData.freq === 'twice') {
             return (
                 <div className="field">
                     <label htmlFor="name">What time would you like to take the second dose of this medication?</label>
