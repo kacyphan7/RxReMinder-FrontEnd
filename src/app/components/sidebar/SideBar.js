@@ -40,7 +40,7 @@ export default function Layout({ children }) {
 
     const lastLi = {
         position: 'relative',
-        marginTop: '50vh', //change to margin top
+        marginTop: '50vh',
     };
 
     return (
@@ -61,7 +61,7 @@ export default function Layout({ children }) {
                                     New Prescription
                                 </a>
                             </span>
-                            <span><a href="/userTest"><i className="fa-solid fa-gear fa-xl"></i> My Account</a></span>
+                            <span><a href="/profile"><i className="fa-solid fa-gear fa-xl"></i> My Account</a></span>
 
                             <span onClick={() => { handleLogout(); }}><a style={lastLi} href="/login"><i className="fa-solid fa-arrow-right-from-bracket fa-xl"></i>   Log Out</a></span>
                         </ul>

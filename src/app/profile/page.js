@@ -12,7 +12,7 @@ import barGraph from '@/app/assets/barGraph.png';
 import fa from '@/app/assets/fontawesome.js';
 import brands from '@/app/assets/brands.js';
 import solid from '@/app/assets/solid.js';
-import BarChart from '@/app/components/barChart/weeklyChart';
+import BarChart from '@/app/components/barchart/WeeklyChart';
 
 import Link from 'next/link';
 import { images } from '../../../next.config';
@@ -123,7 +123,7 @@ export default function UserProfile() {
                         <div className="tile is-11 is-child">
                             <div className="columns is-justify-content-center">
                                 <div className="column is-one-third">
-                                    <Link className="button is-info is-rounded is-fullwidth" href="/userTest/edit">Edit User</Link>
+                                    <Link className="button is-info is-rounded is-fullwidth" href="/profile/edit">Edit User</Link>
                                 </div>
                                 <div className="column is-one-third">
                                     <Link className="button is-info is-rounded is-fullwidth" href="/prescription/add">+ Add New Prescription</Link>

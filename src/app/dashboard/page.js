@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from 'react';
 import CustomCalendar from '@/app/components/calendar/Calendar';
-import DayDoses from '@/app/components/day doses/DayDoses';
+import DayDoses from '@/app/components/daydoses/DayDoses';
 import Layout from '@/app/components/sidebar/SideBar';
-import DailyPercentage from '@/app/components/daily percentage/DailyPercentage';
+import DailyPercentage from '@/app/components/dailypercentage/DailyPercentage';
 
 function Dashboard() {
     const [refreshPercentage, setRefreshPercentage] = useState(false);
