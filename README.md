@@ -6,11 +6,22 @@
 RxReMinder is a web application that helps users manage their medications. The application provides a variety of features, including:
 
 - A prescription management system that allows users to track their prescriptions and set reminders for when they need to take their medication.
-- A medication database that provides information about different medications, including their side effects, interactions, and dosage instructions.
-- A dose tracking system that allows users to track when they take their medication and how they are feeling.
+- A medication database that provides information about different medications and directions.
+- A dose tracking system that allows users to track when they take their medication.
 - A notification system that reminds users to take their medication and provides them with information about their medication.
 
 RxReMinder is still under development, but it has the potential to be a valuable tool for people who take medication. The application is easy to use and provides a variety of features that can help users stay on top of their medication.
+
+## **Built With**
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
+![Next.js](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![NODE.JS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 
 ## Deployment
 - Frontend deployed on [Netlify]()
@@ -83,9 +94,9 @@ npm install moment
 # Key Features
 
 - Authentication: RxReMinder uses JSON Web Tokens (JWT) for authentication to secure the API and ensure that only authorized users can access certain routes.
-- CRUD operations: RxReMinder provides CRUD operations for prescriptions, medications, and doses. This allows users to create, read, update, and delete their medication data.
-- Medication database: RxReMinder has a medication database that provides information about different medications, including their side effects, interactions, and dosage instructions. This information can help users make informed decisions about their medication.
-- Dose tracking: RxReMinder allows users to track when they take their medication and how they are feeling. This information can be used to monitor medication adherence and identify any potential side effects.
+- CRUD operations: RxReMinder provides CRUD operations for users,prescriptions, medications, and doses. This allows users to create, read, update, and delete their prescription data.
+- Medication database: RxReMinder has a medication database that provides information about different medications and directions. This information can help users make informed decisions about their medication.
+- Dose tracking: RxReMinder allows users to track when they take their medication. 
 - Notification system: RxReMinder can send notifications to users to remind them to take their medication and provide them with information about their medication. This can help users stay on top of their medication and avoid missed doses.
 
 RxReMinder is a valuable tool for people who take medication. The application is easy to use and provides a variety of features that can help users stay on top of their medication. If you are looking for a way to manage your medication, RxReMinder is a great option.
