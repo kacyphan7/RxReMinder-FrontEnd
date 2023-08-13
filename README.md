@@ -103,6 +103,7 @@ RxReMinder is a valuable tool for people who take medication. The application is
 
 # Wireframe and Entity Relationship Diagram
 <img src="public/assets/initial-wireframe.png">
+<img src="src/app/assets/uiZard.png">
 
 # Future Enhancements 
 - QR Code for each prescription
@@ -121,6 +122,7 @@ If permitted by legal we would like to essentially partnered with pharmacists to
 - [Courier](https://www.courier.com/) - A notification platform that helps developers add notifications to their applications.
 - [Faker](https://fakerjs.dev/guide/) - A library for generating fake data.
 - [Font Awesome](https://fontawesome.com/v4/get-started/) - An iconic font and CSS toolkit.
+- [uiZard](https://uizard.io/) - A platform that uses AI to transform your hand-drawn wireframes into code.
 
 # License 
 The source code for the site is licensed under the MIT license, which you can find in the MIT-LICENSE.txt file.
