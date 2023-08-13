@@ -102,8 +102,8 @@ npm install moment
 RxReMinder is a valuable tool for people who take medication. The application is easy to use and provides a variety of features that can help users stay on top of their medication. If you are looking for a way to manage your medication, RxReMinder is a great option.
 
 # Wireframe and Entity Relationship Diagram
-<img src="public/assets/initial-wireframe.png">
 <img src="src/app/assets/uiZard.png">
+<img src="public/assets/initial-wireframe.png">
 
 # Future Enhancements 
 - QR Code for each prescription
