@@ -50,7 +50,7 @@ function Dashboard() {
                                 <div className="card">
                                     <div className="card-content">
                                         {/* <div>Placeholder content for second card</div> */}
-                                        {/* <DailyPercentage /> */}
+                                        <DailyPercentage />
                                     </div>
                                 </div>
                             </div>
