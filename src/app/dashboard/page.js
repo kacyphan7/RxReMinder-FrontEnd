@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import CustomCalendar from '@/app/components/calendar/Calender';
+import CustomCalendar from '@/app/components/calendar/Calendar';
 import DayDoses from '@/app/components/day doses/DayDoses';
 import Layout from '@/app/components/sidebar/SideBar';
 import DailyPercentage from '@/app/components/daily percentage/DailyPercentage';
