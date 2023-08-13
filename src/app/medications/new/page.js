@@ -8,6 +8,7 @@ import setAuthToken from '@/app/utils/setAuthToken';
 import handleLogout from '@/app/utils/handleLogout';
 
 import Layout from '@/app/components/sidebar/SideBar';
+import NewMedicationForm from '@/app/components/medication/new/NewMedication';
 
 export default function NewMedicationPage() {
     const router = useRouter();
@@ -48,7 +49,7 @@ export default function NewMedicationPage() {
 
     return (
         <Layout>
-            
+            <NewMedicationForm />
         </Layout>
     );
 }
