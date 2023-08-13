@@ -71,7 +71,6 @@ export default function DayDoses({ onDoseTaken }) {
     useEffect(() => {
         if (scripRedirect) {
             localStorage.setItem('prescriptionId', JSON.stringify(scripRedirect));
-            // console.log(scripRedirect);
             router.push('/prescriptions/single');
         }
     }, [scripRedirect]);
@@ -79,7 +78,7 @@ export default function DayDoses({ onDoseTaken }) {
     const handleScripClick = (prescriptionId) => {
         axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/prescriptions/${prescriptionId}`)
             .then(response => {
-                setScripRedirect(response.data._id);
+                setScripRedirect(response.data.prescription._id);
             })
             .catch(err => {
                 setError(true);
