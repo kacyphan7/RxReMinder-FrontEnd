@@ -9,7 +9,7 @@ import axios from 'axios';
 
 import 'bulma/css/bulma.css';
 
-export default function DayDoses() {
+export default function DayDoses({ onDoseTaken }) {
     const router = useRouter();
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(true);
@@ -72,6 +72,8 @@ export default function DayDoses() {
             .then(response => {
                 // console.log("Dose marked as taken");
                 fetchDosesForToday();
+                onDoseTaken(prev => !prev); // toggling the refresh trigger
+
             })
             .catch(error => {
                 console.log('Error updating dose data: ', error);

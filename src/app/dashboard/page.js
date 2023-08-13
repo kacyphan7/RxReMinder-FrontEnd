@@ -1,11 +1,12 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import CustomCalendar from '../components/calendar/Calender';
 import DayDoses from '../components/day doses/DayDoses';
 import Layout from 'src/app/sidebarTest/page.js';
 import DailyPercentage from '../components/daily percentage/DailyPercentage';
 
 function Dashboard() {
+    const [refreshPercentage, setRefreshPercentage] = useState(false);
     return (
         <Layout>
             <div className="container">
@@ -50,7 +51,7 @@ function Dashboard() {
                                 <div className="card">
                                     <div className="card-content">
                                         {/* <div>Placeholder content for second card</div> */}
-                                        <DailyPercentage />
+                                        <DailyPercentage shouldRefresh={refreshPercentage} />
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +74,7 @@ function Dashboard() {
 
                         <div className="card">
                             <div className="card-content">
-                                <DayDoses />
+                                <DayDoses onDoseTaken={setRefreshPercentage} />
                             </div>
                         </div>
                     </div>

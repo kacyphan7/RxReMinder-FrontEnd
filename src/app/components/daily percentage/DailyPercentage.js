@@ -10,7 +10,7 @@ import axios from 'axios';
 import c3 from 'c3';
 import 'c3/c3.css';
 
-const DailyPercentage = () => {
+const DailyPercentage = ({ shouldRefresh }) => {
     const router = useRouter();
     const [user, setUser] = useState(null);
     const [percentage, setPercentage] = useState(0);
@@ -61,7 +61,7 @@ const DailyPercentage = () => {
                 console.error("There was an error fetching the percentage data: ", error);
                 setLoading(false);
             });
-    }, []);
+    }, [shouldRefresh]);
 
     useEffect(() => {
         if (!loading) {
