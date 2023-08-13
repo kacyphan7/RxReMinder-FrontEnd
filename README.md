@@ -14,6 +14,21 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+# **Preview Screen**
+## Home
+![Home](src/app/assets/home.png)
+![Component1](src/app/assets/component1.png)
+![Component2](src/app/assets/component2.png)
+
+## Login
+![Login](src/app/assets/login.png)
+
+## Register
+![Register](src/app/assets/register.png)
+
+## Profile
+![Profile](src/app/assets/profile.png)
+
 # Wireframe and Entity Relationship Diagram
 <img src="public/assets/initial-wireframe.png">
 
@@ -24,6 +39,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Medication Side Effects
 - Medication Interactions
 - Health Care Provider 
+
+### Stretch Goals
+If permitted by legal we would like to essentially partnered with pharmacists to get the prescription information to automatically be entered into our database with user permission. This will allow the user to have a more seamless experience with their refill automatically being added to their profile.
 
 # Sources
 
