@@ -71,6 +71,7 @@ export default function DayDoses({ onDoseTaken }) {
     useEffect(() => {
         if (scripRedirect) {
             localStorage.setItem('prescriptionId', JSON.stringify(scripRedirect));
+            // console.log(scripRedirect);
             router.push('/prescriptions/single');
         }
     }, [scripRedirect]);
@@ -113,7 +114,7 @@ export default function DayDoses({ onDoseTaken }) {
             {dosesForToday.length ? dosesForToday.map(dose => (
                 <div key={dose._id} className="card mb-3">
                     <div className="card-content">
-                        <p className="title is-6" onClick={() => {handleScripClick(dose.prescription._id)}}>{dose.medication.name}</p>
+                        <p className="title is-6"><a onClick={() => {handleScripClick(dose.prescription._id)}}>{dose.medication.name}</a></p>
                         <p className="subtitle is-6">{new Date(dose.time).toLocaleTimeString()}</p>
                         {/* Checkbox to mark the dose as taken */}
                         <label className="checkbox">
