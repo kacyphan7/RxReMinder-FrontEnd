@@ -11,107 +11,12 @@ import styles from "src/app/css/calendar.module.css";
 
 const DAYS_OF_WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-// Mock doses data
-// const mockDoses = [
-//     {
-//         _id: "dose1",
-//         user: "userId1",
-//         prescription: "prescriptionId1",
-//         medication: "medicationId1",
-//         time: new Date("2023-08-10T12:00:00Z"),
-//         taken: true,
-//         notified: false,
-//     },
-//     {
-//         _id: "dose2",
-//         user: "userId1",
-//         prescription: "prescriptionId1",
-//         medication: "medicationId1",
-//         time: new Date("2023-08-11T12:00:00Z"),
-//         taken: false,
-//         notified: false,
-//     },
-//     {
-//         _id: "dose3",
-//         user: "userId1",
-//         prescription: "prescriptionId1",
-//         medication: "medicationId1",
-//         time: new Date("2023-08-13T12:00:00Z"),
-//         taken: false,
-//         notified: false,
-//     },
-//     {
-//         _id: "dose4",
-//         user: "userId1",
-//         prescription: "prescriptionId1",
-//         medication: "medicationId1",
-//         time: new Date("2023-08-13T14:00:00Z"),
-//         taken: false,
-//         notified: false,
-//     },
-//     {
-//         _id: "dose5",
-//         user: "userId1",
-//         prescription: "prescriptionId1",
-//         medication: "medicationId1",
-//         time: new Date("2023-08-16T14:00:00Z"),
-//         taken: false,
-//         notified: false,
-//     },
-//     {
-//         _id: "dose6",
-//         user: "userId1",
-//         prescription: "prescriptionId1",
-//         medication: "medicationId1",
-//         time: new Date("2023-08-19T14:00:00Z"),
-//         taken: false,
-//         notified: false,
-//     },
-//     {
-//         _id: "dose7",
-//         user: "userId1",
-//         prescription: "prescriptionId1",
-//         medication: "medicationId1",
-//         time: new Date("2023-08-20T14:00:00Z"),
-//         taken: false,
-//         notified: false,
-//     },
-//     {
-//         _id: "dose8",
-//         user: "userId1",
-//         prescription: "prescriptionId1",
-//         medication: "medicationId1",
-//         time: new Date("2023-08-21T14:00:00Z"),
-//         taken: false,
-//         notified: false,
-//     },
-//     {
-//         _id: "dose8",
-//         user: "userId1",
-//         prescription: "prescriptionId1",
-//         medication: "medicationId1",
-//         time: new Date("2023-08-29T14:00:00Z"),
-//         taken: false,
-//         notified: false,
-//     },
-// ];
-
 export default function CustomCalendar() {
     const router = useRouter();
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(true);
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [dosesList, setDosesList] = useState([]);
-
-    // const isDoseForDay = (day, doses, currentMonth) => {
-    //     console.log(day);
-    //     return doses.some(dose => {
-    //         const doseDate = new Date(dose.time);
-    //         return doseDate.getFullYear() === currentMonth.getFullYear()
-    //             && doseDate.getMonth() === currentMonth.getMonth()
-    //             && doseDate.getDate() === day;
-    //     });
-    // };
 
     const isDoseForDay = (day) => {
         return dosesList[day];
@@ -167,11 +72,6 @@ export default function CustomCalendar() {
                     }
                 });
         }
-        
-
-        // Using mock data until backend is ready
-        // setDosesList(mockDoses.filter(dose => !dose.taken));
-
     }, [currentMonth]);
 
     const changeMonth = (offset) => {

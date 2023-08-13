@@ -54,7 +54,7 @@ export default function UserProfile({ user }) {
                 setShowNotification(true); // Show the notification
                 setTimeout(() => {
                     setShowNotification(false); // Hide the notification after 2 seconds
-                    router.push('/userTest'); // Redirect to the profile page
+                    router.push('/profile'); // Redirect to the profile page
                 }, 3000);
             })
             .catch(error => {
@@ -154,7 +154,7 @@ export default function UserProfile({ user }) {
                             <button
                                 className="button is-primary"
                                 style={{ marginLeft: '10px' }}
-                                onClick={() => router.push('/userTest')}
+                                onClick={() => router.push('/profile')}
                             >
                                 Cancel Changes
                             </button>
