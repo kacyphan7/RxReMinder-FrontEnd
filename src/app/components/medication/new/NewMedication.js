@@ -1,14 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
-import Link from 'next/link';
-
 export default function NewMedicationForm() {
     const router = useRouter();
-    const [redirect, setRedirect] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
     const [error, setError] = useState(false);
 
     const [name, setName] = useState('');
@@ -32,7 +30,11 @@ export default function NewMedicationForm() {
         
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/medications/new`, { name, category, directions })
             .then(response => {
-                setRedirect(true);
+                setShowNotification(true); // Show the notification
+                setTimeout(() => {
+                    setShowNotification(false); // Hide the notification after 2 seconds
+                    router.push('/prescriptions/new'); // Redirect to the new prescription page
+                }, 2000);
             })
             .catch(error => {
                 setError(true);
@@ -40,13 +42,16 @@ export default function NewMedicationForm() {
             });
     }
 
-    // if (redirect) router.push('/dashboard');
-
     return (
         <>
-            {error ? <p className="error">Medication already exists.</p> : null}
+            {error ? <div className="error notification">Medication already exists.</div> : null}
             <div className="container">
                 <h1>Create New Medication</h1>
+                {showNotification && (
+                    <div className="notification is-success">
+                        Medication created.
+                    </div>
+                )}
                 <form onSubmit={handleSubmit}>
                     <div>
                         <div>
