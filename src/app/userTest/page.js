@@ -12,6 +12,7 @@ import barGraph from '../assets/barGraph.png';
 import fa from 'src/app/assets/fontawesome.js';
 import brands from 'src/app/assets/brands.js';
 import solid from 'src/app/assets/solid.js';
+import BarChart from '../components/barChart/weeklyChart';
 
 import Link from 'next/link';
 import { images } from '../../../next.config';
@@ -114,10 +115,7 @@ export default function UserProfile() {
 
                             </div>
                             <div className="tile is-7 is-child box">
-                                <Image src={barGraph}
-                                    width={655}
-                                    height={400}
-                                    alt="user image" />
+                            <BarChart />
                             </div>
                         </div>
                     </div>
