@@ -106,7 +106,6 @@ export default function UserProfile() {
 
     useEffect(() => {
         if (user) {
-            console.log(user.birthdate);
             setFirstName(user.firstName);
             setLastName(user.lastName);
             setEmail(user.email);
@@ -123,7 +122,7 @@ export default function UserProfile() {
                 <h1 className="title is-3 edit-profile-heading">Edit User Profile</h1>
                 {showNotification && (
                     <div className="notification is-success">
-                        Changes have been saved. To view changes, go back to the profile.
+                        Changes have been saved.
                     </div>
                 )}
                 <form onSubmit={handleSubmit}>

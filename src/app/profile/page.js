@@ -44,7 +44,6 @@ export default function UserProfile() {
         date.setDate(date.getDate() + 1);
         let year = date.getFullYear();
         let month = monthNames[date.getMonth()];
-        console.log(month);
         let day = date.getDate();
         let formattedDate = `${month} ${day}, ${year}`;
         return formattedDate;
