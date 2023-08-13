@@ -2,7 +2,7 @@
 <img src="public/assets/logo2.png">
 </p>
 
-# About RxReMinder
+# About
 RxReMinder is a web application that helps users manage their medications. The application provides a variety of features, including:
 
 A prescription management system that allows users to track their prescriptions and set reminders for when they need to take their medication.
@@ -11,7 +11,7 @@ A dose tracking system that allows users to track when they take their medicatio
 A notification system that reminds users to take their medication and provides them with information about their medication.
 RxReMinder is still under development, but it has the potential to be a valuable tool for people who take medication. The application is easy to use and provides a variety of features that can help users stay on top of their medication.
 
-## Key features of RxReMinder:
+## Key Features
 
 - Authentication: RxReMinder uses JSON Web Tokens (JWT) for authentication to secure the API and ensure that only authorized users can access certain routes.
 - CRUD operations: RxReMinder provides CRUD operations for prescriptions, medications, and doses. This allows users to create, read, update, and delete their medication data.
