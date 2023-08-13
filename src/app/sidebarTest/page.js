@@ -40,7 +40,7 @@ export default function Layout({ children }) {
 
     const lastLi = {
         position: 'relative',
-        paddingTop: '50vh',
+        paddingTop: '50vh', //change to margin top
     };
 
     return (
