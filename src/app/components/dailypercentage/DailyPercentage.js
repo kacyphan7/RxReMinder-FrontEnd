@@ -81,7 +81,7 @@ const DailyPercentage = ({ shouldRefresh }) => {
                 },
                 donut: {
                     title: `${percentage}%`,
-                    width: 15,
+                    width: 30,
                     startingAngle: 1.5 * Math.PI
                 },
                 transition: {
