@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import CustomCalendar from '@/app/components/calendar/Calender';
 import DayDoses from '@/app/components/day doses/DayDoses';
-import Layout from '@/app/sidebarTest/page.js';
+import Layout from '@/app/components/sidebar/SideBar';
 import DailyPercentage from '@/app/components/daily percentage/DailyPercentage';
 
 function Dashboard() {

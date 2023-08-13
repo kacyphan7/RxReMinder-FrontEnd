@@ -7,7 +7,7 @@ import Layout from '@/app/components/sidebar/SideBar';
 import handleLogout from '@/app/utils/handleLogout.js';
 
 export default function UserProfile({ user }) {
-
+    const router = useRouter();
     const [isDeleting, setIsDeleting] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
