@@ -1,13 +1,13 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import setAuthToken from '@/app/utils/setAuthToken';
 import axios from 'axios';
-import Layout from 'src/app/sidebarTest/page.js';
-import handleLogout from 'src/app/utils/handleLogout.js';
+import Layout from '@/app/components/sidebar/SideBar';
+import handleLogout from '@/app/utils/handleLogout.js';
 
 export default function UserProfile({ user }) {
-
+    const router = useRouter();
     const [isDeleting, setIsDeleting] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");

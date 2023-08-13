@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import fa from 'src/app/assets/fontawesome.js';
-import brands from 'src/app/assets/brands.js';
-import solid from 'src/app/assets/solid.js';
-import { useRouter } from 'next/router';
-import handleLogout from "src/app/utils/handleLogout.js";
+import fa from '@/app/assets/fontawesome.js';
+import brands from '@/app/assets/brands.js';
+import solid from '@/app/assets/solid.js';
+import { useRouter } from 'next/navigation';
+import handleLogout from "@/app/utils/handleLogout.js";
 
 export default function Layout({ children }) {
     const [hydrated, setHydrated] = useState(false);
@@ -40,7 +40,7 @@ export default function Layout({ children }) {
 
     const lastLi = {
         position: 'relative',
-        paddingTop: '50vh', //change to margin top
+        marginTop: '50vh', //change to margin top
     };
 
     return (
@@ -54,7 +54,7 @@ export default function Layout({ children }) {
                         <hr />
                         <ul style={stylingTop} className="menu-list">
                             <span><a href="/dashboard"><i className="fa-solid fa-cubes fa-xl"></i> DashBoard</a></span>
-                            <span><a><i class="fa fa-pencil" aria-hidden="true"></i> Manage Prescriptions</a></span>
+                            <span><a><i className="fa fa-pencil" aria-hidden="true"></i> Manage Prescriptions</a></span>
                             <span>
                                 <a href="/prescriptions/new">
                                     <i className="fa-solid fa-prescription-bottle-medical fa-xl"></i>

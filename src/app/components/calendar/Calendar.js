@@ -153,7 +153,7 @@ export default function CustomCalendar() {
         if (currentMonth) {
             let parsedMonth = currentMonth.getMonth() + 1;
             let parsedYear = currentMonth.getFullYear();
-            console.log(parsedMonth, parsedYear);
+            // console.log(parsedMonth, parsedYear);
             axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/month/${parsedMonth}/${parsedYear}`)
                 .then(response => {
                     // console.log(response.data);
