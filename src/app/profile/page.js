@@ -42,7 +42,7 @@ export default function UserProfile() {
 
         if (currentTime > expiration) {
             handleLogout();
-            router.push('/');
+            router.push('/login');
         }
     }
 
@@ -56,15 +56,15 @@ export default function UserProfile() {
                         setUser(response.data.users[0]);
                         setIsLoading(false);
                     } else {
-                        router.push('/');
+                        router.push('/login');
                     }
                 })
                 .catch((error) => {
                     console.log(error);
-                    router.push('/');
+                    router.push('/login');
                 });
         } else {
-            router.push('/');
+            router.push('/login');
         }
     }, [router]);
 
