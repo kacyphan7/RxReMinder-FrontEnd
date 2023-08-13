@@ -1,141 +1,178 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-// import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import jwtDecode from 'jwt-decode';
+import setAuthToken from '@/app/utils/setAuthToken';
+import handleLogout from '@/app/utils/handleLogout';
+import axios from 'axios';
+
 import styles from "src/app/css/calendar.module.css";
 
 const DAYS_OF_WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 // Mock doses data
-const mockDoses = [
-    {
-        _id: "dose1",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-10T12:00:00Z"),
-        taken: true,
-        notified: false,
-    },
-    {
-        _id: "dose2",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-11T12:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose3",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-13T12:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose4",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-13T14:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose5",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-16T14:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose6",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-19T14:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose7",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-20T14:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose8",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-21T14:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-    {
-        _id: "dose8",
-        user: "userId1",
-        prescription: "prescriptionId1",
-        medication: "medicationId1",
-        time: new Date("2023-08-29T14:00:00Z"),
-        taken: false,
-        notified: false,
-    },
-];
+// const mockDoses = [
+//     {
+//         _id: "dose1",
+//         user: "userId1",
+//         prescription: "prescriptionId1",
+//         medication: "medicationId1",
+//         time: new Date("2023-08-10T12:00:00Z"),
+//         taken: true,
+//         notified: false,
+//     },
+//     {
+//         _id: "dose2",
+//         user: "userId1",
+//         prescription: "prescriptionId1",
+//         medication: "medicationId1",
+//         time: new Date("2023-08-11T12:00:00Z"),
+//         taken: false,
+//         notified: false,
+//     },
+//     {
+//         _id: "dose3",
+//         user: "userId1",
+//         prescription: "prescriptionId1",
+//         medication: "medicationId1",
+//         time: new Date("2023-08-13T12:00:00Z"),
+//         taken: false,
+//         notified: false,
+//     },
+//     {
+//         _id: "dose4",
+//         user: "userId1",
+//         prescription: "prescriptionId1",
+//         medication: "medicationId1",
+//         time: new Date("2023-08-13T14:00:00Z"),
+//         taken: false,
+//         notified: false,
+//     },
+//     {
+//         _id: "dose5",
+//         user: "userId1",
+//         prescription: "prescriptionId1",
+//         medication: "medicationId1",
+//         time: new Date("2023-08-16T14:00:00Z"),
+//         taken: false,
+//         notified: false,
+//     },
+//     {
+//         _id: "dose6",
+//         user: "userId1",
+//         prescription: "prescriptionId1",
+//         medication: "medicationId1",
+//         time: new Date("2023-08-19T14:00:00Z"),
+//         taken: false,
+//         notified: false,
+//     },
+//     {
+//         _id: "dose7",
+//         user: "userId1",
+//         prescription: "prescriptionId1",
+//         medication: "medicationId1",
+//         time: new Date("2023-08-20T14:00:00Z"),
+//         taken: false,
+//         notified: false,
+//     },
+//     {
+//         _id: "dose8",
+//         user: "userId1",
+//         prescription: "prescriptionId1",
+//         medication: "medicationId1",
+//         time: new Date("2023-08-21T14:00:00Z"),
+//         taken: false,
+//         notified: false,
+//     },
+//     {
+//         _id: "dose8",
+//         user: "userId1",
+//         prescription: "prescriptionId1",
+//         medication: "medicationId1",
+//         time: new Date("2023-08-29T14:00:00Z"),
+//         taken: false,
+//         notified: false,
+//     },
+// ];
 
-export default function CustomCalendar({ doses = [] }) {
+export default function CustomCalendar() {
+    const router = useRouter();
+    const [data, setData] = useState(null);
+    const [isLoading, setLoading] = useState(true);
     const [currentMonth, setCurrentMonth] = useState(new Date());
-    const [dosesList, setDosesList] = useState(doses);
+    const [dosesList, setDosesList] = useState([]);
 
-    const isDoseForDay = (day, doses, currentMonth) => {
-        return doses.some(dose => {
-            const doseDate = new Date(dose.time);
-            return doseDate.getFullYear() === currentMonth.getFullYear()
-                && doseDate.getMonth() === currentMonth.getMonth()
-                && doseDate.getDate() === day;
-        });
+    // const isDoseForDay = (day, doses, currentMonth) => {
+    //     console.log(day);
+    //     return doses.some(dose => {
+    //         const doseDate = new Date(dose.time);
+    //         return doseDate.getFullYear() === currentMonth.getFullYear()
+    //             && doseDate.getMonth() === currentMonth.getMonth()
+    //             && doseDate.getDate() === day;
+    //     });
+    // };
+
+    const isDoseForDay = (day) => {
+        return dosesList[day];
     };
 
-    useEffect(() => {
-        // Commenting out the axios call and using mock data for now
+    if (typeof window !== 'undefined') {
+        const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
+        let currentTime = Date.now();
 
-        /*
-        const token = localStorage.getItem('jwtToken');
-        if (!token) {
-            console.log("No token found. Please log in again.");
-            // maybe redirect to login page or handle appropriately
-            return;
+        if (currentTime >= expirationTime) {
+            handleLogout();
+            router.push('/login');
         }
+    }
 
-        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses`, { headers: { 'Authorization': `Bearer ${token}` } })
-            .then(response => {
-                const userId = response.data.userId; // assuming JWT payload contains userId
+    useEffect(() => {
+        setAuthToken(localStorage.getItem('jwtToken'));
+        if (localStorage.getItem('jwtToken')) {
+            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/email/${localStorage.getItem('email')}`)
+                .then((response) => {
+                    let userData = jwtDecode(localStorage.getItem('jwtToken'));
+                    if (userData.email === localStorage.getItem('email')) {
+                        setData(response.data.users[0]);
+                        setLoading(false);
+                    } else {
+                        router.push('/login');
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    router.push('/login');
+                });
+        } else {
+            router.push('/login');
+        }
+    }, [router]);
 
-                const upcomingDoses = response.data.filter(dose => dose.user === userId && dose.taken === false);
-
-                setDosesList(upcomingDoses);
-            })
-            .catch(error => {
-                console.log('Error fetching doses data: ', error);
-                if (error.response && (error.response.status === 403 || error.response.status === 500)) {
-                    console.log("Token might be expired or invalid. Please log in again.");
-                    localStorage.removeItem('jwtToken');
-                }
-            });
-        */
+    useEffect(() => {
+        if (currentMonth) {
+            let parsedMonth = currentMonth.getMonth() + 1;
+            let parsedYear = currentMonth.getFullYear();
+            console.log(parsedMonth, parsedYear);
+            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/month/${parsedMonth}/${parsedYear}`)
+                .then(response => {
+                    // console.log(response.data);
+                    setDosesList(response.data);
+                })
+                .catch(error => {
+                    console.log('Error fetching doses data: ', error);
+                    if (error.response && (error.response.status === 403 || error.response.status === 500)) {
+                        console.log("Token might be expired or invalid. Please log in again.");
+                        localStorage.removeItem('jwtToken');
+                    }
+                });
+        }
+        
 
         // Using mock data until backend is ready
-        setDosesList(mockDoses.filter(dose => !dose.taken));
+        // setDosesList(mockDoses.filter(dose => !dose.taken));
 
-    }, []);
+    }, [currentMonth]);
 
     const changeMonth = (offset) => {
         setCurrentMonth((prevState) => {
@@ -190,7 +227,7 @@ export default function CustomCalendar({ doses = [] }) {
                                     <div className={styles.day}>
                                         <span>
                                             {day}
-                                            {isDoseForDay(day, dosesList, currentMonth) && <span className={styles.blueDot}></span>}
+                                            {isDoseForDay(day) && <span className={styles.blueDot}></span>}
                                         </span>
                                     </div>
                                 </td>
