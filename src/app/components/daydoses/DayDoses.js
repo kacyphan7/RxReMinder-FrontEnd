@@ -12,6 +12,7 @@ import 'bulma/css/bulma.css';
 export default function DayDoses({ onDoseTaken }) {
     const router = useRouter();
     const [data, setData] = useState(null);
+    const [scripRedirect, setScripRedirect] = useState(null);
     const [isLoading, setLoading] = useState(true);
 
     const [dosesForToday, setDosesForToday] = useState([]);
@@ -67,6 +68,25 @@ export default function DayDoses({ onDoseTaken }) {
         fetchDosesForToday();
     }, []);
 
+    useEffect(() => {
+        if (scripRedirect) {
+            localStorage.setItem('prescriptionId', JSON.stringify(scripRedirect));
+            // console.log(scripRedirect);
+            router.push('/prescriptions/single');
+        }
+    }, [scripRedirect]);
+
+    const handleScripClick = (prescriptionId) => {
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/prescriptions/${prescriptionId}`)
+            .then(response => {
+                setScripRedirect(response.data._id);
+            })
+            .catch(err => {
+                setError(true);
+            })
+    }
+        
+
     const handleDoseTaken = async (doseId) => {
         axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/taken/${doseId}`)
             .then(response => {
@@ -94,7 +114,7 @@ export default function DayDoses({ onDoseTaken }) {
             {dosesForToday.length ? dosesForToday.map(dose => (
                 <div key={dose._id} className="card mb-3">
                     <div className="card-content">
-                        <p className="title is-6">{dose.medication.name}</p>
+                        <p className="title is-6"><a onClick={() => {handleScripClick(dose.prescription._id)}}>{dose.medication.name}</a></p>
                         <p className="subtitle is-6">{new Date(dose.time).toLocaleTimeString()}</p>
                         {/* Checkbox to mark the dose as taken */}
                         <label className="checkbox">
