@@ -25,23 +25,38 @@ export default function AllPrescriptions({ user }) { // accept user as a prop
     }, []);
 
     return (
-        <>
-            <div className={styles.backgroundWrapper}></div>
+        <div className={styles.backgroundWrapper}>
             <div className={styles["cards-grid"]}>
                 {prescriptions.map(prescription => (
                     <div key={prescription.prescription._id} className={styles.card}>
-                        <div className={`card-content ${styles['custom-card-content']}`}>
+                        <div className="card-content">
                             <p className="title">{prescription.prescription.medication.name}</p>
                             <p className="subtitle">{prescription.prescription.medication.category}</p>
-                            <div className={styles["date-container"]}>
-                                <p><strong>Start Date:</strong> {prescription.startDate}</p>
-                                <p><strong>End Date:</strong> {prescription.endDate}</p>
-                            </div>
+                        </div>
+
+                        <div className={styles["date-container"]}>
+                            <p><strong>Start Date:</strong> {prescription.startDate}</p>
+                            <p><strong>End Date:</strong> {prescription.endDate}</p>
+                        </div>
+
+                        {/* Additional Information Container on hover*/}
+                        <br />
+                        <div className={styles["more-info"]}>
+                            <p><strong>Quantity:</strong> {prescription.quantity}</p>
+                            <br />
+                            <p><strong>Directions:</strong> {prescription.directions}</p>
+                            <br />
+                            <p><strong>Notes:</strong> {prescription.notes}</p>
+                            <br />
+                            <button className={styles["info-button"]}>See More Info</button>
+                            <button className={styles["delete-button"]}>Delete Prescription</button>
                         </div>
                     </div>
                 ))}
+
             </div>
-        </>
+        </div>
     );
+
 
 }
