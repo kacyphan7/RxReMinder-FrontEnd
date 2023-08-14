@@ -51,7 +51,7 @@ export default function MedicationsWidget() {
 
     useEffect(() => {
         if (!loading && user) { // mkes sure that the user data is fetched before trying to fetch medications
-            axios.get('http://localhost:8000/prescriptions/user')
+            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/medications/user`)
                 .then(response => {
                     setMedications(response.data);
                     setLoading(false);
@@ -69,10 +69,10 @@ export default function MedicationsWidget() {
 
     return (
         <div>
-            {medications.map(prescription => (
-                <div key={prescription._id} className="card">
+            {medications.map(medication => (
+                <div key={medication._id} className="card">
                     <div className="card-content has-text-centered">
-                        <p className="title">{prescription.medication.name}</p>
+                        <p className="title">{medication.name}</p>
                     </div>
                 </div>
             ))}
