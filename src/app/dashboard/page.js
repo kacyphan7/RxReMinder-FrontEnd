@@ -1,11 +1,59 @@
 "use client";
-import React from 'react';
-import CustomCalendar from '../components/calendar/Calender';
-import DayDoses from '../components/day doses/DayDoses';
-import Layout from 'src/app/sidebarTest/page.js';
-import DailyPercentage from '../components/daily percentage/DailyPercentage';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import jwtDecode from 'jwt-decode';
+import setAuthToken from '@/app/utils/setAuthToken';
+import handleLogout from '@/app/utils/handleLogout';
+import axios from 'axios';
+
+import CustomCalendar from '@/app/components/calendar/Calendar';
+import DayDoses from '@/app/components/daydoses/DayDoses';
+import Layout from '@/app/components/sidebar/SideBar';
+import DailyPercentage from '@/app/components/dailypercentage/DailyPercentage';
+import MedicationsWidget from '../components/medicationswidget/MedicationsWidget';
 
 function Dashboard() {
+    const router = useRouter();
+    const [user, setUser] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const [refreshPercentage, setRefreshPercentage] = useState(false);
+
+    if (typeof window !== 'undefined') {
+        const expiration = new Date(localStorage.getItem('expiration') * 1000);
+        let currentTime = Date.now();
+
+        if (currentTime > expiration) {
+            handleLogout();
+            router.push('/login');
+        }
+    }
+
+    useEffect(() => {
+        setAuthToken(localStorage.getItem('jwtToken'));
+        if (localStorage.getItem('jwtToken')) {
+            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/email/${localStorage.getItem('email')}`)
+                .then((response) => {
+                    let userData = jwtDecode(localStorage.getItem('jwtToken'));
+                    if (userData.email === localStorage.getItem('email')) {
+                        setUser(response.data.users[0]);
+                        setIsLoading(false);
+                    } else {
+                        router.push('/login');
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    router.push('/login');
+                });
+        } else {
+            router.push('/login');
+        }
+    }, [router]);
+
+    if (isLoading) return <div>Loading...</div>;
+    if (!user) return <div>Not authorized</div>;
+
     return (
         <Layout>
             <div className="container">
@@ -25,7 +73,7 @@ function Dashboard() {
                         <div className="level">
                             {/* user greeting */}
                             <div className="level-left">
-                                <h1 className="title is-2">Hello, [User's Name]!</h1>
+                                <h1 className="title is-2">Hello, {user.firstName}!</h1>
                             </div>
                         </div>
 
@@ -40,7 +88,8 @@ function Dashboard() {
                             <div className="column">
                                 <div className="card">
                                     <div className="card-content">
-                                        <div>Placeholder content for first card</div>
+                                        {/* <div>Placeholder content for first card</div> */}
+                                        <MedicationsWidget />
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +99,7 @@ function Dashboard() {
                                 <div className="card">
                                     <div className="card-content">
                                         {/* <div>Placeholder content for second card</div> */}
-                                        {/* <DailyPercentage /> */}
+                                        <DailyPercentage shouldRefresh={refreshPercentage} />
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +122,7 @@ function Dashboard() {
 
                         <div className="card">
                             <div className="card-content">
-                                <DayDoses />
+                                <DayDoses onDoseTaken={setRefreshPercentage} />
                             </div>
                         </div>
                     </div>

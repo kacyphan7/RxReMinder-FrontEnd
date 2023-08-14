@@ -7,12 +7,18 @@ import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import handleLogout from '@/app/utils/handleLogout';
 
-import Form from '@/app/components/prescription/form/Form.js';
+import Layout from '@/app/components/sidebar/SideBar';
+import SinglePrescription from '@/app/components/prescription/Prescription';
 
-export default function FormTest() {
+export default function SinglePrescriptionView() {
     const router = useRouter();
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(true);
+    const [prescriptionId, setPrescriptionId] = useState(null);
+
+    if (typeof window !== 'undefined' && !prescriptionId) {
+        setPrescriptionId(JSON.parse(localStorage.getItem('prescriptionId')));
+    }
 
     if (typeof window !== 'undefined') {
         const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
@@ -46,10 +52,11 @@ export default function FormTest() {
         }
     }, [router]);
 
+    if(isLoading || !prescriptionId) return <p>Loading...</p>;
+
     return (
-        <>
-            <h1>Form Test</h1>
-            <Form />
-        </>
+        <Layout>
+            <SinglePrescription prescriptionId={prescriptionId} />
+        </Layout>
     );
 }

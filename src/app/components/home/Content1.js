@@ -1,6 +1,6 @@
 "use client";
-import styles from 'src/app/css/content1.module.css';
-import 'src/app/css/globals.css';
+import styles from '@/app/css/content1.module.css';
+import '@/app/css/globals.css';
 
 export default function HomeBody() {
     return (

@@ -19,7 +19,7 @@ export default function Test() {
 
         if (currentTime >= expirationTime) {
             handleLogout();
-            router.push('/users/login');
+            router.push('/login');
         }
     }
 
@@ -33,15 +33,15 @@ export default function Test() {
                         setData(response.data.users[0]);
                         setLoading(false);
                     } else {
-                        router.push('/users/login');
+                        router.push('/login');
                     }
                 })
                 .catch((error) => {
                     console.log(error);
-                    router.push('/users/login');
+                    router.push('/login');
                 });
         } else {
-            router.push('/users/login');
+            router.push('/login');
         }
     }, [router]);
 
@@ -52,8 +52,9 @@ export default function Test() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/daydoses`)
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/prescriptions/user`)
             .then(response => {
+                let prescriptions = response.data;
                 console.log(response.data);
             })
             .catch(error => {

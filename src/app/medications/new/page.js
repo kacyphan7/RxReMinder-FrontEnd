@@ -7,9 +7,10 @@ import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import handleLogout from '@/app/utils/handleLogout';
 
-import Form from '@/app/components/prescription/form/Form.js';
+import Layout from '@/app/components/sidebar/SideBar';
+import NewMedicationForm from '@/app/components/medication/new/NewMedication';
 
-export default function FormTest() {
+export default function NewMedicationPage() {
     const router = useRouter();
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(true);
@@ -47,9 +48,8 @@ export default function FormTest() {
     }, [router]);
 
     return (
-        <>
-            <h1>Form Test</h1>
-            <Form />
-        </>
+        <Layout>
+            <NewMedicationForm />
+        </Layout>
     );
 }

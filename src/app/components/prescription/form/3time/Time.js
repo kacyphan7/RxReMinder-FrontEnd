@@ -12,7 +12,7 @@ export default function ThreeTime({formData, setFormData}) {
             return (
                 <div className="field">
                     <label htmlFor="name">What time would you like to take the second dose of this medication?</label>
-                    <input className="input" type="time" name="time2" default="08:00" onChange={handleTime2} value={formData['time2']} />
+                    <input className="input" type="time" name="time2" onChange={handleTime2} value={formData['time2']} />
                 </div>
             );
         }
@@ -22,7 +22,7 @@ export default function ThreeTime({formData, setFormData}) {
         <>
             <div className="field">
                 <label htmlFor="name">What time would you like to take this medication?</label>
-                <input className="input" type="time" name="time1" default="08:00" onChange={handleTime1} value={formData['time1']} />
+                <input className="input" type="time" name="time1" onChange={handleTime1} value={formData['time1']} />
             </div>
             {showTime2()}
         </>

@@ -1,6 +1,6 @@
 "use client";
-import styles from 'src/app/css/topBar.module.css';
-import 'src/app/css/globals.css';
+import styles from '@/app/css/topBar.module.css';
+import '@/app/css/globals.css';
 
 export default function TopBar() {
     return (

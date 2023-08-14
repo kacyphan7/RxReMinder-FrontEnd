@@ -6,12 +6,13 @@ import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import handleLogout from '@/app/utils/handleLogout';
 import axios from 'axios';
-import Layout from '../sidebarTest/page';
+import Layout from '@/app/components/sidebar/SideBar';
 import Image from 'next/image';
-import barGraph from '../assets/barGraph.png';
-import fa from 'src/app/assets/fontawesome.js';
-import brands from 'src/app/assets/brands.js';
-import solid from 'src/app/assets/solid.js';
+import barGraph from '@/app/assets/barGraph.png';
+import fa from '@/app/assets/fontawesome.js';
+import brands from '@/app/assets/brands.js';
+import solid from '@/app/assets/solid.js';
+import BarChart from '@/app/components/barchart/WeeklyChart';
 
 import Link from 'next/link';
 import { images } from '../../../next.config';
@@ -35,13 +36,26 @@ export default function UserProfile() {
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
+    function formatBirthdate(birthdate) {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+        let date = new Date(birthdate);
+        date.setDate(date.getDate() + 1);
+        let year = date.getFullYear();
+        let month = monthNames[date.getMonth()];
+        let day = date.getDate();
+        let formattedDate = `${month} ${day}, ${year}`;
+        return formattedDate;
+    }
+
     if (typeof window !== 'undefined') {
         const expiration = new Date(localStorage.getItem('expiration') * 1000);
         let currentTime = Date.now();
 
         if (currentTime > expiration) {
             handleLogout();
-            router.push('/');
+            router.push('/login');
         }
     }
 
@@ -55,15 +69,15 @@ export default function UserProfile() {
                         setUser(response.data.users[0]);
                         setIsLoading(false);
                     } else {
-                        router.push('/');
+                        router.push('/login');
                     }
                 })
                 .catch((error) => {
                     console.log(error);
-                    router.push('/');
+                    router.push('/login');
                 });
         } else {
-            router.push('/');
+            router.push('/login');
         }
     }, [router]);
 
@@ -101,7 +115,7 @@ export default function UserProfile() {
                                     </div>
                                     <div className="card-content">
                                         <div className="content">
-                                            <span><i className='fa-solid fa-user'></i> <strong>Birthdate</strong>  - {user.birthdate}</span>
+                                            <span><i className='fa-solid fa-user'></i> <strong>Birthdate</strong>  - {formatBirthdate(user.birthdate)}</span>
                                             <hr />
                                             <span> <i className='fa-solid fa-phone'></i> <strong>Phone Number</strong>  - {user.phoneNumber}</span>
                                             <hr />
@@ -114,10 +128,7 @@ export default function UserProfile() {
 
                             </div>
                             <div className="tile is-7 is-child box">
-                                <Image src={barGraph}
-                                    width={655}
-                                    height={400}
-                                    alt="user image" />
+                            <BarChart />
                             </div>
                         </div>
                     </div>
@@ -125,10 +136,10 @@ export default function UserProfile() {
                         <div className="tile is-11 is-child">
                             <div className="columns is-justify-content-center">
                                 <div className="column is-one-third">
-                                    <Link className="button is-info is-rounded is-fullwidth" href="/userTest/edit">Edit User</Link>
+                                    <Link className="button is-info is-rounded is-fullwidth" href="/profile/edit">Edit User</Link>
                                 </div>
                                 <div className="column is-one-third">
-                                    <Link className="button is-info is-rounded is-fullwidth" href="/prescription/add">+ Add New Prescription</Link>
+                                    <Link className="button is-info is-rounded is-fullwidth" href="/prescriptions/new">+ Add New Prescription</Link>
                                 </div>
                             </div>
                         </div>
