@@ -49,7 +49,7 @@ const DailyPercentage = ({ shouldRefresh }) => {
     }, [router]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/doses/dailypercentage')
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/dailypercentage`)
             .then(response => {
                 if (response.data !== null) {
                     setPercentage(response.data);
