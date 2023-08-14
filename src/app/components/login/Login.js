@@ -27,6 +27,16 @@ export default function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        if (typeof window !== 'undefined') {
+            const expiration = new Date(localStorage.getItem('expiration') * 1000);
+            let currentTime = Date.now();
+
+            if (currentTime > expiration) {
+                handleLogout();
+                router.push('/');
+            }
+        }
+
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`, { email, password })
             .then(response => {
                 localStorage.setItem('jwtToken', response.data.token);

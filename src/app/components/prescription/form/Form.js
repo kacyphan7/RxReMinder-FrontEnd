@@ -56,6 +56,17 @@ export default function Form() {
         }
     }
 
+
+    if (typeof window !== 'undefined') {
+        const expiration = new Date(localStorage.getItem('expiration') * 1000);
+        let currentTime = Date.now();
+
+        if (currentTime > expiration) {
+            handleLogout();
+            router.push('/');
+        }
+    }
+
     function submitForm() {
         setFormData({ ...formData, medId: formData['medId']._id });
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/prescriptions/new`, formData)

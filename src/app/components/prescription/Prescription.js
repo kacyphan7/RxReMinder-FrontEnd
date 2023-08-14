@@ -11,41 +11,52 @@ export default function SinglePrescription({ prescriptionId }) {
 
     const handleDelete = () => {
         axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/prescriptions/${prescriptionId}`)
-        .then(response => {
-            console.log(response);
-            router.push('/dashboard');
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
+            .then(response => {
+                console.log(response);
+                router.push('/dashboard');
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
     const parseFreq = (freq) => {
         if (freq === 'once') {
             return 'Daily';
-        } else if(freq === 'twice') {
+        } else if (freq === 'twice') {
             return 'Weekly';
-        } else if(freq === 'alternate') {
+        } else if (freq === 'alternate') {
             return 'Every Other Day';
-        } else if(freq === 'weekly') {
+        } else if (freq === 'weekly') {
             return 'Weekly';
+        }
+    };
+
+
+    if (typeof window !== 'undefined') {
+        const expiration = new Date(localStorage.getItem('expiration') * 1000);
+        let currentTime = Date.now();
+
+        if (currentTime > expiration) {
+            handleLogout();
+            router.push('/');
         }
     }
 
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/prescriptions/${prescriptionId}`)
-        .then(response => {
-            setData(response.data);
-            setFreq(parseFreq(response.data.freq));
-        })
-        .catch(err => {
-            console.log(err);
-        })
+            .then(response => {
+                setData(response.data);
+                setFreq(parseFreq(response.data.freq));
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }, [prescriptionId]);
 
-    if(!data) return <p>Loading...</p>;
+    if (!data) return <p>Loading...</p>;
 
     return (
-        <div className="container">  
+        <div className="container">
             <h1>Prescription</h1>
             <div className="columns">
                 <div className="column">
