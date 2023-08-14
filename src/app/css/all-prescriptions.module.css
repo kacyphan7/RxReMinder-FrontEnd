@@ -1,18 +1,39 @@
+.backgroundWrapper {
+    background-image: url('https://files.123freevectors.com/wp-content/original/110489-blue-blurred-background-vector.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: fixed;
+    /* Fixed position */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Cover the entire viewport */
+    z-index: -1;
+    /* Put it behind other content */
+}
+
+
+
 .cards-grid {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    /* center the cards horizontally */
+    align-items: start;
+    /* align the cards to the top */
 }
 
 .card {
-    flex: 1 0 calc(33.333% - 2%);
-    /* adjusting the width to take closer to 1/3rd of the container's width */
+    width: calc(33.333% - 2%);
+    /* Fixed width */
     margin: 1%;
     border: 1px solid #e5e5e5;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: #fafafa;
     border-radius: 8px;
     transition: box-shadow 0.3s, transform 0.3s;
-    /* transition for hover effect */
 }
 
 .card:hover {
@@ -36,11 +57,20 @@
     position: relative;
     padding: 16px;
     /* just to ensure there's space around the content */
+    max-height: 100%;
+    overflow: hidden;
 }
 
-.date-container {
+.card .date-container {
     position: absolute;
     bottom: 16px;
     right: 16px;
     font-size: 0.85em;
+}
+
+.custom-card-content {
+    position: relative;
+    padding: 16px;
+    max-height: 100%;
+    overflow: hidden;
 }
