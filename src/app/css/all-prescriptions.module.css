@@ -4,7 +4,17 @@
 }
 
 .card {
-    flex: 1 0 32%;
-    /* taking into account some margin space */
+    flex: 1 0 30%;
+    /* adjusting the width to take closer to 1/3rd of the container's width */
     margin: 1%;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fafafa;
+    transition: box-shadow 0.3s, transform 0.3s;
+    /* transition for hover effect */
+}
+
+.card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
 }
