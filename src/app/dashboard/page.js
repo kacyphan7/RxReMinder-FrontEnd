@@ -20,16 +20,6 @@ function Dashboard() {
 
     const [refreshPercentage, setRefreshPercentage] = useState(false);
 
-    if (typeof window !== 'undefined') {
-        const expiration = new Date(localStorage.getItem('expiration') * 1000);
-        let currentTime = Date.now();
-
-        if (currentTime > expiration) {
-            handleLogout();
-            router.push('/login');
-        }
-    }
-
     useEffect(() => {
         setAuthToken(localStorage.getItem('jwtToken'));
         if (localStorage.getItem('jwtToken')) {
@@ -51,6 +41,18 @@ function Dashboard() {
             router.push('/login');
         }
     }, [router]);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const expiration = new Date(localStorage.getItem('expiration') * 1000);
+            let currentTime = Date.now();
+
+            if (currentTime > expiration) {
+                handleLogout();
+                router.push('/login');
+            }
+        }
+    }, []);
 
     if (isLoading) return <div>Loading...</div>;
     if (!user) return <div>Not authorized</div>;
