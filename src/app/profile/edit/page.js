@@ -7,6 +7,7 @@ import handleLogout from '@/app/utils/handleLogout';
 import axios from 'axios';
 
 import Layout from '@/app/components/sidebar/SideBar';
+import styles from 'src/app/css/edit-user.module.css';
 
 export default function UserProfile() {
     const router = useRouter();
@@ -118,17 +119,19 @@ export default function UserProfile() {
 
     return (
         <Layout>
-            <div className="container">
-                <h1 className="title is-3 edit-profile-heading">Edit User Profile</h1>
+            <div className={styles.editContainer}>
+                <form onSubmit={handleSubmit} className={styles.editForm}>
+                {/* <h1 className="title is-3 edit-profile-heading">Edit User Profile</h1> */}
+                <h1 className={styles.editHeading}>Edit User Profile</h1> 
+                
                 {showNotification && (
                     <div className="notification is-success">
                         Changes have been saved.
                     </div>
                 )}
-                <form onSubmit={handleSubmit}>
-                    <div className="field">
+                    <div className={styles.field}>
                         <label className="label">First Name:</label>
-                        <div className="control">
+                        <div className={styles.control}>
                             <input
                                 className="input"
                                 type="text"
@@ -138,9 +141,9 @@ export default function UserProfile() {
                         </div>
                     </div>
 
-                    <div className="field">
+                    <div className={styles.field}>
                         <label className="label">Last Name:</label>
-                        <div className="control">
+                        <div className={styles.control}>
                             <input
                                 className="input"
                                 type="text"
@@ -150,9 +153,9 @@ export default function UserProfile() {
                         </div>
                     </div>
 
-                    <div className="field">
+                    <div className={styles.field}>
                         <label className="label">Email:</label>
-                        <div className="control">
+                        <div className={styles.control}>
                             <input
                                 className="input"
                                 type="text"
@@ -162,9 +165,9 @@ export default function UserProfile() {
                         </div>
                     </div>
 
-                    <div className="field">
+                    <div className={styles.field}>
                         <label className="label">Birthdate:</label>
-                        <div className="control">
+                        <div className={styles.control}>
                             <input
                                 className="input"
                                 type="date"
@@ -174,9 +177,9 @@ export default function UserProfile() {
                         </div>
                     </div>
 
-                    <div className="field">
+                    <div className={styles.field}>
                         <label className="label">Phone Number:</label>
-                        <div className="control">
+                        <div className={styles.control}>
                             <input
                                 className="input"
                                 type="text"
@@ -185,33 +188,19 @@ export default function UserProfile() {
                             />
                         </div>
                     </div>
-                    <div className="field">
-                        <div className="control">
-                            <button className="button is-primary" type="submit">Save Changes</button>
+                    <div className={styles.field}>
+                        <div className={styles.control}>
+                            <button className={styles.editButton} type="submit">Save Changes</button>
                             <button
-                                className="button is-primary"
-                                style={{ marginLeft: '10px' }}
-                                onClick={() => router.push('/profile')}
-                            >
-                                Cancel Changes
-                            </button>
-                            <button
-                                type="button"
-                                className="btn btn-delete"
-                                style={{
-                                    marginLeft: '910px',
-                                    backgroundColor: 'red',
-                                    color: 'white',
-                                    border: '1px solid red', // Added border style
-                                    padding: '10px 15px', // Added padding for button size
-                                    cursor: 'pointer', // Added cursor style
-                                }}
+                                type="button is-fullwidth"
+                                className={styles.deleteButton}
                                 onClick={handleDeleteAccount}
                             >
                                 Delete Account
                             </button>
                         </div>
                     </div>
+                    <span className='icon is-right'><a onClick={() => router.push('/profile')}><i className="fa-solid fa-person-walking-arrow-loop-left fa-xl"></i></a></span>
                 </form>
             </div>
         </Layout>
