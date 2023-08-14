@@ -25,7 +25,7 @@ export default function AllPrescriptions({ user }) { // accept user as a prop
     }, []);
 
     return (
-        <div className={styles.cards - grid}>
+        <div className={styles["cards-grid"]}>
             {prescriptions.map(prescription => (
                 <div key={prescription.prescription._id} className={styles.card}>
                     <div className="card-content">
