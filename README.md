@@ -103,9 +103,6 @@ npm install moment
 ## Email Reminder 
 ![Email](src/app/assets/email.png)
 
-## Edit Profile
-![Email](src/app/assets/editProfile.png)
-
 # Key Features
 
 - Authentication: RxReMinder uses JSON Web Tokens (JWT) for authentication to secure the API and ensure that only authorized users can access certain routes.
