@@ -38,11 +38,11 @@ export default function AllPrescriptions({ user }) {
 
             <br />
             <div className={styles["more-info"]}>
-                <p><strong>Quantity:</strong> {prescription.quantity}</p>
+                <p><strong>Quantity:</strong> {prescription.prescription.quantity}</p>
                 <br />
-                <p><strong>Directions:</strong> {prescription.directions}</p>
+                <p><strong>Directions:</strong> {prescription.prescription.medication.directions}</p>
                 <br />
-                <p><strong>Notes:</strong> {prescription.notes}</p>
+                <p><strong>Notes:</strong> {prescription.prescription.notes}</p>
                 <br />
                 <div className={styles["button-container"]}>
                     <button className={styles["info-button"]}>See More Info</button>
