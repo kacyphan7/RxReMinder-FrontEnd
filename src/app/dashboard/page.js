@@ -6,7 +6,7 @@ import setAuthToken from '@/app/utils/setAuthToken';
 import handleLogout from '@/app/utils/handleLogout';
 import axios from 'axios';
 import styles from 'src/app/css/dashboard.module.css';
-
+import Link from 'next/link';
 import CustomCalendar from '@/app/components/calendar/Calendar';
 import DayDoses from '@/app/components/daydoses/DayDoses';
 import Layout from '@/app/components/sidebar/SideBar';
@@ -109,7 +109,19 @@ function Dashboard() {
                         <div className="level">
                             <div className="level-right">
                                 <figure className="image is-48x48">
-                                    <img src="/path-to-user-profile-icon.jpg" alt="User's Profile" />
+                                    <Link href="/profile" passHref> {/* Replace "/profile" with the actual route you want to link to */}
+                                        <a className="profile-link">
+                                            <img
+                                                className="profile-image"
+                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAKkc75rQaHcPgt-NluetIkn0mA8Xyos716A&usqp=CAU"
+                                                alt="User's Profile"
+                                                style={{
+                                                    clipPath: 'circle(50% at 50% 50%)',
+                                                    marginLeft: '290px', // Move the image to the right
+                                                }}
+                                            />
+                                        </a>
+                                    </Link>
                                 </figure>
                             </div>
                         </div>
