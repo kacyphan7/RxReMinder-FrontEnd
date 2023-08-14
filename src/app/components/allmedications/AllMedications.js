@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bulma/css/bulma.css';
 import jwtDecode from 'jwt-decode';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import handleLogout from '@/app/utils/handleLogout';
 import setAuthToken from '@/app/utils/setAuthToken';
 
