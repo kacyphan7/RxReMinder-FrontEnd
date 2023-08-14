@@ -1,0 +1,32 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    padding-top: 20px;
+    background-image: url('https://files.123freevectors.com/wp-content/original/110489-blue-blurred-background-vector.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.whiteText {
+    color: white;
+}
+
+.noSidePadding {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0px;
+
+}
+
+.marginLeft {
+    margin-left: 20px;
+
+}
+
+.marginRight {
+    margin-right: 20px;
+
+}
