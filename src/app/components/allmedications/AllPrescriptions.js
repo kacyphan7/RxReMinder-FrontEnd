@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 import 'bulma/css/bulma.css';
-import styles from 'src/app/css/all-prescriptions.module.css';
+import styles from 'src/app/css/all-prescriptions.module.css'
 
 export default function AllPrescriptions({ user }) { // accept user as a prop
     const [prescriptions, setPrescriptions] = useState([]);
@@ -25,9 +25,9 @@ export default function AllPrescriptions({ user }) { // accept user as a prop
     }, []);
 
     return (
-        <div className="all-prescriptions">
+        <div className={styles.cards - grid}>
             {prescriptions.map(prescription => (
-                <div key={prescription.prescription._id} className="card">
+                <div key={prescription.prescription._id} className={styles.card}>
                     <div className="card-content">
                         <p className="title">{prescription.prescription.medication.name}</p>
                         <p className="subtitle">{prescription.prescription.medication.category}</p>
