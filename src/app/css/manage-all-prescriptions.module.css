@@ -1,5 +1,5 @@
 .contentWrapper {
-    padding-top: 50px;
+    padding-top: 30px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -15,4 +15,6 @@
 .titleContainer {
     display: flex;
     justify-content: center;
+    margin-bottom: 25px;
+    margin-top: 0px;
 }
