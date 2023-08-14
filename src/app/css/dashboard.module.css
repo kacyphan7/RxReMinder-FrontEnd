@@ -17,4 +17,16 @@
 .noSidePadding {
     padding-left: 0;
     padding-right: 0;
+    margin-left: 0px;
+
+}
+
+.marginLeft {
+    margin-left: 20px;
+
+}
+
+.marginRight {
+    margin-right: 20px;
+
 }

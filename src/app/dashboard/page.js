@@ -104,8 +104,7 @@ function Dashboard() {
                     </div> {/* end of main content column */}
 
                     {/* RIGHT COLUMN (1/3) */}
-                    <div className="column is-one-third">
-
+                    <div className={`${styles.marginLeft} column is-one-third`}>
                         {/* Profile Image */}
                         <div className="level">
                             <div className="level-right">
