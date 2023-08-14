@@ -44,8 +44,10 @@ export default function AllPrescriptions({ user }) {
                 <br />
                 <p><strong>Notes:</strong> {prescription.notes}</p>
                 <br />
-                <button className={styles["info-button"]}>See More Info</button>
-                <button className={styles["delete-button"]}>Delete Prescription</button>
+                <div className={styles["button-container"]}>
+                    <button className={styles["info-button"]}>See More Info</button>
+                    <button className={styles["delete-button"]}>Delete Prescription</button>
+                </div>
             </div>
         </div>
     );
