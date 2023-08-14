@@ -9,3 +9,12 @@
     background-size: cover;
     background-position: center;
 }
+
+.whiteText {
+    color: white;
+}
+
+.noSidePadding {
+    padding-left: 0;
+    padding-right: 0;
+}

@@ -61,12 +61,12 @@ function Dashboard() {
                 <div className="columns">
 
                     {/* MAIN CONTENT COLUMN (2/3) */}
-                    <div className="column is-two-thirds">
+                    <div className={`${styles.noSidePadding} column is-two-thirds`}>
 
                         {/* Greeting */}
                         <div className="level">
                             <div className="level-left">
-                                <h1 className="title is-2">Hello, {user.firstName}!</h1>
+                                <h1 className={`${styles.whiteText} title is-2`}>Hello, {user.firstName}!</h1>
                             </div>
                         </div>
 
