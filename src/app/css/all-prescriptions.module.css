@@ -1,39 +1,30 @@
 .backgroundWrapper {
-    background-image: url('https://files.123freevectors.com/wp-content/original/110489-blue-blurred-background-vector.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    position: fixed;
-    /* Fixed position */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    /* Cover the entire viewport */
-    z-index: -1;
-    /* Put it behind other content */
+    position: relative;
+    /* Adjusted this */
+    /* Removed the top, left, right, bottom properties */
+    /* z-index: -1; */
 }
-
-
 
 .cards-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    /* center the cards horizontally */
     align-items: start;
-    /* align the cards to the top */
 }
 
 .card {
     width: calc(33.333% - 2%);
-    /* Fixed width */
     margin: 1%;
     border: 1px solid #e5e5e5;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: #fafafa;
     border-radius: 8px;
     transition: box-shadow 0.3s, transform 0.3s;
+    position: relative;
+    /* Ensures that child elements with 'absolute' positioning refer to this container */
+    overflow: hidden;
+    /* Add this to ensure that the content outside of the card is not visible */
+
 }
 
 .card:hover {
@@ -41,24 +32,23 @@
     transform: translateY(-5px);
 }
 
-.title {
+.title,
+.subtitle {
     text-align: center;
+}
+
+.title {
     margin-top: 40%;
 }
 
 .subtitle {
-    text-align: center;
     font-size: 0.85em;
     font-style: italic;
     margin-top: 10px;
 }
 
 .card-content {
-    position: relative;
     padding: 16px;
-    /* just to ensure there's space around the content */
-    max-height: 100%;
-    overflow: hidden;
 }
 
 .card .date-container {
@@ -66,27 +56,23 @@
     bottom: 16px;
     right: 16px;
     font-size: 0.85em;
-}
-
-.custom-card-content {
-    position: relative;
-    padding: 16px;
-    max-height: 100%;
-    overflow: hidden;
+    z-index: 2;
+    /* Ensures the date stays on top */
 }
 
 .more-info {
     overflow: hidden;
-    height: 0;
-    /* Initially hide the information */
-    transition: height 0.3s ease-in-out;
-    /* Smooth transition effect */
+    max-height: 0;
+    /* Initially set max height to 0 */
+    transition: max-height 0.5s ease-in-out;
+    padding: 0 16px;
 }
 
 .card:hover .more-info {
-    height: 120px;
-    /* Adjust height based on content or as required */
+    max-height: 500px;
+    /* On hover, expand it to a large value. Adjust if necessary. */
 }
+
 
 .info-button,
 .delete-button {

@@ -1,6 +1,13 @@
 .contentWrapper {
     padding-top: 50px;
+    background-image: url('https://files.123freevectors.com/wp-content/original/110489-blue-blurred-background-vector.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height: 100vh;
+    /* Ensure it takes up at least the full height of the viewport */
 }
+
 
 .whiteText {
     color: white;
