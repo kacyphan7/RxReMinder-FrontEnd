@@ -1,18 +1,21 @@
 .cards-grid {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    /* center the cards horizontally */
+    align-items: start;
+    /* align the cards to the top */
 }
 
 .card {
-    flex: 1 0 calc(33.333% - 2%);
-    /* adjusting the width to take closer to 1/3rd of the container's width */
+    width: calc(33.333% - 2%);
+    /* Fixed width */
     margin: 1%;
     border: 1px solid #e5e5e5;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: #fafafa;
     border-radius: 8px;
     transition: box-shadow 0.3s, transform 0.3s;
-    /* transition for hover effect */
 }
 
 .card:hover {
