@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import styles from 'src/app/css/new-medication.module.css';
 
 export default function NewMedicationForm() {
     const router = useRouter();
@@ -27,7 +28,7 @@ export default function NewMedicationForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/medications/new`, { name, category, directions })
             .then(response => {
                 setShowNotification(true); // Show the notification
@@ -40,27 +41,26 @@ export default function NewMedicationForm() {
                 setError(true);
                 // console.log(error);
             });
-    }
+    };
 
     return (
         <>
             {error ? <div className="error notification">Medication already exists.</div> : null}
-            <div className="container">
-                <h1>Create New Medication</h1>
-                {showNotification && (
-                    <div className="notification is-success">
-                        Medication created.
-                    </div>
-                )}
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <div>
-                            <input type="text" id="name" name="name" placeholder="Medication Name" value={name} onChange={handleName} required />
+        
+            <div className={styles.medicationContainer}>
+                <form onSubmit={handleSubmit} className={styles.medicationForm}>
+                    <h1 className={styles.medicationHeading}>Create New Medication</h1>
+                    {showNotification && (
+                        <div className="notification is-success">Medication created.</div>
+                    )}
+                    <div className={styles.field}>
+                        <div className={styles.control}>
+                            <input className={styles.transparentInput} type="text" id="name" name="name" placeholder="Medication Name" value={name} onChange={handleName} required />
                         </div>
                     </div>
-                    <div>
-                        <div>
-                            <select name="cateogry" id="category" value={category} onChange={handleCategory} required>
+                    <div className={styles.field}>
+                        <div className={styles.control}>
+                            <select className={styles.transparentInput} name="cateogry" id="category" value={category} onChange={handleCategory} required>
                                 <option value="" disabled>Select a Category</option>
                                 <option value="Antibiotic">Antibiotic</option>
                                 <option value="Antidepressant">Antidepressant</option>
@@ -81,13 +81,14 @@ export default function NewMedicationForm() {
                             </select>
                         </div>
                     </div>
-                    <div>
-                        <div>
-                            <input type="text" id="directions" name="directions" placeholder="Directions" value={directions} onChange={handleDirections} required />
+                    <div className={styles.field}>
+                        <div className={styles.control}>
+                            <input className={styles.transparentInput} type="text" id="directions" name="directions" placeholder="Directions" value={directions} onChange={handleDirections} required />
                         </div>
                     </div>
-                    <div>
-                        <button type="submit">Create</button>
+                    <div className={styles.control}>
+                        <button className={styles.medicationButton} type="submit">Create</button>
+                        <span className='icon is-right'><a onClick={() => router.push('/prescriptions/new')}><i className="fa-solid fa-person-walking-arrow-loop-left fa-xl"></i></a></span>
                     </div>
                 </form>
             </div>
