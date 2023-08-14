@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import setAuthToken from '@/app/utils/setAuthToken';
-import handleLogout from '@/app/utils/handleLogout';
 import axios from 'axios';
 
 import 'bulma/css/bulma.css';
@@ -12,32 +10,10 @@ export default function AllPrescriptions({ user }) { // accept user as a prop
     const [prescriptions, setPrescriptions] = useState([]);
     const router = useRouter();
 
-    if (typeof window !== 'undefined') {
-        const expiration = new Date(localStorage.getItem('expiration') * 1000);
-        let currentTime = Date.now();
-
-        if (currentTime > expiration) {
-            handleLogout();
-            router.push('/');
-        }
-    }
-
-    useEffect(() => {
-        setAuthToken(localStorage.getItem('jwtToken'));
-        if (!user) {
-            router.push('/login');
-        }
-    }, [router, user]);
-
     useEffect(() => {
         async function fetchPrescriptions() {
             try {
-                const response = await axios.get('http://localhost:8000/prescriptions/mymedications', {
-                    headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('jwtToken')
-                    }
-                });
-
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/prescriptions/user`);
                 setPrescriptions(response.data);
             } catch (error) {
                 console.error('Error fetching prescriptions:', error);
