@@ -74,3 +74,43 @@
     max-height: 100%;
     overflow: hidden;
 }
+
+.more-info {
+    overflow: hidden;
+    height: 0;
+    /* Initially hide the information */
+    transition: height 0.3s ease-in-out;
+    /* Smooth transition effect */
+}
+
+.card:hover .more-info {
+    height: 120px;
+    /* Adjust height based on content or as required */
+}
+
+.info-button,
+.delete-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.info-button {
+    background-color: #007BFF;
+    color: white;
+}
+
+.info-button:hover {
+    background-color: #0056b3;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
