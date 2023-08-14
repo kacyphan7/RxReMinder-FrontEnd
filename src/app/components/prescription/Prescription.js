@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import styles from 'src/app/css/single-prescription.module.css'
+import styles from 'src/app/css/single-prescription.module.css';
 
 
 
@@ -16,6 +16,16 @@ export default function SinglePrescription({ prescriptionId }) {
         marginTop: '100px'
     };
 
+    if (typeof window !== 'undefined') {
+        const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
+        let currentTime = Date.now();
+
+        if (currentTime >= expirationTime) {
+            handleLogout();
+            router.push('/login');
+        }
+    }
+
     const handleDelete = () => {
         axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/prescriptions/${prescriptionId}`)
             .then(response => {
@@ -26,7 +36,7 @@ export default function SinglePrescription({ prescriptionId }) {
                 console.log(err);
             });
     };
-    
+
     const parseFreq = (freq) => {
         if (freq === 'once') {
             return 'Daily';
@@ -61,18 +71,18 @@ export default function SinglePrescription({ prescriptionId }) {
 
                         <div class="card">
                             <div class="card-content">
-                        <h1 className='title has-text-centered'>Your Prescription</h1>
-                        <hr aria-hidden='true'/>
+                                <h1 className='title has-text-centered'>Your Prescription</h1>
+                                <hr aria-hidden='true' />
                                 <div className="media">
                                     <div className="media-left">
                                         <figure className="image is-96x96">
-                                            <img src="https://media.istockphoto.com/id/1028691062/vector/pharmacy-and-medicine-line-icon-on-gray-background.jpg?s=612x612&w=0&k=20&c=ibXT5DPEbKXWAVltGkW1xiItsdqV_3Js7yWyLFK6GTA=" alt="Placeholder image"/>
+                                            <img src="https://media.istockphoto.com/id/1028691062/vector/pharmacy-and-medicine-line-icon-on-gray-background.jpg?s=612x612&w=0&k=20&c=ibXT5DPEbKXWAVltGkW1xiItsdqV_3Js7yWyLFK6GTA=" alt="Placeholder image" />
                                         </figure>
                                     </div>
                                     <div className="media-content has-text-centered">
                                         <p className="title is-4">Medication: {data.prescription.medication.name}</p>
                                         <p className="title is-6">Category: {data.prescription.medication.category}</p>
-                                        <hr aria-hidden='true'/>
+                                        <hr aria-hidden='true' />
                                     </div>
                                 </div>
 
@@ -80,18 +90,18 @@ export default function SinglePrescription({ prescriptionId }) {
                                     <p>Frequency: {freq}</p>
                                     <p>Dosage: {data.prescription.quantity}</p>
                                     <p>Directions: {data.prescription.medication.directions}</p>
-                                    <br aria-hidden='true'/>
-                                    <hr aria-hidden='true'/>
+                                    <br aria-hidden='true' />
+                                    <hr aria-hidden='true' />
                                     <p>Dose Time: {data.time1}</p>
                                     {data.time2 ? <p>Second Dose Time: {data.time2}</p> : null}
                                     <p>Start Date: {data.startDate}</p>
                                     <p>End Date: {data.endDate}</p>
-                                    <hr aria-hidden='true'/>
+                                    <hr aria-hidden='true' />
                                     <p>Notes: {data.prescription.notes}</p>
-                                    <br aria-hidden='true'/>
-                                    <hr aria-hidden='true'/>
-                                    <span><a onClick={() => {handleDelete} }><i className="fa-solid fa-trash fa-2xl"></i></a></span>
-                                    
+                                    <br aria-hidden='true' />
+                                    <hr aria-hidden='true' />
+                                    <span><a onClick={() => { handleDelete; }}><i className="fa-solid fa-trash fa-2xl"></i></a></span>
+
                                 </div>
                             </div>
                         </div>

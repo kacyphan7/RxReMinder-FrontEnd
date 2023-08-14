@@ -23,15 +23,27 @@ export default function UserProfile() {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [showNotification, setShowNotification] = useState(false);
 
-	const parseBirthdate = (birthdate) => {
-		let date = new Date(birthdate);
-		date.setDate(date.getDate() + 1);
-		let year = date.getFullYear();
-		let month = date.getMonth() + 1;
-		let day = date.getDate();
-		let formattedDate = `${year}-${month}-${day}`;
-		return formattedDate;
-	}
+    const parseBirthdate = (birthdate) => {
+        let date = new Date(birthdate);
+        date.setDate(date.getDate() + 1);
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let formattedDate = `${year}-${month}-${day}`;
+        return formattedDate;
+    };
+
+
+    if (typeof window !== 'undefined') {
+        const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
+        let currentTime = Date.now();
+
+        if (currentTime >= expirationTime) {
+            handleLogout();
+            router.push('/login');
+        }
+    }
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -121,14 +133,14 @@ export default function UserProfile() {
         <Layout>
             <div className={styles.editContainer}>
                 <form onSubmit={handleSubmit} className={styles.editForm}>
-                {/* <h1 className="title is-3 edit-profile-heading">Edit User Profile</h1> */}
-                <h1 className={styles.editHeading}>Edit User Profile</h1> 
-                
-                {showNotification && (
-                    <div className="notification is-success">
-                        Changes have been saved.
-                    </div>
-                )}
+                    {/* <h1 className="title is-3 edit-profile-heading">Edit User Profile</h1> */}
+                    <h1 className={styles.editHeading}>Edit User Profile</h1>
+
+                    {showNotification && (
+                        <div className="notification is-success">
+                            Changes have been saved.
+                        </div>
+                    )}
                     <div className={styles.field}>
                         <label className="label">First Name:</label>
                         <div className={styles.control}>

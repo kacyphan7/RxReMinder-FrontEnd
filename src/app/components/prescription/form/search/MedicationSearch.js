@@ -4,14 +4,14 @@ import { useEffect, useState, useCallback } from 'react';
 
 import Link from 'next/link';
 
-export default function MedicationSearch({formData, setFormData}) {
+export default function MedicationSearch({ formData, setFormData }) {
     const [error, setError] = useState(false);
     const [query, setQuery] = useState('');
     const [selected, setSelected] = useState(false);
     const [medicationsLoading, setMedicationsLoading] = useState(true);
     const [medicationsList, setMedicationsList] = useState([]);
     const [medications, setMedications] = useState();
-    
+
     const updateMedicationOptions = useCallback((newQuery) => {
         if (newQuery) {
             if (medicationsLoading) {
@@ -21,11 +21,11 @@ export default function MedicationSearch({formData, setFormData}) {
                 if (newQuery === '') return true;
                 return medication.name.toLowerCase().includes(newQuery.toLowerCase());
             });
-            
+
             setMedicationsList(results);
         }
     }, [medications, medicationsLoading]);
-    
+
     const renderMedications = () => {
         let rows = [];
         for (let i = 0; i < 6 && i < medicationsList.length; i++) {
@@ -33,20 +33,32 @@ export default function MedicationSearch({formData, setFormData}) {
             rows.push(<li key={medId} onClick={() => handleMedId(medicationsList[i])}>{medicationsList[i].name}</li>);
         }
         return rows;
-    }
-    
+    };
+
     const handleMedId = (medication) => {
         setFormData({ ...formData, medId: medication });
         setQuery(medication.name);
         setSelected(true);
-    }
+    };
 
     const handleChange = (e) => {
         const newQuery = e.target.value;
         setQuery(newQuery);
         updateMedicationOptions(newQuery);
+    };
+
+
+    if (typeof window !== 'undefined') {
+        const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
+        let currentTime = Date.now();
+
+        if (currentTime >= expirationTime) {
+            handleLogout();
+            router.push('/login');
+        }
     }
-    
+
+
     useEffect(() => {
         fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/medications`)
             .then((res) => res.json())
@@ -69,7 +81,7 @@ export default function MedicationSearch({formData, setFormData}) {
     useEffect(() => {
         updateMedicationOptions(query);
     }, [query, updateMedicationOptions]);
-    
+
     if (error) {
         return (
             <>
@@ -78,7 +90,7 @@ export default function MedicationSearch({formData, setFormData}) {
             </>
         );
     }
-    
+
     return (
         <>
             <input type="text" className="input" placeholder="Search for a medication" value={query} onChange={handleChange} onClick={() => {

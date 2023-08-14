@@ -29,6 +29,18 @@ export default function NewMedicationForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+
+        if (typeof window !== 'undefined') {
+            const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
+            let currentTime = Date.now();
+
+            if (currentTime >= expirationTime) {
+                handleLogout();
+                router.push('/login');
+            }
+        }
+
+
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/medications/new`, { name, category, directions })
             .then(response => {
                 setShowNotification(true); // Show the notification
@@ -46,7 +58,7 @@ export default function NewMedicationForm() {
     return (
         <>
             {error ? <div className="error notification">Medication already exists.</div> : null}
-        
+
             <div className={styles.medicationContainer}>
                 <form onSubmit={handleSubmit} className={styles.medicationForm}>
                     <h1 className={styles.medicationHeading}>Create New Medication</h1>
