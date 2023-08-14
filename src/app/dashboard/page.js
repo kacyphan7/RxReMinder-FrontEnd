@@ -5,6 +5,7 @@ import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import handleLogout from '@/app/utils/handleLogout';
 import axios from 'axios';
+import styles from 'src/app/css/dashboard.module.css';
 
 import CustomCalendar from '@/app/components/calendar/Calendar';
 import DayDoses from '@/app/components/daydoses/DayDoses';
@@ -56,7 +57,7 @@ function Dashboard() {
 
     return (
         <Layout>
-            <div className="container">
+            <div className={`${styles.formContainer} container`}>
                 <div className="columns">
                     {/* FIRST COLUMN (Navbar) */}
                     {/* <div className="column is-one-quarter navbar-column">
