@@ -56,12 +56,6 @@ export default function Layout({ children }) {
                             <span><a href="/dashboard"><i className="fa-solid fa-cubes fa-xl"></i> DashBoard</a></span>
                             <span><a><i className="fa fa-pencil" aria-hidden="true"></i> Manage Prescriptions</a></span>
                             <span>
-                                <a href="/medications/new">
-                                    <i className="fa fa-plus-square fa-xl"></i>
-                                    New Medication
-                                </a>
-                            </span>
-                            <span>
                                 <a href="/prescriptions/new">
                                     <i className="fa-solid fa-prescription-bottle-medical fa-xl"></i>
                                     New Prescription
