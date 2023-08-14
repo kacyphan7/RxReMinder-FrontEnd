@@ -54,9 +54,12 @@ const MedicationsPage = () => {
     return (
         <Layout>
             <div className={styles.contentWrapper}>
-                <h1 className={`${styles.whiteText} title is-2`}>My Prescriptions</h1>
-                <AllPrescriptions user={user} /> {/* passed the user data as prop */}
+                <div className={styles.titleContainer}>
+                    <h1 className={`${styles.whiteText} title is-2`}>My Prescriptions</h1>
+                </div>
+                <AllPrescriptions user={user} />
             </div>
+
         </Layout>
     );
 }
