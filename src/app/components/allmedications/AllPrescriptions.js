@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 import 'bulma/css/bulma.css';
+import styles from 'src/app/css/all-prescriptions.module.css';
 
 export default function AllPrescriptions({ user }) { // accept user as a prop
     const [prescriptions, setPrescriptions] = useState([]);
@@ -34,8 +35,8 @@ export default function AllPrescriptions({ user }) { // accept user as a prop
                             <p><strong>Frequency:</strong> {prescription.freq}</p>
                             <p><strong>Start Date:</strong> {prescription.startDate}</p>
                             <p><strong>End Date:</strong> {prescription.endDate}</p>
-                            <p><strong>Time 1:</strong> {prescription.time1}</p>
-                            {prescription.freq === 'twice' && <p><strong>Time 2:</strong> {prescription.time2}</p>}
+                            {/* <p><strong>Time 1:</strong> {prescription.time1}</p>
+                            {prescription.freq === 'twice' && <p><strong>Time 2:</strong> {prescription.time2}</p>} */}
                         </div>
                     </div>
                 </div>

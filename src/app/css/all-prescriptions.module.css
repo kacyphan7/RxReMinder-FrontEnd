@@ -1,0 +1,10 @@
+.cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    flex: 1 0 32%;
+    /* taking into account some margin space */
+    margin: 1%;
+}
