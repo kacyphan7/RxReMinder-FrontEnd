@@ -2,14 +2,16 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import handleLogout from '@/app/utils/handleLogout';
 import axios from 'axios';
 
-function MedicationsWidget() {
+export default function MedicationsWidget() {
     const [medications, setMedications] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [user, setUser] = useState(null);
     const router = useRouter();
 
     // Handle session expiration logic
@@ -46,17 +48,17 @@ function MedicationsWidget() {
     }, [router]);
 
     useEffect(() => {
-        if (user) { // Only fetch medications if the user has been set
-            axios.get('http://localhost:8000/prescriptions/user')
-                .then(response => {
-                    setMedications(response.data);
-                })
-                .catch(err => {
-                    console.error("There was an error fetching the medications data: ", err);
-                    setError(err);
-                });
-        }
-    }, [user]); // This effect triggers whenever the user state changes
+        axios.get('http://localhost:8000/prescriptions/user')
+            .then(response => {
+                setMedications(response.data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("There was an error fetching the medications data: ", err);
+                setError(err);
+                setLoading(false);
+            });
+    }, []);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
@@ -73,5 +75,3 @@ function MedicationsWidget() {
         </div>
     );
 }
-
-export default MedicationsWidget;

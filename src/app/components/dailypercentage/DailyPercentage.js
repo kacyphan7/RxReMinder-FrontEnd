@@ -14,7 +14,6 @@ const DailyPercentage = ({ shouldRefresh }) => {
     const router = useRouter();
     const [user, setUser] = useState(null);
     const [percentage, setPercentage] = useState(0);
-
     const [loading, setLoading] = useState(true);
 
     if (typeof window !== 'undefined') {
