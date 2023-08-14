@@ -10,6 +10,7 @@ import CustomCalendar from '@/app/components/calendar/Calendar';
 import DayDoses from '@/app/components/daydoses/DayDoses';
 import Layout from '@/app/components/sidebar/SideBar';
 import DailyPercentage from '@/app/components/dailypercentage/DailyPercentage';
+import MedicationsWidget from '../components/medicationswidget/MedicationsWidget';
 
 function Dashboard() {
     const router = useRouter();
@@ -87,7 +88,8 @@ function Dashboard() {
                             <div className="column">
                                 <div className="card">
                                     <div className="card-content">
-                                        <div>Placeholder content for first card</div>
+                                        {/* <div>Placeholder content for first card</div> */}
+                                        <MedicationsWidget />
                                     </div>
                                 </div>
                             </div>

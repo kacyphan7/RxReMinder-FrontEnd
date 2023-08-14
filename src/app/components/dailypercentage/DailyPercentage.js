@@ -14,7 +14,6 @@ const DailyPercentage = ({ shouldRefresh }) => {
     const router = useRouter();
     const [user, setUser] = useState(null);
     const [percentage, setPercentage] = useState(0);
-
     const [loading, setLoading] = useState(true);
 
     if (typeof window !== 'undefined') {
@@ -81,7 +80,7 @@ const DailyPercentage = ({ shouldRefresh }) => {
                 },
                 donut: {
                     title: `${percentage}%`,
-                    width: 15,
+                    width: 30,
                     startingAngle: 1.5 * Math.PI
                 },
                 transition: {
