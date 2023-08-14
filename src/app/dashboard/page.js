@@ -1,5 +1,4 @@
-'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useClient } from 'react';
 import { useRouter } from 'next/navigation';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
@@ -20,20 +19,12 @@ function Dashboard() {
 
     const [refreshPercentage, setRefreshPercentage] = useState(false);
 
-    if (typeof window !== 'undefined') {
-        const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
-        let currentTime = Date.now();
-
-        if (currentTime >= expirationTime) {
-            handleLogout();
-            router.push('/login');
-        }
-    }
+    const client = useClient();
 
     useEffect(() => {
         setAuthToken(localStorage.getItem('jwtToken'));
         if (localStorage.getItem('jwtToken')) {
-            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/email/${localStorage.getItem('email')}`)
+            axios.get(`<span class="math-inline">\{process\.env\.NEXT\_PUBLIC\_SERVER\_URL\}/users/email/</span>{localStorage.getItem('email')}`)
                 .then((response) => {
                     let userData = jwtDecode(localStorage.getItem('jwtToken'));
                     if (userData.email === localStorage.getItem('email')) {
