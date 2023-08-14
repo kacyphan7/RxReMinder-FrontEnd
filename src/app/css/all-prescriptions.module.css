@@ -1,3 +1,21 @@
+.backgroundWrapper {
+    background-image: url('https://files.123freevectors.com/wp-content/original/110489-blue-blurred-background-vector.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: fixed;
+    /* Fixed position */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Cover the entire viewport */
+    z-index: -1;
+    /* Put it behind other content */
+}
+
+
+
 .cards-grid {
     display: flex;
     flex-wrap: wrap;
