@@ -7,7 +7,7 @@ import axios from 'axios';
 import 'bulma/css/bulma.css';
 import styles from 'src/app/css/all-prescriptions.module.css'
 
-export default function AllPrescriptions({ user }) { // accept user as a prop
+export default function AllPrescriptions({ user }) {
     const [prescriptions, setPrescriptions] = useState([]);
     const router = useRouter();
 
@@ -24,39 +24,43 @@ export default function AllPrescriptions({ user }) { // accept user as a prop
         fetchPrescriptions();
     }, []);
 
-    return (
-        <div className={styles.backgroundWrapper}>
-            <div className={styles["cards-grid"]}>
-                {prescriptions.map(prescription => (
-                    <div key={prescription.prescription._id} className={styles.card}>
-                        <div className="card-content">
-                            <p className="title">{prescription.prescription.medication.name}</p>
-                            <p className="subtitle">{prescription.prescription.medication.category}</p>
-                        </div>
+    const renderCard = (prescription) => (
+        <div key={prescription.prescription._id} className={styles.card}>
+            <div className="card-content">
+                <p className="title">{prescription.prescription.medication.name}</p>
+                <p className="subtitle">{prescription.prescription.medication.category}</p>
+            </div>
 
-                        <div className={styles["date-container"]}>
-                            <p><strong>Start Date:</strong> {prescription.startDate}</p>
-                            <p><strong>End Date:</strong> {prescription.endDate}</p>
-                        </div>
+            <div className={styles["date-container"]}>
+                <p><strong>Start Date:</strong> {prescription.startDate}</p>
+                <p><strong>End Date:</strong> {prescription.endDate}</p>
+            </div>
 
-                        {/* Additional Information Container on hover*/}
-                        <br />
-                        <div className={styles["more-info"]}>
-                            <p><strong>Quantity:</strong> {prescription.quantity}</p>
-                            <br />
-                            <p><strong>Directions:</strong> {prescription.directions}</p>
-                            <br />
-                            <p><strong>Notes:</strong> {prescription.notes}</p>
-                            <br />
-                            <button className={styles["info-button"]}>See More Info</button>
-                            <button className={styles["delete-button"]}>Delete Prescription</button>
-                        </div>
-                    </div>
-                ))}
-
+            <br />
+            <div className={styles["more-info"]}>
+                <p><strong>Quantity:</strong> {prescription.quantity}</p>
+                <br />
+                <p><strong>Directions:</strong> {prescription.directions}</p>
+                <br />
+                <p><strong>Notes:</strong> {prescription.notes}</p>
+                <br />
+                <button className={styles["info-button"]}>See More Info</button>
+                <button className={styles["delete-button"]}>Delete Prescription</button>
             </div>
         </div>
     );
 
-
+    return (
+        <div className={styles.backgroundWrapper}>
+            <div className={styles.column}>
+                {prescriptions.filter((_, idx) => idx % 3 === 0).map(renderCard)}
+            </div>
+            <div className={styles.column}>
+                {prescriptions.filter((_, idx) => idx % 3 === 1).map(renderCard)}
+            </div>
+            <div className={styles.column}>
+                {prescriptions.filter((_, idx) => idx % 3 === 2).map(renderCard)}
+            </div>
+        </div>
+    );
 }

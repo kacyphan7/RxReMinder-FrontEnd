@@ -1,30 +1,24 @@
 .backgroundWrapper {
     position: relative;
-    /* Adjusted this */
-    /* Removed the top, left, right, bottom properties */
-    /* z-index: -1; */
+    display: flex;
+    justify-content: space-between;
 }
 
-.cards-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: start;
+.column {
+    width: 32%;
+    /* adjust according to the number of columns and gaps */
 }
 
 .card {
-    width: calc(33.333% - 2%);
-    margin: 1%;
+    width: 100%;
+    margin-bottom: 1em;
     border: 1px solid #e5e5e5;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: #fafafa;
     border-radius: 8px;
     transition: box-shadow 0.3s, transform 0.3s;
     position: relative;
-    /* Ensures that child elements with 'absolute' positioning refer to this container */
     overflow: hidden;
-    /* Add this to ensure that the content outside of the card is not visible */
-
 }
 
 .card:hover {
@@ -58,20 +52,16 @@
     margin-right: 16px;
 }
 
-
 .more-info {
     overflow: hidden;
     max-height: 0;
-    /* initially set max height to 0 */
     transition: max-height 0.5s ease-in-out;
     padding: 0 16px;
 }
 
 .card:hover .more-info {
     max-height: 400px;
-    /* On hover, expand it to a large value */
 }
-
 
 .info-button,
 .delete-button {
