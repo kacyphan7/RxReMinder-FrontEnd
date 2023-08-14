@@ -11,10 +11,11 @@ import TwoFrequency from './2frequency/Frequency';
 import ThreeTime from './3time/Time';
 import FourDuration from './4duration/Duration';
 import FiveDirections from './5directions/Directions';
+import styles from 'src/app/css/new-prescription.module.css';
 
 export default function Form() {
-	const router = useRouter();
-	const [redirect, setRedirect] = useState(false);
+    const router = useRouter();
+    const [redirect, setRedirect] = useState(false);
     const [error, setError] = useState(false);
     const [page, setPage] = useState(0);
     const [formData, setFormDate] = useState({
@@ -81,17 +82,26 @@ export default function Form() {
             default:
                 return <OneMedication formData={formData} setFormData={setFormData} />;
         }
-    }
+    };
 
     if (redirect) router.push('/dashboard');
 
     return (
-        <>
-            {error ? <p>There was an error submitting your form. Please try again.</p> : null}
-            {conditionalComponent()}
-            { page > 0 && <button className="button" onClick={() => setPage(page - 1)}>Back</button> }
-            <button className="button" onClick={handleSubmit}>{page < 4 ? "Next" : "Submit"}</button>
-            <Link className="button" href="/dashboard">Cancel</Link>
-        </>
+        <div className={styles.formContainer}>
+            <div className={styles.formCard}>
+                <span className='icon is-right' style={{ marginLeft: '720px' }}>
+                    <a onClick={() => router.push('/profile')}>
+                        <i className="fa-solid fa-person-walking-arrow-loop-left fa-xl"></i>Cancel
+                    </a>
+                </span>
+                <h1>Add Prescription</h1>
+                <div className={styles.formSection}>
+                    {error ? <p>There was an error submitting your form. Please try again.</p> : null}
+                    {conditionalComponent()}
+                    {page > 0 && <button className="button" onClick={() => setPage(page - 1)}>Back</button>}
+                    <button className="button" onClick={handleSubmit}>{page < 4 ? "Next" : "Submit"}</button>
+                </div>
+            </div>
+        </div>
     );
 }

@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import handleLogout from '@/app/utils/handleLogout';
+import styles from 'src/app/css/new-prescription.module.css';
+import Layout from '@/app/components/sidebar/SideBar';
 
 import Form from '@/app/components/prescription/form/Form.js';
 
@@ -47,9 +49,10 @@ export default function FormTest() {
     }, [router]);
 
     return (
-        <>
-            <h1>Form Test</h1>
-            <Form />
-        </>
+        <Layout>
+            <div className={styles.formContainer}>
+                <Form />
+            </div>
+        </Layout>
     );
 }
