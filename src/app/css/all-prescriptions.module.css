@@ -36,11 +36,20 @@
     position: relative;
     padding: 16px;
     /* just to ensure there's space around the content */
+    max-height: 100%;
+    overflow: hidden;
 }
 
-.date-container {
+.card .date-container {
     position: absolute;
     bottom: 16px;
     right: 16px;
     font-size: 0.85em;
+}
+
+.custom-card-content {
+    position: relative;
+    padding: 16px;
+    max-height: 100%;
+    overflow: hidden;
 }
