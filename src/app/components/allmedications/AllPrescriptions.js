@@ -32,7 +32,7 @@ export default function AllPrescriptions({ user }) { // accept user as a prop
     useEffect(() => {
         async function fetchPrescriptions() {
             try {
-                const response = await axios.get('http://localhost:8000/prescriptions/user', {
+                const response = await axios.get('http://localhost:8000/prescriptions/mymedications', {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('jwtToken')
                     }
