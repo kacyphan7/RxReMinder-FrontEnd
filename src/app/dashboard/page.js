@@ -89,7 +89,7 @@ function Dashboard() {
                                 <div className="card">
                                     <div className="card-content">
                                         {/* <div>Placeholder content for first card</div> */}
-                                        {/* <MedicationsWidget /> */}
+                                        <MedicationsWidget />
                                     </div>
                                 </div>
                             </div>

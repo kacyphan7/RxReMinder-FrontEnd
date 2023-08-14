@@ -8,11 +8,13 @@ import handleLogout from '@/app/utils/handleLogout';
 import axios from 'axios';
 
 export default function MedicationsWidget() {
+    const router = useRouter();
+    const [user, setUser] = useState(null);
     const [medications, setMedications] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [user, setUser] = useState(null);
-    const router = useRouter();
+
+
 
     // Handle session expiration logic
     if (typeof window !== 'undefined') {
@@ -48,17 +50,19 @@ export default function MedicationsWidget() {
     }, [router]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/prescriptions/user')
-            .then(response => {
-                setMedications(response.data);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error("There was an error fetching the medications data: ", err);
-                setError(err);
-                setLoading(false);
-            });
-    }, []);
+        if (!loading && user) { // mkes sure that the user data is fetched before trying to fetch medications
+            axios.get('http://localhost:8000/prescriptions/user')
+                .then(response => {
+                    setMedications(response.data);
+                    setLoading(false);
+                })
+                .catch(err => {
+                    console.error("There was an error fetching the medications data: ", err);
+                    setError(err);
+                    setLoading(false);
+                });
+        }
+    }, [loading, user]); // Add user as a dependency
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
