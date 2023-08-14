@@ -59,61 +59,55 @@ function Dashboard() {
         <Layout>
             <div className={`${styles.formContainer} container`}>
                 <div className="columns">
-                    {/* FIRST COLUMN (Navbar) */}
-                    {/* <div className="column is-one-quarter navbar-column">
-                        <div className="card full-height">
-                            <div className="card-content">
-                                {/* <navbar /> */}
-                    {/* <div>Placeholder for navbar card</div>
-                            </div>
-                        </div> */}
-                    {/* </div> */}
 
-                    {/* SECOND COLUMN */}
-                    <div className="column is-half">
+                    {/* MAIN CONTENT COLUMN (2/3) */}
+                    <div className="column is-two-thirds">
+
+                        {/* Greeting */}
                         <div className="level">
-                            {/* user greeting */}
                             <div className="level-left">
                                 <h1 className="title is-2">Hello, {user.firstName}!</h1>
                             </div>
                         </div>
 
+                        {/* Calendar */}
                         <div className="card">
                             <div className="card-content">
                                 <CustomCalendar />
                             </div>
                         </div>
                         <br />
+
+                        {/* MedicationsWidget & DailyPercentage side-by-side */}
                         <div className="columns">
-                            {/* First card */}
-                            <div className="column">
+
+                            {/* MedicationsWidget */}
+                            <div className="column is-half">
                                 <div className="card">
                                     <div className="card-content">
-                                        {/* <div>Placeholder content for first card</div> */}
                                         <MedicationsWidget />
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Second card */}
-                            <div className="column">
+                            {/* DailyPercentage */}
+                            <div className="column is-half">
                                 <div className="card">
                                     <div className="card-content">
-                                        {/* <div>Placeholder content for second card</div> */}
                                         <DailyPercentage shouldRefresh={refreshPercentage} />
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    {/* THIRD COLUMN */}
-                    <div className="column is-one-quarter">
+                        </div> {/* end of inner columns */}
+
+                    </div> {/* end of main content column */}
+
+                    {/* RIGHT COLUMN (1/3) */}
+                    <div className="column is-one-third">
+
+                        {/* Profile Image */}
                         <div className="level">
-                            {/* Spacer for the left side */}
-                            <div className="level-left"></div>
-
-                            {/* profile image icon on the right */}
                             <div className="level-right">
                                 <figure className="image is-48x48">
                                     <img src="/path-to-user-profile-icon.jpg" alt="User's Profile" />
@@ -121,16 +115,21 @@ function Dashboard() {
                             </div>
                         </div>
 
+                        {/* DayDoses */}
                         <div className="card">
                             <div className="card-content">
                                 <DayDoses onDoseTaken={setRefreshPercentage} />
                             </div>
                         </div>
-                    </div>
-                </div>
+
+                    </div> {/* end of right column */}
+
+                </div> {/* end of outer columns */}
             </div>
-        </Layout >
+        </Layout>
     );
+
+
 }
 
 export default Dashboard;
