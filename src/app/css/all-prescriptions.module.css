@@ -1,0 +1,46 @@
+.cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    flex: 1 0 calc(33.333% - 2%);
+    /* adjusting the width to take closer to 1/3rd of the container's width */
+    margin: 1%;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fafafa;
+    border-radius: 8px;
+    transition: box-shadow 0.3s, transform 0.3s;
+    /* transition for hover effect */
+}
+
+.card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.title {
+    text-align: center;
+    margin-top: 40%;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 0.85em;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.card-content {
+    position: relative;
+    padding: 16px;
+    /* just to ensure there's space around the content */
+}
+
+.date-container {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    font-size: 0.85em;
+}
