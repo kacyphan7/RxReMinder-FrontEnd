@@ -88,8 +88,23 @@ npm install moment
 ## Register
 ![Register](src/app/assets/register.png)
 
+## Dashboard
+![Dashboard](src/app/assets/dashboard.png)
+
 ## Profile
 ![Profile](src/app/assets/profile.png)
+
+## Prescription
+![Prescription](src/app/assets/prescription.png)
+
+## Medication
+![Medication](src/app/assets/medication.png)
+
+## Email Reminder 
+![Email](src/app/assets/email.png)
+
+## Edit Profile
+![Email](src/app/assets/editProfile.png)
 
 # Key Features
 
@@ -100,6 +115,68 @@ npm install moment
 - Notification system: RxReMinder can send notifications to users to remind them to take their medication and provide them with information about their medication. This can help users stay on top of their medication and avoid missed doses.
 
 RxReMinder is a valuable tool for people who take medication. The application is easy to use and provides a variety of features that can help users stay on top of their medication. If you are looking for a way to manage your medication, RxReMinder is a great option.
+
+# Code Snippets
+## ChartJs - Bar Chart
+```
+ const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const sunWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const monWeek = ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Monday"];
+    const tuesWeek = ["Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Monday", "Tuesday"];
+    const wedWeek = ["Thursday", "Friday", "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"];
+    const thurWeek = ["Friday", "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
+    const friWeek = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    const satWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    const today = new Date().getDay();
+    let weekLabel;
+
+    switch (daysOfWeek[today]) {
+        case "Sunday": weekLabel = sunWeek; break;
+        case "Monday": weekLabel = monWeek; break;
+        case "Tuesday": weekLabel = tuesWeek; break;
+        case "Wednesday": weekLabel = wedWeek; break;
+        case "Thursday": weekLabel = thurWeek; break;
+        case "Friday": weekLabel = friWeek; break;
+        case "Saturday": weekLabel = satWeek; break;
+    }
+```
+
+## C3 - Donut Chart
+```
+useEffect(() => {
+        if (!loading) {
+            const chart = c3.generate({
+                bindto: '#daily-percentage-chart',
+                data: {
+                    columns: [
+                        ['Remaining', 100 - percentage],
+                        ['Percentage', percentage]
+                    ],
+                    type: 'donut',
+                    order: null,
+                    colors: {
+                        Percentage: '#8884d8',
+                        Remaining: '#f4f4f4'
+                    }
+                },
+                donut: {
+                    title: `${percentage}%`,
+                    width: 30,
+                    startingAngle: 1.5 * Math.PI
+                },
+                transition: {
+                    duration: 1500
+                }
+            });
+
+            // Cleanup on unmount
+            return () => {
+                chart.destroy();
+            };
+        }
+    }, [loading, percentage]);
+```
 
 # Wireframe and Entity Relationship Diagram
 <img src="src/app/assets/uiZard.png">
