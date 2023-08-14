@@ -8,21 +8,29 @@ import 'bulma/css/bulma.css';
 import styles from 'src/app/css/all-prescriptions.module.css'
 
 export default function AllPrescriptions({ user }) {
-    const [prescriptions, setPrescriptions] = useState([]);
     const router = useRouter();
+    const [prescriptions, setPrescriptions] = useState([]);
+    const [scripRedirect, setScripRedirect] = useState(null);
 
-    useEffect(() => {
-        async function fetchPrescriptions() {
-            try {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/prescriptions/user`);
-                setPrescriptions(response.data);
-            } catch (error) {
-                console.error('Error fetching prescriptions:', error);
-            }
+    async function fetchPrescriptions() {
+        try {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/prescriptions/user`);
+            setPrescriptions(response.data);
+        } catch (error) {
+            console.error('Error fetching prescriptions:', error);
         }
+    }
 
-        fetchPrescriptions();
-    }, []);
+    const handleDelete = (prescriptionId) => {
+        axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/prescriptions/${prescriptionId}`)
+            .then(response => {
+                console.log(response);
+                fetchPrescriptions();
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
 
     const renderCard = (prescription) => (
         <div key={prescription.prescription._id} className={styles.card}>
@@ -45,12 +53,23 @@ export default function AllPrescriptions({ user }) {
                 <p><strong>Notes:</strong> {prescription.prescription.notes}</p>
                 <br />
                 <div className={styles["button-container"]}>
-                    <button className={styles["info-button"]}>See More Info</button>
-                    <button className={styles["delete-button"]}>Delete Prescription</button>
+                    <button className={styles["info-button"]} onClick={() => { setScripRedirect(prescription.prescription._id) }}>See More Info</button>
+                    <button className={styles["delete-button"]} onClick={() => {handleDelete(prescription.prescription._id)}}>Delete Prescription</button>
                 </div>
             </div>
         </div>
     );
+    
+    useEffect(() => {
+        fetchPrescriptions();
+    }, []);
+
+    useEffect(() => {
+        if (scripRedirect) {
+            localStorage.setItem('prescriptionId', JSON.stringify(scripRedirect));
+            router.push('/prescriptions/single');
+        }
+    }, [scripRedirect]);
 
     return (
         <div className={styles.backgroundWrapper}>
