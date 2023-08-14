@@ -1,12 +1,14 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import 'bulma/css/bulma.css';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import setAuthToken from '@/app/utils/setAuthToken';
+import handleLogout from '@/app/utils/handleLogout';
+import axios from 'axios';
 
+import 'bulma/css/bulma.css';
 
-function AllPrescriptions() {
+export default function AllPrescriptions({ user }) { // accept user as a prop
     const [prescriptions, setPrescriptions] = useState([]);
     const router = useRouter();
 
@@ -19,6 +21,13 @@ function AllPrescriptions() {
             router.push('/');
         }
     }
+
+    useEffect(() => {
+        setAuthToken(localStorage.getItem('jwtToken'));
+        if (!user) {
+            router.push('/login');
+        }
+    }, [router, user]);
 
     useEffect(() => {
         async function fetchPrescriptions() {
@@ -58,5 +67,3 @@ function AllPrescriptions() {
         </div>
     );
 }
-
-export default AllPrescriptions;
