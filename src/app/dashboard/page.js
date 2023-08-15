@@ -19,7 +19,7 @@ function Dashboard() {
     const router = useRouter();
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-
+    const [showMedicationWidget, setShowMedicationWidget] = useState(null);
     const [refreshPercentage, setRefreshPercentage] = useState(false);
 
     if (typeof window !== 'undefined') {
@@ -52,6 +52,10 @@ function Dashboard() {
         } else {
             router.push('/login');
         }
+        const timer = setTimeout(() => {
+            setShowMedicationWidget(true);
+        }, 1000);
+        return () => clearTimeout(timer);
     }, [router]);
 
     if (isLoading) return <div>Loading...</div>;
@@ -60,28 +64,18 @@ function Dashboard() {
     return (
         <Layout>
             <div className={`${styles.dashboardGrid}`}>
-
-                {/* MAIN CONTENT COLUMN (2/3) */}
                 <div className={`${styles.mainContent}`}>
-
-                    {/* Greeting */}
-                    <div className="level">
+                    <div className="level animate__animated animate__fadeInDown">
                         <div className="level-left">
                             <h1 className={`${styles.whiteText} title is-2`}>Hello, {user.firstName}!</h1>
                         </div>
                     </div>
-
-                    {/* Calendar */}
-                    <div className={styles.customCard}>
+                    <div className={`${styles.customCard} animate__animated animate__fadeIn`}>
                         <CustomCalendar className={styles.calendarComponent} />
                     </div>
-
-                    {/* MedicationsWidget & DailyPercentage side-by-side */}
                     <div className={`${styles.nestedGrid}`}>
-
-                        {/* MedicationsWidget */}
                         <div className={`${styles.widget}`}>
-                            <div className={`${styles.customCard} card`}>
+                            <div className={`${styles.customCard} card ${showMedicationWidget === true ? 'animate__animated animate__fadeInUp' : showMedicationWidget === false ? 'invisibleCard' : ''}`} style={showMedicationWidget === null ? { opacity: 0, visibility: 'hidden' } : {}}>
                                 <div className="card-content">
                                     <p>My Medications:</p>
                                     <br />
@@ -90,22 +84,16 @@ function Dashboard() {
                             </div>
                         </div>
 
-                        {/* DailyPercentage */}
                         <div className={`${styles.percentage}`}>
-                            <div className={`${styles.customCard} card`}>
+                            <div className={`${styles.customCard} card animate__animated animate__fadeInUp delayed-animation-1s`}>
                                 <div className="card-content">
                                     <DailyPercentage shouldRefresh={refreshPercentage} />
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
-                {/* RIGHT COLUMN (1/3) */}
                 <div className={`${styles.rightSidebar}`}>
-
-                    {/* Profile Image */}
                     <div className="level">
                         <div className="level-right">
                             <figure className="image is-48x48">
@@ -125,8 +113,6 @@ function Dashboard() {
                             </figure>
                         </div>
                     </div>
-
-                    {/* DayDoses */}
                     <div className={`${styles.customCard} card`}>
                         <div className="card-content">
                             <DayDoses onDoseTaken={setRefreshPercentage} />
@@ -136,8 +122,6 @@ function Dashboard() {
             </div>
         </Layout>
     );
-
-
 
 }
 

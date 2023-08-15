@@ -79,6 +79,19 @@
     overflow-y: auto;
 }
 
+.delayed-animation-1s {
+    animation-delay: 1s !important;
+}
+
+.invisibleCard {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s linear, visibility 0.5s linear;
+}
+
+
+
+
 /* Responsiveness */
 @media (max-width: 768px) {
 
