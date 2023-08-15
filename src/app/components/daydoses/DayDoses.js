@@ -96,8 +96,7 @@ export default function DayDoses({ onDoseTaken }) {
                             </div>
                             <p className={styles.medicationName}><a onClick={() => { handleScripClick(dose.prescription._id) }}>{dose.medication.name}</a></p>
                             <div>
-                                <p className="time">{time}</p>
-                                <p className="period">{period}</p>
+                                <p className={`${styles["dose-time"]} subtitle is-6`}>{`${formatTime(new Date(dose.time)).time} ${formatTime(new Date(dose.time)).period}`}</p>
                             </div>
                         </div>
                     </div>

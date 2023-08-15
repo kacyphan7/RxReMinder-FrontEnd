@@ -31,7 +31,7 @@
 
 .medicationName {
     flex-grow: 1;
-    margin: 0 20px;
+    margin: 0px 10px 0px 3px;
     font-size: 1.2rem;
 }
 
@@ -50,4 +50,13 @@
 .period {
     font-size: 0.9rem;
     line-height: 1;
+}
+
+.dose-time {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #FF57B9;
+    background: linear-gradient(90deg, #FF57B9, #FF3860);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
