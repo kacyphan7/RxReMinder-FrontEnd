@@ -8,6 +8,7 @@ import axios from 'axios';
 
 import Layout from '@/app/components/sidebar/SideBar';
 import styles from 'src/app/css/edit-user.module.css';
+import 'src/app/css/logged-in.css';
 
 export default function UserProfile() {
     const router = useRouter();

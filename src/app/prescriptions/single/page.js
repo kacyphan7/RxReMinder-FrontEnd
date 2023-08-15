@@ -9,6 +9,7 @@ import handleLogout from '@/app/utils/handleLogout';
 
 import Layout from '@/app/components/sidebar/SideBar';
 import SinglePrescription from '@/app/components/prescription/Prescription';
+import 'src/app/css/logged-in.css';
 
 export default function SinglePrescriptionView() {
     const router = useRouter();

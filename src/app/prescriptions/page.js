@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 
 import Layout from '../components/sidebar/SideBar';
 import styles from 'src/app/css/manage-all-prescriptions.module.css';
+import 'src/app/css/logged-in.css';
 
 const MedicationsPage = () => {
     const router = useRouter();
