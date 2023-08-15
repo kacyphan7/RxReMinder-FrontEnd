@@ -105,7 +105,7 @@ npm run dev
 ![Register](src/app/assets/register.png)
 
 ## Dashboard
-![Dashboard](src/app/assets/new-dashboard.png)
+![Dashboard](src/app/assets/dashboard.png)
 
 ## Profile
 ![Profile](src/app/assets/profile.png)
