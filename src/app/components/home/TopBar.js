@@ -2,6 +2,8 @@
 import styles from '@/app/css/topBar.module.css';
 import '@/app/css/globals.css';
 
+import Link from 'next/link';
+
 export default function TopBar() {
     return (
         <nav
@@ -25,12 +27,12 @@ export default function TopBar() {
             <div className={`navbar-end ${styles.buttons}`}>
                 <div className="navbar-item">
                     <div className="buttons">
-                        <a className={`button is-light`} href="/login">
+                        <Link className={`button is-light`} href="/login">
                             Login
-                        </a>
-                        <a className={`button is-info`} href="/register">
+                        </Link>
+                        <Link className={`button is-info`} href="/register">
                             Register
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

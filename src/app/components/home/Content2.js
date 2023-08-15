@@ -2,28 +2,30 @@
 import styles from '@/app/css/content2.module.css';
 import '@/app/css/globals.css';
 
+import Link from 'next/link';
+
 export default function HomeBody() {
     return (
         <main className={styles.main}>
             <h2 className={`${styles.blueText} ${styles.center} ${styles.bold} ${styles.biggerFont}`}>Our Services</h2>
-            <p className={styles.center}> We offer a wide range of reminder services to keep you healthy.</p>
+            <p className={styles.center}>RxReMinder streamlines and simplifies the management of your family's healthcare.</p>
             <div className={styles.section}>
                 <div className={styles.worksChecklist}>
-                    <div className={`${styles.name} ${styles.bold}`}>Affordable</div>
+                    <div className={`${styles.name} ${styles.bold}`}><span className={styles.checkIcon}>✓</span>Community-Driven</div>
                     <p>
-                        <span className={styles.checkIcon}>✓</span>We provide quality healthcare medication reminder services for you and your family. Login or Register to allow us be your reminder for medication time.
+                        Choose from a growing list of medications created by the RxReMinder community.
                     </p>
-                    <div className={`${styles.name} ${styles.bold}`}>Convenient</div>
+                    <div className={`${styles.name} ${styles.bold}`}><span className={styles.checkIcon}>✓</span>Comprehensive</div>
                     <p>
-                        <span className={styles.checkIcon}>✓</span>Pick from a list of category your medication is under. Add the list of medications you have according to your prescription. You may also include over the counter Medications and add directions.
+                        If your medication isn't yet supported, add a custom medication to the database. Include custom directions related to your medication.
                     </p>
-                    <div className={`${styles.name} ${styles.bold}`}>Support</div>
+                    <div className={`${styles.name} ${styles.bold}`}><span className={styles.checkIcon}>✓</span>Consistent</div>
                     <p>
-                        <span className={styles.checkIcon}>✓</span>Prescription is now added to calendar. Return to Dashboard to view medication list and calendar.
+                        Receive an email notification on your mobile device when it's time for a dose.
                     </p>
-                    <div className={`${styles.name} ${styles.bold}`}>Reliable</div>
+                    <div className={`${styles.name} ${styles.bold}`}><span className={styles.checkIcon}>✓</span>Convenient</div>
                     <p>
-                        <span className={styles.checkIcon}>✓</span>You will get a notification via email or SMS when it's time to take your medication according to prescription inputed.
+                        <Link href="/register">Register</Link> to manage your medications from any device.
                     </p>
                 </div>
                 <img
