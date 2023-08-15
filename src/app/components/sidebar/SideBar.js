@@ -15,6 +15,7 @@ export default function Layout({ children }) {
         // the second time but not the first
         setHydrated(true);
     }, []);
+
     if (!hydrated) {
         // Returns null on first render, so the client and server match
         return null;
@@ -45,7 +46,7 @@ export default function Layout({ children }) {
 
     return (
         <>
-            <div className="columns">
+            <div className="columns animate__animated animate__fadeIn">
                 <div style={styleNav} className="column is-one-fifth is-align-content-space-between">
                     <aside className="menu">
                         <h1 style={stylingLogo} className="menu-label">
@@ -62,7 +63,6 @@ export default function Layout({ children }) {
                                 </a>
                             </span>
                             <span><a href="/profile"><i className="fa-solid fa-user fa-xl"></i> My Profile</a></span>
-
                             <span onClick={() => { handleLogout(); }}><a style={lastLi} href="/login"><i className="fa-solid fa-arrow-right-from-bracket fa-xl"></i>   Log Out</a></span>
                         </ul>
                     </aside>

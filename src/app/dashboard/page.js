@@ -22,6 +22,7 @@ function Dashboard() {
     const [showMedicationWidget, setShowMedicationWidget] = useState(null);
     const [refreshPercentage, setRefreshPercentage] = useState(false);
     const [showDayDoses, setShowDayDoses] = useState(null);
+    const [showCustomCalendar, setShowCustomCalendar] = useState(null);
 
     if (typeof window !== 'undefined') {
         const expiration = new Date(localStorage.getItem('expiration') * 1000);
@@ -53,20 +54,26 @@ function Dashboard() {
         } else {
             router.push('/login');
         }
-        // Delay the appearance of MedicationsWidget.
+        // setShowMedicationWidget(false);
+        // setShowDayDoses(false);
+        // setShowCustomCalendar(false);
+
         const timerMedicationWidget = setTimeout(() => {
             setShowMedicationWidget(true);
         }, 250);
 
-        // Delay the appearance of DayDoses.
         const timerDayDoses = setTimeout(() => {
             setShowDayDoses(true);
-        }, 500);  // Adjust this delay if necessary.
+        }, 500);
 
-        // Clean up the timers if the component is unmounted.
+        const timerCustomCalendar = setTimeout(() => {
+            setShowCustomCalendar(true);
+        }, 750);
+
         return () => {
             clearTimeout(timerMedicationWidget);
             clearTimeout(timerDayDoses);
+            clearTimeout(timerCustomCalendar);
         };
     }, [router]);
 
@@ -74,7 +81,7 @@ function Dashboard() {
     if (!user) return <div>Not authorized</div>;
 
     return (
-        <Layout>
+        <Layout className="animate__animated animate__fadeInLeft">
             <div className={`${styles.dashboardGrid}`}>
                 <div className={`${styles.mainContent}`}>
                     <div className="level animate__animated animate__fadeInDown">
@@ -82,9 +89,10 @@ function Dashboard() {
                             <h1 className={`${styles.whiteText} title is-2`}>Hello, {user.firstName}!</h1>
                         </div>
                     </div>
-                    <div className={`${styles.customCard} animate__animated animate__fadeIn`}>
+                    <div className={`${styles.customCard} animate__animated ${showCustomCalendar ? 'animate__fadeIn' : ''}`} style={showCustomCalendar === null ? { opacity: 0, visibility: 'hidden' } : {}}>
                         <CustomCalendar className={styles.calendarComponent} />
                     </div>
+
                     <div className={`${styles.nestedGrid}`}>
                         <div className={`${styles.widget}`}>
                             <div className={`${styles.customCard} card ${showMedicationWidget === true ? 'animate__animated animate__fadeInUp' : showMedicationWidget === false ? 'invisibleCard' : ''}`} style={showMedicationWidget === null ? { opacity: 0, visibility: 'hidden' } : {}}>
