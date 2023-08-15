@@ -20,7 +20,7 @@ export default function HomeHead() {
           </div>
           <div className={`column ${styles.textContainer}`}>
             <h1 className="title is-3">
-              Welcome to Our Medication Tracker App
+              Track your medications with ease and peace of mind.
             </h1>
             <img
               src="https://cdn.dribbble.com/users/4279575/screenshots/15172726/media/5ab1a89af8aedba97f59be8564b3af82.gif"
@@ -28,8 +28,7 @@ export default function HomeHead() {
               className={styles.image}
             />
             <p className="subtitle">
-              We provide quality healthcare medication reminder services for you
-              and your family.
+              RxReMinder provides reliable and convenient medication reminder services for you and your family.
             </p>
           </div>
         </div>
