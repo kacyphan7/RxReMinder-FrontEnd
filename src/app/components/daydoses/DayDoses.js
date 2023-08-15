@@ -2,9 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import jwtDecode from 'jwt-decode';
-import setAuthToken from '@/app/utils/setAuthToken';
-import handleLogout from '@/app/utils/handleLogout';
 import axios from 'axios';
 
 import 'bulma/css/bulma.css';
@@ -20,8 +17,8 @@ export default function DayDoses({ onDoseTaken }) {
     const fetchDosesForToday = async () => {
         try {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/daydoses`);
-            // console.log("here's the data!", response.data);
             setDosesForToday(response.data);
+            setLoading(false);
 
         } catch (error) {
             console.log('Error fetching doses data: ', error);
@@ -31,38 +28,6 @@ export default function DayDoses({ onDoseTaken }) {
             }
         }
     };
-
-    if (typeof window !== 'undefined') {
-        const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
-        let currentTime = Date.now();
-
-        if (currentTime >= expirationTime) {
-            handleLogout();
-            router.push('/login');
-        }
-    }
-
-    useEffect(() => {
-        setAuthToken(localStorage.getItem('jwtToken'));
-        if (localStorage.getItem('jwtToken')) {
-            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/email/${localStorage.getItem('email')}`)
-                .then((response) => {
-                    let userData = jwtDecode(localStorage.getItem('jwtToken'));
-                    if (userData.email === localStorage.getItem('email')) {
-                        setData(response.data.users[0]);
-                        setLoading(false);
-                    } else {
-                        router.push('/login');
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    router.push('/login');
-                });
-        } else {
-            router.push('/login');
-        }
-    }, [router]);
 
     useEffect(() => {
         fetchDosesForToday();
@@ -89,7 +54,6 @@ export default function DayDoses({ onDoseTaken }) {
     const handleDoseTaken = async (doseId) => {
         axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/taken/${doseId}`)
             .then(response => {
-                // console.log("Dose marked as taken");
                 fetchDosesForToday();
                 onDoseTaken(prev => !prev); // toggling the refresh trigger
 

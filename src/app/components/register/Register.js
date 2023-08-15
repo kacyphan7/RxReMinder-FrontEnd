@@ -80,6 +80,7 @@ export default function Register() {
             lastName,
 			birthdate: parseBirthdate(birthdate),
             phoneNumber,
+            timezone: (new Date().getTimezoneOffset()) / 60,
 		};
         
 		axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/signup`, newUser)

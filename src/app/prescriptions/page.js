@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
 import Layout from '../components/sidebar/SideBar';
+import styles from 'src/app/css/manage-all-prescriptions.module.css';
 
 const MedicationsPage = () => {
     const router = useRouter();
@@ -52,10 +53,13 @@ const MedicationsPage = () => {
 
     return (
         <Layout>
-            <div>
-                <h1>My Prescriptions</h1>
-                <AllPrescriptions user={user} /> {/* passed the user data as prop */}
+            <div className={styles.contentWrapper}>
+                <div className={styles.titleContainer}>
+                    <h1 className={`${styles.whiteText} title is-2`}>My Prescriptions</h1>
+                </div>
+                <AllPrescriptions user={user} />
             </div>
+
         </Layout>
     );
 }
