@@ -5,14 +5,12 @@
     background-position: center;
 }
 
-
 .whiteText {
     color: white;
 }
 
 .noSidePadding {
     padding-left: 25px;
-    /* Adjusted padding to give space */
     padding-right: 0;
     margin-left: 0px;
 }
@@ -20,12 +18,42 @@
 .marginLeft {
     margin-left: 20px;
     padding-right: 60px;
-    /* Increased right padding */
 }
-
-
 
 .marginRight {
     margin-right: 20px;
+}
 
+.customCard {
+    background-color: rgba(236, 244, 247, 0.87);
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: none;
+}
+
+/* Main Text Color - A pleasing blue */
+.mainTextColor {
+    color: #005c97;
+}
+
+/* Highlight Text Color - Pinkish tone that complements our blue */
+.highlightTextColor {
+    color: #FF57B9;
+}
+
+/* Secondary Text Color */
+.secondaryTextColor {
+    color: #00A8E8;
+}
+
+.calendarComponent {
+    /* max-width: 90%;
+    /* Adjust the percentage as needed */
+    /* margin: 0 auto; */
+    /* Centers the calendar if it's a block-level element */
+    max-height: 400px;
+    /* Or whatever height value you prefer */
+    overflow-y: auto;
+    /* So if the content exceeds the max height, it becomes scrollable */
 }
