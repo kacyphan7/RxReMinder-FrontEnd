@@ -3,15 +3,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    height: 100vh;
-    padding-top: 20px;
+    height: 110vh;
+    padding-bottom: 100px;
     background-image: url('https://files.123freevectors.com/wp-content/original/110489-blue-blurred-background-vector.jpg');
     background-size: cover;
     background-position: center;
 }
 
 .formCard {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.5);
+    /* Adjust the opacity value here */
     /* Transparent white background */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -27,4 +28,12 @@
 
 .formSection {
     margin-bottom: 20px;
+}
+
+.centered-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    /* Add margin as needed */
 }
