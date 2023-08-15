@@ -5,12 +5,12 @@
 # About
 RxReMinder is a web application that helps users manage their medications. The application provides a variety of features, including:
 
-- A prescription management system that allows users to track their prescriptions and set reminders for when they need to take their medication.
-- A medication database that provides information about different medications and directions.
-- A dose tracking system that allows users to track when they take their medication.
-- A notification system that reminds users to take their medication and provides them with information about their medication.
+- A prescription management system that allows users to track their prescriptions and set recurring reminders for medication doses.
+- A user-driven medication database that provides classification and directions specific to medications.
+- A dose tracking system that allows users to track upcoming, taken, and missed doses.
+- A notification system that reminds users via email when it's time to take their medications.
 
-RxReMinder is still under development, but it has the potential to be a valuable tool for people who take medication. The application is easy to use and provides a variety of features that can help users stay on top of their medication.
+RxReMinder is under development, but has the potential to be a valuable tool for anyone who takes medications. The application is easy to use and provides a variety of features that can help users stay on top of their medication.
 
 ## **Built With**
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
@@ -28,51 +28,65 @@ RxReMinder is still under development, but it has the potential to be a valuable
 - Backend deployed on [Heroku](https://rxreminder-5f38ebd3ad7c.herokuapp.com/)
 - Backend Github Repo [Github](https://github.com/Ellehcim23/RxReMinder-BE)
 
+***
+
 ## Getting Started
 
-1. Clone the repository:
+### Prerequisites
+* Node.js
+* MongoDB database - local install or [Mongo Atlas](http://mongodb.com/atlas)
+* A [Courier](https://app.courier.com/) API key
 
-```
+### Backend
+1. `fork` and `clone` the [RxReMinder-BE](https://github.com/Ellehcim23/RxReMinder-BE) repository.
+```zsh
 git clone https://github.com/your-username/RxReMinder-BE.git
 cd RxReMinder-BE
 ```
-2. Install the dependencies:
-
-```
+2. Install dependencies.
+```zsh
 npm install
 ```
-
-3. Run the development server:
-
+3. Create a `.env` file in the repository root and add the follow environment variables:
+```
+MONGO_URI=insert-your-database-uri-here
+JWT_SECRET=secret-key-of-your-choice
+COURIER_KEY=your-courier-api-key-here
+```
+4. Start the backend server.
 ```zsh
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Additional Installations:
-
-Chart JS
-```
-npm install chart.js
+### Database seeding (optional)
+* Use the following command to pre-load your database with a provided collection of common medications.
+```zsh
+node seeders/medications.js
 ```
 
-Faker
+### Frontend
+1. `fork` and `clone` this repository.
+```zsh
+git clone https://github.com/your-username/RxReMinder-FrontEnd
+cd RxReMinder-FrontEnd
 ```
-npm install --save-dev @faker-js/faker
+2. Install dependencies.
+```zsh
+npm install
 ```
-Font Awesome
+3. Create a `.env` file in the repository root and add the following environment variable:
 ```
-npm install @fortawesome/fontawesome-svg-core \
-            @fortawesome/free-solid-svg-icons \
-            @fortawesome/react-fontawesome
+NEXT_PUBLIC_SERVER_URL=http://localhost:8000
 ```
-Moment
+4. Start the frontend server.
+```zsh
+npm run dev
 ```
-npm install moment
-```
+5. Open [http://localhost:3000](http://localhost:3000) with your web browser to experience the app.
 
-# **Preview Screen**
+***
+
+# **Screenshots**
 ## Home
 ![Home](src/app/assets/home.png)
 ![Component1](src/app/assets/component1.png)
@@ -105,15 +119,7 @@ npm install moment
 ## Email Reminder 
 ![Email](src/app/assets/email.png)
 
-# Key Features
-
-- Authentication: RxReMinder uses JSON Web Tokens (JWT) for authentication to secure the API and ensure that only authorized users can access certain routes.
-- CRUD operations: RxReMinder provides CRUD operations for users,prescriptions, medications, and doses. This allows users to create, read, update, and delete their prescription data.
-- Medication database: RxReMinder has a medication database that provides information about different medications and directions. This information can help users make informed decisions about their medication.
-- Dose tracking: RxReMinder allows users to track when they take their medication. 
-- Notification system: RxReMinder can send notifications to users to remind them to take their medication and provide them with information about their medication. This can help users stay on top of their medication and avoid missed doses.
-
-RxReMinder is a valuable tool for people who take medication. The application is easy to use and provides a variety of features that can help users stay on top of their medication. If you are looking for a way to manage your medication, RxReMinder is a great option.
+***
 
 # Code Snippets
 ## Bar Chart
@@ -140,43 +146,144 @@ RxReMinder is a valuable tool for people who take medication. The application is
         case "Saturday": weekLabel = satWeek; break;
     }
 ```
-
-## Donut Chart
+## Create a New Prescription
 ```
-useEffect(() => {
-        if (!loading) {
-            const chart = c3.generate({
-                bindto: '#daily-percentage-chart',
-                data: {
-                    columns: [
-                        ['Remaining', 100 - percentage],
-                        ['Percentage', percentage]
-                    ],
-                    type: 'donut',
-                    order: null,
-                    colors: {
-                        Percentage: '#8884d8',
-                        Remaining: '#f4f4f4'
-                    }
-                },
-                donut: {
-                    title: `${percentage}%`,
-                    width: 30,
-                    startingAngle: 1.5 * Math.PI
-                },
-                transition: {
-                    duration: 1500
+router.post('/new', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { medId, freq, time1, time2, quantity, startDate, endDate, notes, timezone } = req.body;
+
+        let firstTime1, firstTime2;
+        const dose1Times = [];
+        const dose2Times = [];
+        const numDays = DateTime.fromISO(endDate).diff(DateTime.fromISO(startDate), 'days').toObject().days;
+
+        firstTime1 = DateTime.fromISO(`${startDate}T${time1}-0${timezone}:00`);
+        if (freq === 'twice') firstTime2 = DateTime.fromISO(`${startDate}T${time2}-0${timezone}:00`);
+
+        switch (freq) {
+            case 'twice':
+                for (let i = 0; i < numDays; i++) {
+                    dose2Times.push(DateTime.fromISO(firstTime2).plus({ days: i }).toISO());
                 }
-            });
-
-            // Cleanup on unmount
-            return () => {
-                chart.destroy();
-            };
+            case 'once':
+                for (let i = 0; i < numDays; i++) {
+                    dose1Times.push(DateTime.fromISO(firstTime1).plus({ days: i }).toISO());
+                }
+                break;
+            case 'alternate':
+                for (let i = 0; i < numDays; i += 2) {
+                    dose1Times.push(DateTime.fromISO(firstTime1).plus({ days: i }).toISO());
+                }
+                break;
+            case 'weekly':
+                for (let i = 0; i < numDays; i += 7) {
+                    dose1Times.push(DateTime.fromISO(firstTime1).plus({ days: i }).toISO());
+                }
+                break;
         }
-    }, [loading, percentage]);
+
+        let user = await User.findById(userId);
+        let med = await Medication.findById(medId);
+
+        const newPrescription = new Prescription({
+            user: user,
+            medication: med,
+            quantity: quantity,
+            notes: notes,
+        });
+        user.prescriptions.push(newPrescription);
+        await user.save();
+
+
+        for (let i = 0; i < dose1Times.length; i++) {
+            const newDose = new Dose({
+                user: user,
+                prescription: newPrescription,
+                medication: med,
+                time: dose1Times[i],
+            });
+            await newDose.save();
+            newPrescription.doses.push(newDose);
+
+            if(freq === 'twice') {
+                const newDose = new Dose({
+                    user: user,
+                    prescription: newPrescription,
+                    medication: med,
+                    time: dose2Times[i],
+                });
+                await newDose.save();
+                newPrescription.doses.push(newDose);
+            }
+        }
+
+        const savedPrescription = await newPrescription.save();
+        const lookupPrescription = await Prescription.findById(savedPrescription._id);
+
+        res.status(201).json({ message: 'Prescription created successfully.', prescription: lookupPrescription });
+    } catch (error) {
+        res.status(500).json({ message: 'Error creating prescription.', error });
+    }
+});
 ```
 
+## Notification System
+```
+async function sendNotifications() {
+    let doses = await Dose.find({ time: { $lt: new Date() }, taken: false, notified: false }).populate('user').populate('medication').sort({ time: 1 });
+    
+    console.log(doses.length);
+
+    for (let i = 0; i < doses.length; i++) {
+        let dose = doses[i];
+        let email = dose.user.email;
+        let name = dose.user.firstName;
+        let medication = dose.medication.name;
+        let userOffset = dose.user.timezone;
+        let serverOffset = DateTime.local().offset / -60;
+        let myOffset = serverOffset - userOffset;
+        let time = DateTime.fromJSDate(dose.time).plus({ hours: myOffset }).toFormat('h:mm a');
+        let date = DateTime.fromJSDate(dose.time).toFormat('ccc, LLL dd');
+
+        console.log(email, name, medication, time, date, userOffset, serverOffset, myOffset);
+
+        const { requestId } = await courier.send({
+            message: {
+                to: {
+                    data: {
+                        name: name,
+                        medication: medication,
+                        time: time,
+                        date: date,
+                    },
+                    email: email,
+                },
+                content: {
+                    title: "RxReminder Notification",
+                    body: `Hi ${name}, it's ${time} on ${date}, time to take your ${medication}.\n\nhttps://rx-reminder.netlify.app`,
+                },
+                routing: {
+                    method: "single",
+                    channels: ["email"],
+                },
+            },
+        });
+
+        console.log(requestId);
+
+        if(requestId) {
+            console.log('Notification sent successfully');
+            dose.notified = true;
+            await dose.save();
+        } else {
+            console.log('Notification failed to send');
+        }
+    }
+    process.exit(0);
+}
+```
+***
 # Wireframe and Entity Relationship Diagram
 <img src="src/app/assets/uiZard.png">
 <img src="public/assets/initial-wireframe.png">
@@ -192,7 +299,7 @@ useEffect(() => {
 ### Stretch Goals
 If permitted by legal we would like to essentially partnered with pharmacists to get the prescription information to automatically be entered into our database with user permission. This will allow the user to have a more seamless experience with their refill automatically being added to their profile.
 
-# Sources
+# Resources
 - [Chart JS](https://www.chartjs.org/) - A JavaScript library for creating beautiful charts.
 - [Courier](https://www.courier.com/) - A notification platform that helps developers add notifications to their applications.
 - [Faker](https://fakerjs.dev/guide/) - A library for generating fake data.
