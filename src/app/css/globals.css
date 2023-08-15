@@ -29,11 +29,13 @@ body {
     height: 100%;
 }
 
-body {
-    background-image: url('https://files.123freevectors.com/wp-content/original/110489-blue-blurred-background-vector.jpg');
-    background-color: rgba(245, 245, 245, 0.5);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    min-height: 150vh;
+:not(.register-component, .home-component) {
+    body {
+        background-image: url('https://files.123freevectors.com/wp-content/original/110489-blue-blurred-background-vector.jpg');
+        background-color: rgba(245, 245, 245, 0.5);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        min-height: 150vh;
+    }
 }
