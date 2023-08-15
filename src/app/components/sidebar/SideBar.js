@@ -61,7 +61,7 @@ export default function Layout({ children }) {
                                     New Prescription
                                 </a>
                             </span>
-                            <span><a href="/profile"><i className="fa-solid fa-gear fa-xl"></i> My Account</a></span>
+                            <span><a href="/profile"><i className="fa-solid fa-user fa-xl"></i> My Profile</a></span>
 
                             <span onClick={() => { handleLogout(); }}><a style={lastLi} href="/login"><i className="fa-solid fa-arrow-right-from-bracket fa-xl"></i>   Log Out</a></span>
                         </ul>

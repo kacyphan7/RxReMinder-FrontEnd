@@ -39,8 +39,8 @@ export default function UserProfile() {
 
     function formatBirthdate(birthdate) {
         const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
+            "July", "August", "September", "October", "November", "December"
+        ];
         let date = new Date(birthdate);
         date.setDate(date.getDate() + 1);
         let year = date.getFullYear();
@@ -129,7 +129,7 @@ export default function UserProfile() {
 
                             </div>
                             <div className="tile is-7 is-child box">
-                            <BarChart />
+                                <BarChart />
                             </div>
                         </div>
                     </div>
@@ -137,7 +137,7 @@ export default function UserProfile() {
                         <div className="tile is-11 is-child">
                             <div className="columns is-justify-content-center">
                                 <div className="column is-one-third">
-                                    <Link className="button is-info is-rounded is-fullwidth" href="/profile/edit">Edit User</Link>
+                                    <Link className="button is-info is-rounded is-fullwidth" href="/profile/edit">Edit Profile</Link>
                                 </div>
                                 <div className="column is-one-third">
                                     <Link className="button is-info is-rounded is-fullwidth" href="/prescriptions/new">+ Add New Prescription</Link>

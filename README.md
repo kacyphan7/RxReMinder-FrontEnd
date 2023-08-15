@@ -105,7 +105,7 @@ npm run dev
 ![Register](src/app/assets/register.png)
 
 ## Dashboard
-![Dashboard](src/app/assets/dashboard.png)
+![Dashboard](src/app/assets/new-dashboard.png)
 
 ## Profile
 ![Profile](src/app/assets/profile.png)
@@ -309,6 +309,7 @@ export default function TwoFrequency({formData, setFormData}) {
 ```
 
 ***
+
 # Wireframe and Entity Relationship Diagram
 <img src="src/app/assets/uiZard.png">
 <img src="public/assets/initial-wireframe.png">
