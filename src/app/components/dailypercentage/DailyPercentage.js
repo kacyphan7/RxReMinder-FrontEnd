@@ -7,6 +7,7 @@ import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import { Chart } from 'chart.js/auto';
 import handleLogout from '@/app/utils/handleLogout';
+import styles from 'src/app/css/daily-percentage.module.css';
 
 
 const DailyPercentage = ({ shouldRefresh }) => {
@@ -126,9 +127,9 @@ const DailyPercentage = ({ shouldRefresh }) => {
     return (
         <>
             <h1 className="w-[150px] mx-auto mt-10 has-text-centered text-xl font-semibold capitalize"><strong>Daily Progress</strong></h1>
-            <div className="w-[1100px] h-[500px] flex mx-auto my-auto">
+            <div className={styles.canvasContainer}>
                 <div className='border border-gray-400 pt-0 rounded-xl w-full h-full my-auto shadow-xl'>
-                    <canvas id='doughnut-chart' className="h-full"></canvas>
+                    <canvas id='doughnut-chart' className={`${styles.chartCanvas} h-full`}></canvas>
                 </div>
             </div>
         </>
