@@ -26,6 +26,7 @@ RxReMinder is under development, but has the potential to be a valuable tool for
 ## Deployment
 - Frontend deployed on [Netlify](https://rx-reminder.netlify.app/)
 - Backend deployed on [Heroku](https://rxreminder-5f38ebd3ad7c.herokuapp.com/)
+- Frontend Github Repo [Github](https://github.com/kacyphan7/RxReMinder-FrontEnd)
 - Backend Github Repo [Github](https://github.com/Ellehcim23/RxReMinder-BE)
 
 ***
@@ -65,7 +66,7 @@ node seeders/medications.js
 ```
 
 ### Frontend
-1. `fork` and `clone` this repository.
+1. `fork` and `clone` the [RxReMinder-FrontEnd](https://github.com/kacyphan7/RxReMinder-FrontEnd) repository.
 ```zsh
 git clone https://github.com/your-username/RxReMinder-FrontEnd
 cd RxReMinder-FrontEnd
@@ -83,6 +84,11 @@ NEXT_PUBLIC_SERVER_URL=http://localhost:8000
 npm run dev
 ```
 5. Open [http://localhost:3000](http://localhost:3000) with your web browser to experience the app.
+
+### Notification Engine
+* Set up a recurring engine to run `node notifications.js` on the backend server.
+* The deployed version of RxReMinder uses `Heroku Scheduler` for this purpose.
+* Alternatives include `Netlify Functions` or simply `cron` where allowed.
 
 ***
 
@@ -117,12 +123,52 @@ npm run dev
 ![Medication](src/app/assets/medication.png)
 
 ## Email Reminder 
-![Email](src/app/assets/email.png)
+![Email](src/app/assets/email.jpg)
 
 ***
 
-# Code Snippets
-## Bar Chart
+# Frontend Code Snippets
+* See the README in the [Backend Repo](https://github.com/Ellehcim23/RxReMinder-BE) for backend code snippets.
+
+## Interdependent Dashboard Modules
+```
+// In Dashboard
+const [refreshPercentage, setRefreshPercentage] = useState(false);
+...
+<DailyPercentage shouldRefresh={refreshPercentage} />
+<DayDoses onDoseTaken={setRefreshPercentage} />
+...
+// In DailyPercentage component
+const DailyPercentage = ({ shouldRefresh }) => {
+    useEffect(() => {
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/dailypercentage`)
+            .then(response => {
+                if (response.data !== null) {
+                    setPercentage(response.data);
+                }
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error("There was an error fetching the percentage data: ", error);
+                setLoading(false);
+            });
+    }, [user, shouldRefresh]);
+
+    useEffect(() => {
+        if (!loading) {
+            let ctx = document.getElementById('doughnut-chart').getContext('2d');
+            if (chartRef.current) {
+                chartRef.current.destroy();
+            }
+            ...
+            chartRef.current = new Chart(ctx, {
+                ...
+            });
+        }
+    }, [loading, percentage]);
+}
+```
+## Weekly Progress Bar Chart
 ```
  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const sunWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -145,144 +191,123 @@ npm run dev
         case "Friday": weekLabel = friWeek; break;
         case "Saturday": weekLabel = satWeek; break;
     }
-```
-## Create a New Prescription
-```
-router.post('/new', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    try {
-        const userId = req.user.id;
-        const { medId, freq, time1, time2, quantity, startDate, endDate, notes, timezone } = req.body;
 
-        let firstTime1, firstTime2;
-        const dose1Times = [];
-        const dose2Times = [];
-        const numDays = DateTime.fromISO(endDate).diff(DateTime.fromISO(startDate), 'days').toObject().days;
+    ...
 
-        firstTime1 = DateTime.fromISO(`${startDate}T${time1}-0${timezone}:00`);
-        if (freq === 'twice') firstTime2 = DateTime.fromISO(`${startDate}T${time2}-0${timezone}:00`);
-
-        switch (freq) {
-            case 'twice':
-                for (let i = 0; i < numDays; i++) {
-                    dose2Times.push(DateTime.fromISO(firstTime2).plus({ days: i }).toISO());
-                }
-            case 'once':
-                for (let i = 0; i < numDays; i++) {
-                    dose1Times.push(DateTime.fromISO(firstTime1).plus({ days: i }).toISO());
-                }
-                break;
-            case 'alternate':
-                for (let i = 0; i < numDays; i += 2) {
-                    dose1Times.push(DateTime.fromISO(firstTime1).plus({ days: i }).toISO());
-                }
-                break;
-            case 'weekly':
-                for (let i = 0; i < numDays; i += 7) {
-                    dose1Times.push(DateTime.fromISO(firstTime1).plus({ days: i }).toISO());
-                }
-                break;
-        }
-
-        let user = await User.findById(userId);
-        let med = await Medication.findById(medId);
-
-        const newPrescription = new Prescription({
-            user: user,
-            medication: med,
-            quantity: quantity,
-            notes: notes,
-        });
-        user.prescriptions.push(newPrescription);
-        await user.save();
-
-
-        for (let i = 0; i < dose1Times.length; i++) {
-            const newDose = new Dose({
-                user: user,
-                prescription: newPrescription,
-                medication: med,
-                time: dose1Times[i],
-            });
-            await newDose.save();
-            newPrescription.doses.push(newDose);
-
-            if(freq === 'twice') {
-                const newDose = new Dose({
-                    user: user,
-                    prescription: newPrescription,
-                    medication: med,
-                    time: dose2Times[i],
-                });
-                await newDose.save();
-                newPrescription.doses.push(newDose);
+    useEffect(() => {
+        if (percentage) {
+            let ctx = document.getElementById('myChart').getContext('2d');
+            if (chartRef.current) {
+                chartRef.current.destroy();
             }
+            percentage.forEach((item) => {
+                item = item + '%'
+            });
+            Chart.register(gradient)
+            Chart.defaults.scale.grid.lineWidth = 0
+            chartRef.current = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: weekLabel,
+                ...
+                }
+            });
         }
+    }, [percentage, weekLabel]);
+```
 
-        const savedPrescription = await newPrescription.save();
-        const lookupPrescription = await Prescription.findById(savedPrescription._id);
-
-        res.status(201).json({ message: 'Prescription created successfully.', prescription: lookupPrescription });
-    } catch (error) {
-        res.status(500).json({ message: 'Error creating prescription.', error });
-    }
+## Multi-Step New Prescription Form
+```
+const [formData, setFormDate] = useState({
+    medId: '',
+    quantity: '',
+    freq: '',
+    time1: '',
+    time2: '',
+    startDate: '',
+    endDate: '',
+    notes: '',
+    timezone: (new Date().getTimezoneOffset()) / 60,
 });
-```
 
-## Notification System
-```
-async function sendNotifications() {
-    let doses = await Dose.find({ time: { $lt: new Date() }, taken: false, notified: false }).populate('user').populate('medication').sort({ time: 1 });
-    
-    console.log(doses.length);
-
-    for (let i = 0; i < doses.length; i++) {
-        let dose = doses[i];
-        let email = dose.user.email;
-        let name = dose.user.firstName;
-        let medication = dose.medication.name;
-        let userOffset = dose.user.timezone;
-        let serverOffset = DateTime.local().offset / -60;
-        let myOffset = serverOffset - userOffset;
-        let time = DateTime.fromJSDate(dose.time).plus({ hours: myOffset }).toFormat('h:mm a');
-        let date = DateTime.fromJSDate(dose.time).toFormat('ccc, LLL dd');
-
-        console.log(email, name, medication, time, date, userOffset, serverOffset, myOffset);
-
-        const { requestId } = await courier.send({
-            message: {
-                to: {
-                    data: {
-                        name: name,
-                        medication: medication,
-                        time: time,
-                        date: date,
-                    },
-                    email: email,
-                },
-                content: {
-                    title: "RxReminder Notification",
-                    body: `Hi ${name}, it's ${time} on ${date}, time to take your ${medication}.\n\nhttps://rx-reminder.netlify.app`,
-                },
-                routing: {
-                    method: "single",
-                    channels: ["email"],
-                },
-            },
-        });
-
-        console.log(requestId);
-
-        if(requestId) {
-            console.log('Notification sent successfully');
-            dose.notified = true;
-            await dose.save();
-        } else {
-            console.log('Notification failed to send');
-        }
-    }
-    process.exit(0);
+function setFormData(newFormData) {
+    setFormDate({ ...formData, ...newFormData });
 }
+
+const conditionalComponent = () => {
+    switch (page) {
+        case 0:
+            return <OneMedication formData={formData} setFormData={setFormData} />;
+        case 1:
+            return <TwoFrequency formData={formData} setFormData={setFormData} />;
+        case 2:
+            return <ThreeTime formData={formData} setFormData={setFormData} />;
+        case 3:
+            return <FourDuration formData={formData} setFormData={setFormData} />;
+        case 4:
+            return <FiveDirections formData={formData} setFormData={setFormData} />;
+        default:
+            return <OneMedication formData={formData} setFormData={setFormData} />;
+    }
+};
+...
+<h1>Add Prescription</h1>
+<div className={styles.formSection}>
+    {error ? <p>There was an error submitting your form. Please try again.</p> : null}
+    {conditionalComponent()}
+    {page > 0 && <button className="button" onClick={() => setPage(page - 1)}>Back</button>}
+    <button className="button" onClick={handleSubmit}>{page < 4 ? "Next" : "Submit"}</button>
+</div>
+...
+// In OneMedication component
+export default function OneMedication({formData, setFormData}) {
+
+    function handleQuantity(e) {
+        setFormData({ ...formData, quantity: e.target.value });
+    }
+
+    return (
+        <>
+            <div className="field">
+                <label htmlFor="name">What medication are you taking?</label>
+                <MedicationSearch formData={formData} setFormData={setFormData} />
+            </div>
+            <div className="field">
+                <label htmlFor="dosage">What is the amount per dose?</label>
+                <input className="input" type="text" name="quantity" placeholder="Quantity" onChange={handleQuantity} value={formData['quantity']} />
+            </div>
+        </>
+    );
+}
+...
+// In TwoFrequency component
+export default function TwoFrequency({formData, setFormData}) {
+    function handleFreq(e) {
+        setFormData({ ...formData, freq: e.target.value });
+    }
+
+    useEffect(() => {
+        // effectively makes the default value 'once a day'
+        if (formData['freq'] === '') {
+            setFormData({ ...formData, freq: 'once' });
+        }
+    }, []);
+    
+    return (
+        <div className="field">
+            <label htmlFor="name">How often would you like to take this medication?</label>
+            <select className="input" name="freq" onChange={handleFreq} value={formData['freq']}>
+                <option value="once">Once a Day</option>
+                <option value="twice">Twice a Day</option>
+                <option value="alternate">Every Other Day</option>
+                <option value="weekly">Once a Week</option>
+            </select>
+        </div>
+    );
+}
+
 ```
+
 ***
 # Wireframe and Entity Relationship Diagram
 <img src="src/app/assets/uiZard.png">
