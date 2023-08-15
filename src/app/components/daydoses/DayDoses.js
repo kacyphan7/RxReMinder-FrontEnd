@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 import 'bulma/css/bulma.css';
+import styles from "src/app/css/daydoses.module.css";
 
 export default function DayDoses({ onDoseTaken }) {
     const router = useRouter();
@@ -49,7 +50,7 @@ export default function DayDoses({ onDoseTaken }) {
                 setError(true);
             })
     }
-        
+
 
     const handleDoseTaken = async (doseId) => {
         axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/doses/taken/${doseId}`)
@@ -76,13 +77,13 @@ export default function DayDoses({ onDoseTaken }) {
 
             {dosesForToday.length ? dosesForToday.map(dose => (
                 <div key={dose._id} className="card mb-3">
-                    <div className="card-content">
-                        <p className="title is-6"><a onClick={() => {handleScripClick(dose.prescription._id)}}>{dose.medication.name}</a></p>
+                    <div className={styles.cardContent}>
+                        <div className={styles.checkboxContainer}>
+                            <input type="checkbox" onChange={() => handleDoseTaken(dose._id)} />
+                            <span className={styles.hoverText}>Mark as taken</span>
+                        </div>
+                        <p className={styles.medicationName}><a onClick={() => { handleScripClick(dose.prescription._id) }}>{dose.medication.name}</a></p>
                         <p className="subtitle is-6">{new Date(dose.time).toLocaleTimeString()}</p>
-                        {/* Checkbox to mark the dose as taken */}
-                        <label className="checkbox">
-                            <input type="checkbox" onChange={() => handleDoseTaken(dose._id)} /> Mark as taken
-                        </label>
                     </div>
                 </div>
             )) : <p>No doses to take today.</p>}
