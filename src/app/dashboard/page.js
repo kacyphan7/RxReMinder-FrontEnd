@@ -107,24 +107,21 @@ function Dashboard() {
                     <div className={`${styles.marginLeft} column is-one-third`}>
                         {/* Profile Image */}
                         <div className="level">
-                            <div className="level-right">
+                            <div className="level-item has-text-centered">  {/* centering using Bulma's class */}
                                 <figure className="image is-48x48">
-                                    <Link href="/profile" passHref> {/* Replace "/profile" with the actual route you want to link to */}
-                                        <a className="profile-link">
-                                            <img
-                                                className="profile-image"
-                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAKkc75rQaHcPgt-NluetIkn0mA8Xyos716A&usqp=CAU"
-                                                alt="User's Profile"
-                                                style={{
-                                                    clipPath: 'circle(50% at 50% 50%)',
-                                                    marginLeft: '290px', // Move the image to the right
-                                                }}
-                                            />
-                                        </a>
+                                    <Link href="/profile" className="profile-link">
+                                        <img
+                                            className="profile-image"
+                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAKkc75rQaHcPgt-NluetIkn0mA8Xyos716A&usqp=CAU"
+                                            alt="User's Profile"
+                                            style={{ clipPath: 'circle(50% at 50% 50%)' }}
+                                        />
                                     </Link>
+
                                 </figure>
                             </div>
                         </div>
+
 
                         {/* DayDoses */}
                         <div className="card">
