@@ -21,7 +21,7 @@ export default function Layout({ children }) {
     }
 
     const styleNav = {
-        backgroundColor: '#f5f5f5',
+        backgroundColor: 'rgba(245, 245, 245, 0.5)',
         minHeight: '150vh',
     };
 
