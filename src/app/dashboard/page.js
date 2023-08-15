@@ -21,6 +21,7 @@ function Dashboard() {
     const [isLoading, setIsLoading] = useState(true);
     const [showMedicationWidget, setShowMedicationWidget] = useState(null);
     const [refreshPercentage, setRefreshPercentage] = useState(false);
+    const [showDayDoses, setShowDayDoses] = useState(null);
 
     if (typeof window !== 'undefined') {
         const expiration = new Date(localStorage.getItem('expiration') * 1000);
@@ -52,10 +53,21 @@ function Dashboard() {
         } else {
             router.push('/login');
         }
-        const timer = setTimeout(() => {
+        // Delay the appearance of MedicationsWidget.
+        const timerMedicationWidget = setTimeout(() => {
             setShowMedicationWidget(true);
-        }, 1000);
-        return () => clearTimeout(timer);
+        }, 250);
+
+        // Delay the appearance of DayDoses.
+        const timerDayDoses = setTimeout(() => {
+            setShowDayDoses(true);
+        }, 500);  // Adjust this delay if necessary.
+
+        // Clean up the timers if the component is unmounted.
+        return () => {
+            clearTimeout(timerMedicationWidget);
+            clearTimeout(timerDayDoses);
+        };
     }, [router]);
 
     if (isLoading) return <div>Loading...</div>;
@@ -113,7 +125,7 @@ function Dashboard() {
                             </figure>
                         </div>
                     </div>
-                    <div className={`${styles.customCard} card`}>
+                    <div className={`${styles.customCard} card ${showDayDoses === true ? 'animate__animated animate__fadeInRight' : ''}`} style={showDayDoses === null ? { opacity: 0, visibility: 'hidden' } : {}}>
                         <div className="card-content">
                             <DayDoses onDoseTaken={setRefreshPercentage} />
                         </div>
