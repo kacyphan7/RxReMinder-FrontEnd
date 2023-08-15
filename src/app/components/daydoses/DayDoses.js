@@ -68,6 +68,15 @@ export default function DayDoses({ onDoseTaken }) {
         return date.toLocaleDateString("default", { weekday: 'long', month: 'long', day: 'numeric' });
     };
 
+    const formatTime = (date) => {
+        let hours = date.getHours();
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        return { time: `${hours}:${minutes}`, period: ampm };
+    };
+
     if (isLoading) return <p>Loading...</p>;
 
     return (
@@ -75,18 +84,26 @@ export default function DayDoses({ onDoseTaken }) {
             <h1 className="title is-4">{formatDate(new Date())}</h1>
             <h2 className="subtitle is-5">Medications to take today:</h2>
 
-            {dosesForToday.length ? dosesForToday.map(dose => (
-                <div key={dose._id} className="card mb-3">
-                    <div className={styles.cardContent}>
-                        <div className={styles.checkboxContainer}>
-                            <input type="checkbox" onChange={() => handleDoseTaken(dose._id)} />
-                            <span className={styles.hoverText}>Mark as taken</span>
+            {dosesForToday.length ? dosesForToday.map(dose => {
+                const { time, period } = formatTime(new Date(dose.time));
+
+                return (
+                    <div key={dose._id} className="card mb-3">
+                        <div className={styles.cardContent}>
+                            <div className={styles.checkboxContainer}>
+                                <input type="checkbox" onChange={() => handleDoseTaken(dose._id)} />
+                                <span className={styles.hoverText}>Mark as taken</span>
+                            </div>
+                            <p className={styles.medicationName}><a onClick={() => { handleScripClick(dose.prescription._id) }}>{dose.medication.name}</a></p>
+                            <div>
+                                <p className="time">{time}</p>
+                                <p className="period">{period}</p>
+                            </div>
                         </div>
-                        <p className={styles.medicationName}><a onClick={() => { handleScripClick(dose.prescription._id) }}>{dose.medication.name}</a></p>
-                        <p className="subtitle is-6">{new Date(dose.time).toLocaleTimeString()}</p>
                     </div>
-                </div>
-            )) : <p>No doses to take today.</p>}
+                );
+            }) : <p>No doses to take today.</p>}
         </div>
     );
 }
+
