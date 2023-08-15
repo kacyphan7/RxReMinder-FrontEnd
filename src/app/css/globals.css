@@ -1,5 +1,22 @@
 @import "~bulma/css/bulma.css";
 
+:root {
+    --primary-color: #00A8E8;
+    --radius: 5px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+html,
+body {
+    background: #f7f8fb;
+}
+
 .navbar-column {
     position: sticky;
     /* making the navbar column sticky */

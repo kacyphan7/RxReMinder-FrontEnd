@@ -12,6 +12,10 @@
     width: 100%;
     padding: 0.5em;
     box-sizing: border-box;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: var(--radius);
+    margin-bottom: 1em;
 }
 
 .monthYearHeader {
