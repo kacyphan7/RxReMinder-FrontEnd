@@ -24,8 +24,8 @@ RxReMinder is still under development, but it has the potential to be a valuable
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 
 ## Deployment
-- Frontend deployed on [Netlify]()
-- Backend deployed on [Heroku]()
+- Frontend deployed on [Netlify](https://rx-reminder.netlify.app/)
+- Backend deployed on [Heroku](https://rxreminder-5f38ebd3ad7c.herokuapp.com/)
 - Backend Github Repo [Github](https://github.com/Ellehcim23/RxReMinder-BE)
 
 ## Getting Started
@@ -52,10 +52,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Additional Installations:
 
-C3 AI
-```
-npm install c3 d3
-```
 Chart JS
 ```
 npm install chart.js
@@ -94,8 +90,14 @@ npm install moment
 ## Profile
 ![Profile](src/app/assets/profile.png)
 
-## Prescription
+## Add Prescription
 ![Prescription](src/app/assets/prescription.png)
+
+## Manage Prescription
+![Manage Prescription](src/app/assets/manage-prescription.png)
+
+## View Single Prescription
+![View Single Prescription](src/app/assets/single-prescription.png)
 
 ## Medication
 ![Medication](src/app/assets/medication.png)
@@ -114,7 +116,7 @@ npm install moment
 RxReMinder is a valuable tool for people who take medication. The application is easy to use and provides a variety of features that can help users stay on top of their medication. If you are looking for a way to manage your medication, RxReMinder is a great option.
 
 # Code Snippets
-## ChartJs - Bar Chart
+## Bar Chart
 ```
  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const sunWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -139,7 +141,7 @@ RxReMinder is a valuable tool for people who take medication. The application is
     }
 ```
 
-## C3 - Donut Chart
+## Donut Chart
 ```
 useEffect(() => {
         if (!loading) {
@@ -191,7 +193,6 @@ useEffect(() => {
 If permitted by legal we would like to essentially partnered with pharmacists to get the prescription information to automatically be entered into our database with user permission. This will allow the user to have a more seamless experience with their refill automatically being added to their profile.
 
 # Sources
-- [C3 AI Applications](https://c3.ai/) - A leading enterprise AI software provider for accelerating digital transformation.
 - [Chart JS](https://www.chartjs.org/) - A JavaScript library for creating beautiful charts.
 - [Courier](https://www.courier.com/) - A notification platform that helps developers add notifications to their applications.
 - [Faker](https://fakerjs.dev/guide/) - A library for generating fake data.
