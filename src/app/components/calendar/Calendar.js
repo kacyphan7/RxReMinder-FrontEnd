@@ -100,14 +100,14 @@ export default function CustomCalendar() {
     return (
         <div className={styles.customCalendar}>
             <header className={styles.header}>
-                <button className={styles.prevNextButton} onClick={() => changeMonth(-1)}>Prev</button>
+                <button className={styles.prevNextButton} onClick={() => changeMonth(-1)}>&lt;</button>
                 <h2 className={styles.monthYearHeader}>
                     {currentMonth.toLocaleString("default", {
                         month: "long",
                         year: "numeric",
                     })}
                 </h2>
-                <button className={styles.prevNextButton} onClick={() => changeMonth(1)}>Next</button>
+                <button className={styles.prevNextButton} onClick={() => changeMonth(1)}>&gt;</button>
             </header>
             <table>
                 <thead>

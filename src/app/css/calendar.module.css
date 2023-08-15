@@ -1,5 +1,6 @@
 .customCalendar {
-    background-color: #f5f5f5;
+    background-color: rgba(0, 168, 232, 0.1);
+    /* Transparent light blue */
     padding: 1.5rem;
     border-radius: 6px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -20,10 +21,12 @@
 
 .prevNextButton {
     background: transparent;
-    border: 2px solid #00A8E8;
+    border: none;
+    /* Removing the border */
     color: #00A8E8;
     padding: 0.5rem 1rem;
-    font-size: 1em;
+    font-size: 1.5em;
+    /* Slightly larger font for symbols */
     border-radius: 6px;
     transition: background-color 0.3s, color 0.3s;
 }
@@ -37,6 +40,7 @@
 .day {
     font-size: 1em;
     text-align: center;
+    /* Center align for days of the week */
     padding: 0.8rem;
 }
 
@@ -61,8 +65,8 @@
     display: inline-block;
     width: 8px;
     height: 8px;
-    background-color: #FF3860;
-    /* contrasting color */
+    background: linear-gradient(90deg, #FF57B9, #FF3860);
+    /* Pink gradient */
     border-radius: 50%;
     margin-left: 0.5em;
     vertical-align: middle;
