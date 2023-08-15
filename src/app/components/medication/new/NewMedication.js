@@ -46,7 +46,7 @@ export default function NewMedicationForm() {
     return (
         <>
             {error ? <div className="error notification">Medication already exists.</div> : null}
-        
+
             <div className={styles.medicationContainer}>
                 <form onSubmit={handleSubmit} className={styles.medicationForm}>
                     <h1 className={styles.medicationHeading}>Create New Medication</h1>
@@ -86,10 +86,8 @@ export default function NewMedicationForm() {
                             <input className={styles.transparentInput} type="text" id="directions" name="directions" placeholder="Directions" value={directions} onChange={handleDirections} required />
                         </div>
                     </div>
-                    <div className={styles.control}>
-                        <button className={styles.medicationButton} type="submit">Create</button>
-                        <span className='icon is-right'><a onClick={() => router.push('/prescriptions/new')}><i className="fa-solid fa-person-walking-arrow-loop-left fa-xl"></i></a></span>
-                    </div>
+                    <button className={styles.medicationButton} type="submit">Create</button>
+                    <span className='icon is-right'><a onClick={() => router.push('/prescriptions/new')}><i className="fa-solid fa-person-walking-arrow-loop-left fa-xl"></i></a></span>
                 </form>
             </div>
         </>
