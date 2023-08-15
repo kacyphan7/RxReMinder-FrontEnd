@@ -80,6 +80,8 @@ function Dashboard() {
                             <div className="column is-half">
                                 <div className={`${styles.customCard} card`}>
                                     <div className="card-content">
+                                        <p>My Medications:</p>
+                                        <br />
                                         <MedicationsWidget />
                                     </div>
                                 </div>
