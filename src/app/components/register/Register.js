@@ -3,12 +3,12 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-
 import fa from '@/app/assets/fontawesome.js';
 import brands from '@/app/assets/brands.js';
 import solid from '@/app/assets/solid.js';
 import Image from 'next/image';
 import pillBox from '@/app/assets/pillBox.jpg';
+import TopBar from '../home/TopBar';
 
 export default function Register() {
 
@@ -109,88 +109,88 @@ export default function Register() {
 
     return (
         <>
+            <TopBar />
             {error ? <p className="error">Email already exists.</p> : null}
-
-
-
-            <div className="container has-text-centered is-full-height">
-                <div className="columns is-7 is-variable box">
-                    <div className="column is-two-thirds has-text-left">
-                        <div>
-                            <Image src={pillBox}
-                                height={400}
-                                width={800}
-                                alt="Pill Box"
-                            />
+            <div style={{ marginTop: '30px', marginBottom: '35px' }}>
+                <div className="container has-text-centered is-full-height" style={{ backgroundColor: 'rgba(245, 245, 245, 0.5)' }}>
+                    <div className="columns is-7 is-variable box">
+                        <div className="column is-two-thirds has-text-left">
+                            <div>
+                                <Image src={pillBox}
+                                    height={400}
+                                    width={800}
+                                    alt="Pill Box"
+                                />
+                            </div>
+                            {/* <div className='is-overlay'> */}
+                            <div style={overlayStyle} className="social-media is-relative">
+                                <h1 className="title is-1">RxReMinder</h1>
+                            </div>
+                            {/* </div> */}
                         </div>
-                        {/* <div className='is-overlay'> */}
-                        <div style={overlayStyle} className="social-media is-relative">
-                            <h1 className="title is-1">RxReMinder</h1>
-                        </div>
-                        {/* </div> */}
-                    </div>
-                    <div className='column'>
-                        <form onSubmit={handleSubmit}>
-                            <div className="field">
-                                <label htmlFor="email">Email</label>
-                                <div className="control has-icons-right">
-                                    <input className="input is-rounded" name="email" value={email} onChange={handleEmail} type="email" placeholder="Email (required)" required />
-                                    <span className="icon is-small is-right">
-                                        <i className="fas fa-envelope"></i>
-                                    </span>
+                        <div className='column'>
+                            <form onSubmit={handleSubmit}>
+                                <div className="field">
+                                    <label htmlFor="email">Email</label>
+                                    <div className="control has-icons-right">
+                                        <input className="input is-rounded" name="email" value={email} onChange={handleEmail} type="email" placeholder="Email (required)" required />
+                                        <span className="icon is-small is-right">
+                                            <i className="fas fa-envelope"></i>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="field">
-                                <label htmlFor="password">Password</label>
-                                <div className="control has-icons-right">
-                                    <input className="input is-rounded" name="password" value={password} onChange={handlePassword} type="password" placeholder="Password (required)" required />
-                                    <span className="icon is-small is-right">
-                                        <i className="fa-solid fa-key"></i>
-                                    </span>
+                                <div className="field">
+                                    <label htmlFor="password">Password</label>
+                                    <div className="control has-icons-right">
+                                        <input className="input is-rounded" name="password" value={password} onChange={handlePassword} type="password" placeholder="Password (required)" required />
+                                        <span className="icon is-small is-right">
+                                            <i className="fa-solid fa-key"></i>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="field">
-                                <label htmlFor="firstName">First Name</label>
-                                <div className="control has-icons-right">
-                                    <input className="input is-rounded" name="firstName" value={firstName} onChange={handleFirstName} type="text" placeholder="First Name (required)" required />
-                                    <span className="icon is-small is-right">
-                                        <i className="fa-solid fa-user"></i>
-                                    </span>
+                                <div className="field">
+                                    <label htmlFor="firstName">First Name</label>
+                                    <div className="control has-icons-right">
+                                        <input className="input is-rounded" name="firstName" value={firstName} onChange={handleFirstName} type="text" placeholder="First Name (required)" required />
+                                        <span className="icon is-small is-right">
+                                            <i className="fa-solid fa-user"></i>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="field">
-                                <label htmlFor="lastName">Last Name</label>
-                                <div className="control has-icons-right">
-                                    <input className="input is-rounded" name="lastName" value={lastName} onChange={handleLastName} type="text" placeholder="Last Name (required)" required />
-                                    <span className="icon is-small is-right">
-                                        <i className="fa-solid fa-user"></i>
-                                    </span>
+                                <div className="field">
+                                    <label htmlFor="lastName">Last Name</label>
+                                    <div className="control has-icons-right">
+                                        <input className="input is-rounded" name="lastName" value={lastName} onChange={handleLastName} type="text" placeholder="Last Name (required)" required />
+                                        <span className="icon is-small is-right">
+                                            <i className="fa-solid fa-user"></i>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="field">
-                                <label htmlFor="birthdate">Birthdate</label>
-                                <div className="control has-icons-right">
-                                    <input className="input is-rounded" name="birthdate" value={birthdate} onChange={handleBirthdate} type="date" required />
+                                <div className="field">
+                                    <label htmlFor="birthdate">Birthdate</label>
+                                    <div className="control has-icons-right">
+                                        <input className="input is-rounded" name="birthdate" value={birthdate} onChange={handleBirthdate} type="date" required />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="field">
-                                <label htmlFor="phoneNumber">Phone Number</label>
-                                <div className="control has-icons-right">
-                                    <input className="input is-rounded" name="phoneNumber" value={phoneNumber} onChange={handlePhoneNumber} type="tel" placeholder="Phone Number" />
-                                    <span className="icon is-small is-right">
-                                        <i className="fa-solid fa-phone"></i>
-                                    </span>
+                                <div className="field">
+                                    <label htmlFor="phoneNumber">Phone Number</label>
+                                    <div className="control has-icons-right">
+                                        <input className="input is-rounded" name="phoneNumber" value={phoneNumber} onChange={handlePhoneNumber} type="tel" placeholder="Phone Number" />
+                                        <span className="icon is-small is-right">
+                                            <i className="fa-solid fa-phone"></i>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="field">
-                                <div className="control has-icons-right">
-                                    <button className="button is-rounded is-fullwidth" type='submit'>Register</button>
-                                </div>
+                                <div className="field">
+                                    <div className="control has-icons-right">
+                                        <button className="button is-rounded is-fullwidth" type='submit'>Register</button>
+                                    </div>
 
-                            </div>
-                        </form>
+                                </div>
+                            </form>
+                        </div>
+                        <span className='icon is-right'><a href='/'><i className="fa-solid fa-person-walking-arrow-loop-left fa-xl"></i></a></span>
                     </div>
-                    <span className='icon is-right'><a href='/'><i className="fa-solid fa-person-walking-arrow-loop-left fa-xl"></i></a></span>
                 </div>
             </div>
         </>
