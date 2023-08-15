@@ -126,7 +126,7 @@ function Dashboard() {
                         {/* DayDoses */}
                         <div className="card">
                             <div className="card-content">
-                                <DayDoses onDoseTaken={setRefreshPercentage } />
+                                <DayDoses onDoseTaken={setRefreshPercentage} />
                             </div>
                         </div>
 
