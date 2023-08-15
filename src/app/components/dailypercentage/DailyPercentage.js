@@ -7,6 +7,7 @@ import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import { Chart } from 'chart.js/auto';
 import handleLogout from '@/app/utils/handleLogout';
+import styles from 'src/app/css/daily-percentage.module.css';
 
 
 const DailyPercentage = ({ shouldRefresh }) => {
@@ -78,19 +79,19 @@ const DailyPercentage = ({ shouldRefresh }) => {
             const doughnutLabel = {
                 id: "doughnutLabel",
                 beforeDatasetsDraw(chart, args, pluginOptions) {
-                    const {ctx, data} = chart;
+                    const { ctx, data } = chart;
                     ctx.save();
                     const xCoor = chart.getDatasetMeta(0).data[0].x;
                     const yCoor = chart.getDatasetMeta(0).data[0].y;
                     ctx.font = '35px sans-serif';
                     ctx.fillStyle = 'black';
-                    ctx.textAlign ='center'
+                    ctx.textAlign = 'center'
                     ctx.textBaseline = 'bottom'
                     ctx.fillText(` ${percentage}%`, xCoor, yCoor);
-                    
+
                     ctx.font = '25px sans-serif';
                     ctx.fillStyle = 'black';
-                    ctx.textAlign ='center'
+                    ctx.textAlign = 'center'
                     ctx.textBaseline = 'middle'
                     ctx.fillText("Complete", xCoor, yCoor + 20);
 
@@ -99,7 +100,7 @@ const DailyPercentage = ({ shouldRefresh }) => {
             }
             chartRef.current = new Chart(ctx, {
                 type: 'doughnut',
-                plugins: [doughnutLabel], 
+                plugins: [doughnutLabel],
                 data: {
                     labels: ['Doses Taken', 'Remaining'],
                     datasets: [{
@@ -126,13 +127,14 @@ const DailyPercentage = ({ shouldRefresh }) => {
     return (
         <>
             <h1 className="w-[150px] mx-auto mt-10 has-text-centered text-xl font-semibold capitalize"><strong>Daily Progress</strong></h1>
-            <div className="w-[1100px] h-screen flex mx-auto my-auto">
-                <div className='border border-gray-400 pt-0 rounded-xl  w-full h-fit my-auto  shadow-xl'>
-                    <canvas id='doughnut-chart'></canvas>
+            <div className={styles.canvasContainer}>
+                <div className='border border-gray-400 pt-0 rounded-xl w-full h-full my-auto shadow-xl'>
+                    <canvas id='doughnut-chart' className={`${styles.chartCanvas} h-full`}></canvas>
                 </div>
             </div>
         </>
     );
+
 };
 
 export default DailyPercentage;

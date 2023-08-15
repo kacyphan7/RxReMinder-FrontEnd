@@ -59,81 +59,84 @@ function Dashboard() {
 
     return (
         <Layout>
-            <div className={`${styles.formContainer} container`}>
-                <div className="columns">
-                    {/* MAIN CONTENT COLUMN (2/3) */}
-                    <div className={`${styles.noSidePadding} column is-two-thirds`}>
-                        {/* Greeting */}
-                        <div className="level">
-                            <div className="level-left">
-                                <h1 className={`${styles.whiteText} title is-2`}>Hello, {user.firstName}!</h1>
-                            </div>
-                        </div>
+            <div className={`${styles.dashboardGrid}`}>
 
-                        {/* Calendar */}
-                        <div className={styles.customCard}>
-                            <CustomCalendar className={styles.calendarComponent} />
-                        </div>
-                        <br />
+                {/* MAIN CONTENT COLUMN (2/3) */}
+                <div className={`${styles.mainContent}`}>
 
-                        {/* MedicationsWidget & DailyPercentage side-by-side */}
-                        <div className="columns">
-                            {/* MedicationsWidget */}
-                            <div className="column is-half">
-                                <div className={`${styles.customCard} card`}>
-                                    <div className="card-content">
-                                        <p>My Medications:</p>
-                                        <br />
-                                        <MedicationsWidget />
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* DailyPercentage */}
-                            <div className="column is-half">
-                                <div className={`${styles.customCard} card`}>
-                                    <div className="card-content">
-                                        <DailyPercentage shouldRefresh={refreshPercentage} />
-                                    </div>
-                                </div>
-                            </div>
+                    {/* Greeting */}
+                    <div className="level">
+                        <div className="level-left">
+                            <h1 className={`${styles.whiteText} title is-2`}>Hello, {user.firstName}!</h1>
                         </div>
                     </div>
 
-                    {/* RIGHT COLUMN (1/3) */}
-                    <div className={`${styles.marginLeft} column is-one-third`}>
-                        {/* Profile Image */}
-                        <div className="level">
-                            <div className="level-right">
-                                <figure className="image is-48x48">
-                                    <Link href="/profile">
-                                        <div className="profile-link">
-                                            <img
-                                                className="profile-image"
-                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAKkc75rQaHcPgt-NluetIkn0mA8Xyos716A&usqp=CAU"
-                                                alt="User's Profile"
-                                                style={{
-                                                    clipPath: 'circle(50% at 50% 50%)',
-                                                    marginLeft: '290px',
-                                                }}
-                                            />
-                                        </div>
-                                    </Link>
-                                </figure>
+                    {/* Calendar */}
+                    <div className={styles.customCard}>
+                        <CustomCalendar className={styles.calendarComponent} />
+                    </div>
+
+                    {/* MedicationsWidget & DailyPercentage side-by-side */}
+                    <div className={`${styles.nestedGrid}`}>
+
+                        {/* MedicationsWidget */}
+                        <div className={`${styles.widget}`}>
+                            <div className={`${styles.customCard} card`}>
+                                <div className="card-content">
+                                    <p>My Medications:</p>
+                                    <br />
+                                    <MedicationsWidget />
+                                </div>
                             </div>
                         </div>
 
-                        {/* DayDoses */}
-                        <div className={`${styles.customCard} card`}>
-                            <div className="card-content">
-                                <DayDoses onDoseTaken={setRefreshPercentage} />
+                        {/* DailyPercentage */}
+                        <div className={`${styles.percentage}`}>
+                            <div className={`${styles.customCard} card`}>
+                                <div className="card-content">
+                                    <DailyPercentage shouldRefresh={refreshPercentage} />
+                                </div>
                             </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* RIGHT COLUMN (1/3) */}
+                <div className={`${styles.rightSidebar}`}>
+
+                    {/* Profile Image */}
+                    <div className="level">
+                        <div className="level-right">
+                            <figure className="image is-48x48">
+                                <Link href="/profile">
+                                    <div className="profile-link">
+                                        <img
+                                            className="profile-image"
+                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAKkc75rQaHcPgt-NluetIkn0mA8Xyos716A&usqp=CAU"
+                                            alt="User's Profile"
+                                            style={{
+                                                clipPath: 'circle(50% at 50% 50%)',
+                                                marginLeft: '290px',
+                                            }}
+                                        />
+                                    </div>
+                                </Link>
+                            </figure>
+                        </div>
+                    </div>
+
+                    {/* DayDoses */}
+                    <div className={`${styles.customCard} card`}>
+                        <div className="card-content">
+                            <DayDoses onDoseTaken={setRefreshPercentage} />
                         </div>
                     </div>
                 </div>
             </div>
         </Layout>
     );
+
 
 
 }

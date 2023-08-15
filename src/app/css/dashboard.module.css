@@ -1,3 +1,32 @@
+.dashboardGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    /* Gap between main content and right sidebar */
+    padding-top: 20px;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.nestedGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    /* Gap between MedicationsWidget & DailyPercentage */
+}
+
+.mainContent {
+    padding-left: 25px;
+    padding-right: 0;
+}
+
+.rightSidebar {
+    padding-right: 60px;
+}
+
+/* ... (rest of the non-grid related styles) */
+
 .formContainer {
     height: 100vh;
     padding-top: 20px;
