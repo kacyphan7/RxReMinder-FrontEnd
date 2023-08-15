@@ -176,6 +176,7 @@ useEffect(() => {
         }
     }, [loading, percentage]);
 ```
+## Notification 
 
 # Wireframe and Entity Relationship Diagram
 <img src="src/app/assets/uiZard.png">
