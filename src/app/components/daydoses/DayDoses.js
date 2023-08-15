@@ -80,7 +80,7 @@ export default function DayDoses({ onDoseTaken }) {
     if (isLoading) return <p>Loading...</p>;
 
     return (
-        <div className="container">
+        <div className={styles.doseContainer}>
             <h1 className="title is-4">{formatDate(new Date())}</h1>
             <h2 className="subtitle is-5">Medications to take today:</h2>
 
