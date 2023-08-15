@@ -10,7 +10,7 @@ import Link from 'next/link';
 import CustomCalendar from '@/app/components/calendar/Calendar';
 import DayDoses from '@/app/components/daydoses/DayDoses';
 import Layout from '@/app/components/sidebar/SideBar';
-// import DailyPercentage from '@/app/components/dailypercentage/DailyPercentage';
+import DailyPercentage from '@/app/components/dailypercentage/DailyPercentage';
 import MedicationsWidget from '../components/medicationswidget/MedicationsWidget';
 
 function Dashboard() {
@@ -94,7 +94,7 @@ function Dashboard() {
                             <div className="column is-half">
                                 <div className="card">
                                     <div className="card-content">
-                                        {/* <DailyPercentage shouldRefresh={refreshPercentage} /> */}
+                                        <DailyPercentage shouldRefresh={refreshPercentage} />
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@ function Dashboard() {
                         {/* DayDoses */}
                         <div className="card">
                             <div className="card-content">
-                                <DayDoses onDoseTaken={setRefreshPercentage} />
+                                <DayDoses onDoseTaken={setRefreshPercentage } />
                             </div>
                         </div>
 
