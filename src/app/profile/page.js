@@ -16,6 +16,7 @@ import BarChart from '@/app/components/barchart/WeeklyChart';
 
 import Link from 'next/link';
 import { images } from '../../../next.config';
+import 'src/app/css/logged-in.css';
 
 export default function UserProfile() {
 

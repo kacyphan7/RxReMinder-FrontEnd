@@ -9,6 +9,7 @@ import handleLogout from '@/app/utils/handleLogout';
 
 import Layout from '@/app/components/sidebar/SideBar';
 import NewMedicationForm from '@/app/components/medication/new/NewMedication';
+import 'src/app/css/logged-in.css';
 
 export default function NewMedicationPage() {
     const router = useRouter();

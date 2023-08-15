@@ -7,6 +7,8 @@ import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import handleLogout from '@/app/utils/handleLogout';
 
+import 'src/app/css/logged-in.css';
+
 export default function Test() {
     const router = useRouter();
     const [date, setDate] = useState('');

@@ -13,6 +13,8 @@ import Layout from '@/app/components/sidebar/SideBar';
 import DailyPercentage from '@/app/components/dailypercentage/DailyPercentage';
 import MedicationsWidget from '../components/medicationswidget/MedicationsWidget';
 
+import 'src/app/css/logged-in.css';
+
 function Dashboard() {
     const router = useRouter();
     const [user, setUser] = useState(null);
