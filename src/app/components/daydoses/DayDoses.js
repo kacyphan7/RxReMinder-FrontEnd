@@ -94,8 +94,10 @@ export default function DayDoses({ onDoseTaken }) {
                                 <input type="checkbox" onChange={() => handleDoseTaken(dose._id)} />
                                 <span className={styles.hoverText}>Mark as taken</span>
                             </div>
-                            <p className={styles.medicationName}><a onClick={() => { handleScripClick(dose.prescription._id) }}>{dose.medication.name}</a></p>
-                            <div>
+                            <p className={styles.medicationName}>
+                                <a onClick={() => { handleScripClick(dose.prescription._id) }}>{dose.medication.name}</a>
+                            </p>
+                            <div className={styles["dose-time-container"]}>
                                 <p className={`${styles["dose-time"]} subtitle is-6`}>{`${formatTime(new Date(dose.time)).time} ${formatTime(new Date(dose.time)).period}`}</p>
                             </div>
                         </div>

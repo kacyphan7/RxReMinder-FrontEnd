@@ -2,16 +2,13 @@
     display: flex;
     align-items: center;
     padding: 15px 20px;
+    flex-wrap: wrap;
+    /* Wrap on smaller screens */
 }
 
 .checkboxContainer {
     position: relative;
-    margin-right: 20px;
-}
-
-.checkboxContainer:hover .hoverText {
-    visibility: visible;
-    opacity: 1;
+    margin-right: 10px;
 }
 
 .hoverText {
@@ -29,27 +26,11 @@
     z-index: 1;
 }
 
-.medicationName {
-    flex-grow: 1;
-    margin: 0px 10px 0px 3px;
-    font-size: 1.2rem;
-}
-
 .card {
     margin-bottom: 10px;
     padding: 15px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-}
-
-.time {
-    font-size: 1.2rem;
-    margin-bottom: -5px;
-}
-
-.period {
-    font-size: 0.9rem;
-    line-height: 1;
 }
 
 .dose-time {
@@ -59,4 +40,27 @@
     background: linear-gradient(90deg, #FF57B9, #FF3860);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    margin-right: 10px;
+    /* Added some margin */
+}
+
+.medicationName {
+    margin: 0 20px 0 5px;
+    font-size: 1.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-grow: 1;
+    /* allow it to take more space if available */
+}
+
+/* Adjusted for smaller screens */
+@media (max-width: 576px) {
+    .medicationName {
+        width: 50%;
+    }
+
+    .checkboxContainer {
+        margin-bottom: 10px;
+    }
 }
