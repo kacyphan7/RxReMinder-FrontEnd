@@ -85,7 +85,7 @@ npm install moment
 ![Register](src/app/assets/register.png)
 
 ## Dashboard
-![Dashboard](src/app/assets/dashboard.png)
+![Dashboard](src/app/assets/new-dashboard.png)
 
 ## Profile
 ![Profile](src/app/assets/profile.png)
