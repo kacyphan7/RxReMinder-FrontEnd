@@ -10,7 +10,7 @@ import Link from 'next/link';
 import CustomCalendar from '@/app/components/calendar/Calendar';
 import DayDoses from '@/app/components/daydoses/DayDoses';
 import Layout from '@/app/components/sidebar/SideBar';
-import DailyPercentage from '@/app/components/dailypercentage/DailyPercentage';
+// import DailyPercentage from '@/app/components/dailypercentage/DailyPercentage';
 import MedicationsWidget from '../components/medicationswidget/MedicationsWidget';
 
 function Dashboard() {
@@ -59,10 +59,8 @@ function Dashboard() {
         <Layout>
             <div className={`${styles.formContainer} container`}>
                 <div className="columns">
-
                     {/* MAIN CONTENT COLUMN (2/3) */}
                     <div className={`${styles.noSidePadding} column is-two-thirds`}>
-
                         {/* Greeting */}
                         <div className="level">
                             <div className="level-left">
@@ -71,19 +69,16 @@ function Dashboard() {
                         </div>
 
                         {/* Calendar */}
-                        <div className="card">
-                            <div className="card-content">
-                                <CustomCalendar />
-                            </div>
+                        <div className={styles.customCard}>
+                            <CustomCalendar className={styles.calendarComponent} />
                         </div>
                         <br />
 
                         {/* MedicationsWidget & DailyPercentage side-by-side */}
                         <div className="columns">
-
                             {/* MedicationsWidget */}
                             <div className="column is-half">
-                                <div className="card">
+                                <div className={`${styles.customCard} card`}>
                                     <div className="card-content">
                                         <MedicationsWidget />
                                     </div>
@@ -92,47 +87,46 @@ function Dashboard() {
 
                             {/* DailyPercentage */}
                             <div className="column is-half">
-                                <div className="card">
+                                <div className={`${styles.customCard} card`}>
                                     <div className="card-content">
-                                        <DailyPercentage shouldRefresh={refreshPercentage} />
+                                        {/* <DailyPercentage shouldRefresh={refreshPercentage} /> */}
                                     </div>
                                 </div>
                             </div>
-
-                        </div> {/* end of inner columns */}
-
-                    </div> {/* end of main content column */}
+                        </div>
+                    </div>
 
                     {/* RIGHT COLUMN (1/3) */}
                     <div className={`${styles.marginLeft} column is-one-third`}>
                         {/* Profile Image */}
                         <div className="level">
-                            <div className="level-item has-text-centered">  {/* centering using Bulma's class */}
+                            <div className="level-right">
                                 <figure className="image is-48x48">
-                                    <Link href="/profile" className="profile-link">
-                                        <img
-                                            className="profile-image"
-                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAKkc75rQaHcPgt-NluetIkn0mA8Xyos716A&usqp=CAU"
-                                            alt="User's Profile"
-                                            style={{ clipPath: 'circle(50% at 50% 50%)' }}
-                                        />
+                                    <Link href="/profile">
+                                        <div className="profile-link">
+                                            <img
+                                                className="profile-image"
+                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAKkc75rQaHcPgt-NluetIkn0mA8Xyos716A&usqp=CAU"
+                                                alt="User's Profile"
+                                                style={{
+                                                    clipPath: 'circle(50% at 50% 50%)',
+                                                    marginLeft: '290px',
+                                                }}
+                                            />
+                                        </div>
                                     </Link>
-
                                 </figure>
                             </div>
                         </div>
 
-
                         {/* DayDoses */}
-                        <div className="card">
+                        <div className={`${styles.customCard} card`}>
                             <div className="card-content">
-                                <DayDoses onDoseTaken={setRefreshPercentage } />
+                                <DayDoses onDoseTaken={setRefreshPercentage} />
                             </div>
                         </div>
-
-                    </div> {/* end of right column */}
-
-                </div> {/* end of outer columns */}
+                    </div>
+                </div>
             </div>
         </Layout>
     );
@@ -141,7 +135,6 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
 
 
 
