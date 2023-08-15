@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import styles from "@/app/css/medications-widget.module.css";
+import styles from "src/app/css/medications-widget.module.css";
 
 export default function MedicationsWidget() {
     const [medications, setMedications] = useState([]);
@@ -28,14 +28,16 @@ export default function MedicationsWidget() {
     return (
         <div>
             <div className={styles.maxHeight}>
-                {medications.map(medication => (
-                    <div key={medication._id} className="card">
-                        <div className="card-content has-text-centered">
-                            <p className="title is-6">{medication.name}</p>
-                            <p className="subtitle is-6">{medication.category}</p>
+                <div className={styles.medicationsGrid}>
+                    {medications.map(medication => (
+                        <div key={medication._id} className="card">
+                            <div className="card-content has-text-centered">
+                                <p className={styles.medicationName}>{medication.name}</p>
+                                <p className={styles.categoryName}>{medication.category}</p>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </div>
     );

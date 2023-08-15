@@ -1,4 +1,21 @@
 .maxHeight {
-    max-height: 55vh;
+    max-height: 205px;
     overflow-y: auto;
+}
+
+.medicationsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.medicationName {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+}
+
+.categoryName {
+    font-size: 0.75rem;
+    /* decreased font size for the medication category */
 }
