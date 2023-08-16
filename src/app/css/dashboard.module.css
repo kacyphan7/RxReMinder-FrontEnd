@@ -89,7 +89,20 @@
     transition: opacity 0.5s linear, visibility 0.5s linear;
 }
 
+.myMedications {
+    margin-bottom: 5px;
+    margin-top: -10px;
+    font-size: 1.2em;
+    /* Adjust to make the text bigger */
+    font-weight: bold;
+}
 
+.managePrescriptions {
+    font-style: italic;
+    margin-top: 5px;
+    margin-bottom: -4px;
+    text-align: right;
+}
 
 
 /* Responsiveness */
