@@ -23,7 +23,7 @@ export default function Layout({ children }) {
 
     const styleNav = {
         backgroundColor: 'rgba(245, 245, 245, 0.5)',
-        minHeight: '90vh',
+        minHeight: '110vh',
     };
 
     const stylingLogo = {
