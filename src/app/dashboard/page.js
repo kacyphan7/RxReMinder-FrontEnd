@@ -102,9 +102,9 @@ function Dashboard() {
                         <div className={`${styles.widget}`}>
                             <div className={`${styles.customCard} card ${showMedicationWidget === true ? 'animate__animated animate__fadeInUp' : showMedicationWidget === false ? 'invisibleCard' : ''}`} style={showMedicationWidget === null ? { opacity: 0, visibility: 'hidden' } : {}}>
                                 <div className="card-content">
-                                    <p>My Medications:</p>
-                                    <br />
+                                    <h3 className={styles.myMedications}>My Medications:</h3>
                                     <MedicationsWidget />
+                                    <p className={styles.managePrescriptions}><a href="/prescriptions">Manage Prescriptions</a></p>
                                 </div>
                             </div>
                         </div>
