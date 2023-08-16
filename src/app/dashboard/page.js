@@ -23,6 +23,7 @@ function Dashboard() {
     const [refreshPercentage, setRefreshPercentage] = useState(false);
     const [showDayDoses, setShowDayDoses] = useState(null);
     const [showCustomCalendar, setShowCustomCalendar] = useState(null);
+    const [showDailyPercentage, setShowDailyPercentage] = useState(null);
 
     if (typeof window !== 'undefined') {
         const expiration = new Date(localStorage.getItem('expiration') * 1000);
@@ -60,20 +61,24 @@ function Dashboard() {
 
         const timerMedicationWidget = setTimeout(() => {
             setShowMedicationWidget(true);
-        }, 250);
+        }, 750);
 
         const timerDayDoses = setTimeout(() => {
             setShowDayDoses(true);
-        }, 500);
+        }, 1000);
 
         const timerCustomCalendar = setTimeout(() => {
             setShowCustomCalendar(true);
         }, 750);
+        const timerDailyPercentage = setTimeout(() => {
+            setShowDailyPercentage(true);
+        }, 800);  // Adjust the delay time accordingly.
 
         return () => {
             clearTimeout(timerMedicationWidget);
             clearTimeout(timerDayDoses);
             clearTimeout(timerCustomCalendar);
+            clearTimeout(timerDailyPercentage);
         };
     }, [router]);
 
@@ -105,11 +110,12 @@ function Dashboard() {
                         </div>
 
                         <div className={`${styles.percentage}`}>
-                            <div className={`${styles.customCard} card animate__animated animate__fadeInUp delayed-animation-1s`}>
+                            <div className={`${styles.customCard} card animate__animated ${showDailyPercentage ? 'animate__fadeInUp' : ''}`} style={showDailyPercentage === null ? { opacity: 0, visibility: 'hidden' } : {}}>
                                 <div className="card-content">
                                     <DailyPercentage shouldRefresh={refreshPercentage} />
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

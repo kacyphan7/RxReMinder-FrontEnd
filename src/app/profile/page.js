@@ -84,7 +84,7 @@ export default function UserProfile() {
         // Timers for components
         const timerBarChart = setTimeout(() => {
             setShowBarChart(true);
-        }, 1000);
+        }, 1300);
 
         return () => {
             clearTimeout(timerBarChart);
