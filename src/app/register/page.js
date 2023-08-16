@@ -6,8 +6,8 @@ import HomeFooter from '@/app/components/home/Footer';
 export default function RegisterPage() {
     return (
         <>
-        <Register />
-        <HomeFooter />
+            <Register />
+            <HomeFooter />
         </>
     );
 }

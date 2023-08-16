@@ -19,8 +19,10 @@ function Dashboard() {
     const router = useRouter();
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-
+    const [showMedicationWidget, setShowMedicationWidget] = useState(null);
     const [refreshPercentage, setRefreshPercentage] = useState(false);
+    const [showDayDoses, setShowDayDoses] = useState(null);
+    const [showCustomCalendar, setShowCustomCalendar] = useState(null);
 
     if (typeof window !== 'undefined') {
         const expiration = new Date(localStorage.getItem('expiration') * 1000);
@@ -52,36 +54,48 @@ function Dashboard() {
         } else {
             router.push('/login');
         }
+        // setShowMedicationWidget(false);
+        // setShowDayDoses(false);
+        // setShowCustomCalendar(false);
+
+        const timerMedicationWidget = setTimeout(() => {
+            setShowMedicationWidget(true);
+        }, 250);
+
+        const timerDayDoses = setTimeout(() => {
+            setShowDayDoses(true);
+        }, 500);
+
+        const timerCustomCalendar = setTimeout(() => {
+            setShowCustomCalendar(true);
+        }, 750);
+
+        return () => {
+            clearTimeout(timerMedicationWidget);
+            clearTimeout(timerDayDoses);
+            clearTimeout(timerCustomCalendar);
+        };
     }, [router]);
 
     if (isLoading) return <div>Loading...</div>;
     if (!user) return <div>Not authorized</div>;
 
     return (
-        <Layout>
+        <Layout className="animate__animated animate__fadeInLeft">
             <div className={`${styles.dashboardGrid}`}>
-
-                {/* MAIN CONTENT COLUMN (2/3) */}
                 <div className={`${styles.mainContent}`}>
-
-                    {/* Greeting */}
-                    <div className="level">
+                    <div className="level animate__animated animate__fadeInDown">
                         <div className="level-left">
                             <h1 className={`${styles.whiteText} title is-2`}>Hello, {user.firstName}!</h1>
                         </div>
                     </div>
-
-                    {/* Calendar */}
-                    <div className={styles.customCard}>
+                    <div className={`${styles.customCard} animate__animated ${showCustomCalendar ? 'animate__fadeIn' : ''}`} style={showCustomCalendar === null ? { opacity: 0, visibility: 'hidden' } : {}}>
                         <CustomCalendar className={styles.calendarComponent} />
                     </div>
 
-                    {/* MedicationsWidget & DailyPercentage side-by-side */}
                     <div className={`${styles.nestedGrid}`}>
-
-                        {/* MedicationsWidget */}
                         <div className={`${styles.widget}`}>
-                            <div className={`${styles.customCard} card`}>
+                            <div className={`${styles.customCard} card ${showMedicationWidget === true ? 'animate__animated animate__fadeInUp' : showMedicationWidget === false ? 'invisibleCard' : ''}`} style={showMedicationWidget === null ? { opacity: 0, visibility: 'hidden' } : {}}>
                                 <div className="card-content">
                                     <p>My Medications:</p>
                                     <br />
@@ -90,22 +104,16 @@ function Dashboard() {
                             </div>
                         </div>
 
-                        {/* DailyPercentage */}
                         <div className={`${styles.percentage}`}>
-                            <div className={`${styles.customCard} card`}>
+                            <div className={`${styles.customCard} card animate__animated animate__fadeInUp delayed-animation-1s`}>
                                 <div className="card-content">
                                     <DailyPercentage shouldRefresh={refreshPercentage} />
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
-                {/* RIGHT COLUMN (1/3) */}
                 <div className={`${styles.rightSidebar}`}>
-
-                    {/* Profile Image */}
                     <div className="level">
                         <div className="level-right">
                             <figure className="image is-48x48">
@@ -125,9 +133,7 @@ function Dashboard() {
                             </figure>
                         </div>
                     </div>
-
-                    {/* DayDoses */}
-                    <div className={`${styles.customCard} card`}>
+                    <div className={`${styles.customCard} card ${showDayDoses === true ? 'animate__animated animate__fadeInRight' : ''}`} style={showDayDoses === null ? { opacity: 0, visibility: 'hidden' } : {}}>
                         <div className="card-content">
                             <DayDoses onDoseTaken={setRefreshPercentage} />
                         </div>
@@ -136,8 +142,6 @@ function Dashboard() {
             </div>
         </Layout>
     );
-
-
 
 }
 

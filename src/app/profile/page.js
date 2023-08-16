@@ -19,6 +19,7 @@ import { images } from '../../../next.config';
 import 'src/app/css/logged-in.css';
 
 export default function UserProfile() {
+    const [showBarChart, setShowBarChart] = useState(null);
 
     const infoStyle = {
         paddingTop: '50px',
@@ -80,6 +81,14 @@ export default function UserProfile() {
         } else {
             router.push('/login');
         }
+        // Timers for components
+        const timerBarChart = setTimeout(() => {
+            setShowBarChart(true);
+        }, 1000);
+
+        return () => {
+            clearTimeout(timerBarChart);
+        };
     }, [router]);
 
     if (isLoading) return <div>Loading...</div>;
@@ -93,7 +102,7 @@ export default function UserProfile() {
 
                     <div className="tile is-justify-content-center is-ancestor">
                         <div style={infoStyle} className="tile is-parent is-justify-content-center">
-                            <div className="tile is-11 is-child box">
+                            <div className="tile is-11 is-child box animate__animated animate__fadeInDown">
                                 <div className="columns">
                                     <div className="column"></div>
                                     <div style={textStyle} className="column">
@@ -107,7 +116,7 @@ export default function UserProfile() {
                     </div>
                     <div className="tile is-justify-content-space-between is-ancestor">
                         <div className="tile is-justify-content-center is-parent ">
-                            <div className="tile is-4 is-child box">
+                            <div className="tile is-4 is-child box animate__animated animate__fadeIn">
                                 <div className="card">
                                     <div className="card-image">
                                         <figure className="image is-4by3">
@@ -126,20 +135,21 @@ export default function UserProfile() {
                                 </div>
                             </div>
                             <div className="column is-narrow">
-
                             </div>
-                            <div className="tile is-7 is-child box">
-                                <BarChart />
+                            <div className="tile is-7 is-child box animate__animated animate__fadeInRight">
+                                <div className={`animate__animated ${showBarChart ? 'animate__fadeIn' : ''}`} style={showBarChart === null ? { opacity: 0, visibility: 'hidden' } : {}}>
+                                    <BarChart />
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="tile is-justify-content-center">
                         <div className="tile is-11 is-child">
                             <div className="columns is-justify-content-center">
-                                <div className="column is-one-third">
+                                <div className="column is-one-third animate__animated animate__fadeInUp">
                                     <Link className="button is-info is-rounded is-fullwidth" href="/profile/edit">Edit Profile</Link>
                                 </div>
-                                <div className="column is-one-third">
+                                <div className="column is-one-third animate__animated animate__fadeInUp">
                                     <Link className="button is-info is-rounded is-fullwidth" href="/prescriptions/new">+ Add New Prescription</Link>
                                 </div>
                             </div>

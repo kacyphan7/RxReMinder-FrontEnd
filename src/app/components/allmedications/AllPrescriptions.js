@@ -32,8 +32,12 @@ export default function AllPrescriptions({ user }) {
             });
     };
 
-    const renderCard = (prescription) => (
-        <div key={prescription.prescription._id} className={styles.card}>
+    const renderCard = (prescription, idx) => (
+        <div
+            key={prescription.prescription._id}
+            className={`${styles.card} animate__animated animate__fadeInUp`}
+            style={{ animationDelay: `${0.1 * idx}s` }}
+        >
             <div className="card-content">
                 <p className="title">{prescription.prescription.medication.name}</p>
                 <p className="subtitle">{prescription.prescription.medication.category}</p>
@@ -54,12 +58,12 @@ export default function AllPrescriptions({ user }) {
                 <br />
                 <div className={styles["button-container"]}>
                     <button className={styles["info-button"]} onClick={() => { setScripRedirect(prescription.prescription._id) }}>See More Info</button>
-                    <button className={styles["delete-button"]} onClick={() => {handleDelete(prescription.prescription._id)}}>Delete Prescription</button>
+                    <button className={styles["delete-button"]} onClick={() => { handleDelete(prescription.prescription._id) }}>Delete Prescription</button>
                 </div>
             </div>
         </div>
     );
-    
+
     useEffect(() => {
         fetchPrescriptions();
     }, []);
@@ -74,13 +78,13 @@ export default function AllPrescriptions({ user }) {
     return (
         <div className={styles.backgroundWrapper}>
             <div className={styles.column}>
-                {prescriptions.filter((_, idx) => idx % 3 === 0).map(renderCard)}
+                {prescriptions.filter((_, idx) => idx % 3 === 0).map((prescription, idx) => renderCard(prescription, idx))}
             </div>
             <div className={styles.column}>
-                {prescriptions.filter((_, idx) => idx % 3 === 1).map(renderCard)}
+                {prescriptions.filter((_, idx) => idx % 3 === 1).map((prescription, idx) => renderCard(prescription, idx))}
             </div>
             <div className={styles.column}>
-                {prescriptions.filter((_, idx) => idx % 3 === 2).map(renderCard)}
+                {prescriptions.filter((_, idx) => idx % 3 === 2).map((prescription, idx) => renderCard(prescription, idx))}
             </div>
         </div>
     );

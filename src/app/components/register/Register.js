@@ -112,7 +112,7 @@ export default function Register() {
             <TopBar />
             {error ? <p className="error">Email already exists.</p> : null}
             <div style={{ marginTop: '30px', marginBottom: '35px' }}>
-                <div className="container has-text-centered is-full-height" style={{ backgroundColor: 'rgba(245, 245, 245, 0.5)' }}>
+                <div className="container has-text-centered is-full-height animate__animated animate__fadeInDown" style={{ backgroundColor: 'rgba(245, 245, 245, 0.5)' }}>
                     <div className="columns is-7 is-variable box">
                         <div className="column is-two-thirds has-text-left">
                             <div>
