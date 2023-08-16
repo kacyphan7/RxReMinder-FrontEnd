@@ -49,7 +49,7 @@ export default function Login() {
         <>
             <div className={styles.loginContainer}>
                 {error ? <p className={styles.errorMessage}>Incorrect username or password.</p> : null}
-                <form onSubmit={handleSubmit} className={styles.loginForm}>
+                <form onSubmit={handleSubmit} className={`${styles.loginForm} animate__animated animate__fadeInDown`}>
                     <h1 className={styles.loginHeading}>Login</h1>
                     <div className={styles.field}>
                         <div className={styles.control}>
