@@ -72,7 +72,7 @@ function Dashboard() {
         }, 750);
         const timerDailyPercentage = setTimeout(() => {
             setShowDailyPercentage(true);
-        }, 800);  // Adjust the delay time accordingly.
+        }, 250);  // adjust the delay time accordingly.
 
         return () => {
             clearTimeout(timerMedicationWidget);
